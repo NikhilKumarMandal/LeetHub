@@ -1,0 +1,29 @@
+{
+  "name": "chocolabs",
+  "version": "1.0.0",
+  "description": "user can solve questions related to dsa ",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write"
+  },
+  "keywords": [
+    "backend",
+    "chocoLabs"
+  ],
+  "author": "Nikhil Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.2",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
