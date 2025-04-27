@@ -1140,10 +1140,10 @@ export namespace Prisma {
      * Find zero or one User that matches the filter.
      * @param {UserFindUniqueArgs} args - Arguments to find a User
      * @example
-     * // Get one User
+    //  * // Get one User
      * const user = await prisma.user.findUnique({
      *   where: {
-     *     // ... provide filter here
+    //  *     // ... provide filter here
      *   }
      * })
      */
@@ -1154,10 +1154,10 @@ export namespace Prisma {
      * if no matches were found.
      * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
      * @example
-     * // Get one User
+    //  * // Get one User
      * const user = await prisma.user.findUniqueOrThrow({
      *   where: {
-     *     // ... provide filter here
+    //  *     // ... provide filter here
      *   }
      * })
      */

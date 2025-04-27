@@ -1,12 +1,9 @@
 type Role = "USER" | "ADMIN";
 
-interface IUSER{
-    id: string;
+export interface UserData{
     name: string;
     email: string;
-    avatar: string;
-    role: Role;
+    avatar?: string;
     password: string;
-    createdAt: Date;
-    updatedAt: Date;
+    role?:Role
 }
