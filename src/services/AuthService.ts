@@ -5,6 +5,12 @@ export class AuthService {
   async findUnique(where:{ email: string }) {
     return await db.user.findUnique({
       where,
+      select: {
+        name: true,
+        password: true,
+        id: true,
+        role: true
+      }
     });
     };
 
