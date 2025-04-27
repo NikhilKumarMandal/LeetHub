@@ -1,12 +1,13 @@
-import { AuthService } from '../services/AuthService';
+import { AuthService } from '../services/Auth.service';
 import { Request, Response } from "express"
 import {ApiError, ApiResponse, asyncHandler} from "express-strategy"
 import { UserData } from '../types/types';
 import { UserRole } from '../generated/prisma';
 import { Logger } from 'winston';
-import { CredentialService } from '../services/CredentialService';
-import { TokenService } from '../services/TokenService';
+import { CredentialService } from '../services/Credential.service';
+import { TokenService } from '../services/Token.service';
 import { JwtPayload } from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
 
 export class Auth {
     constructor(
@@ -17,6 +18,14 @@ export class Auth {
     ) { }
     
     register = asyncHandler(async (req: Request, res: Response) => {
+        // Validate fields
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            throw new ApiError(
+                400,
+                result.array()[0].msg as string
+            );
+        };
         const { name, email, password } = req.body;
         // check exist or not
         const existingUser = await this.authService.findUnique({ email });
@@ -49,6 +58,15 @@ export class Auth {
     });
 
     login = asyncHandler(async (req: Request, res: Response) => {
+        // Validate fields
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            throw new ApiError(
+                400,
+                result.array()[0].msg as string
+            );
+        };
+
         const { email, password } = req.body;
         // check user already exist or not
         const user = await this.authService.findUnique({ email });
