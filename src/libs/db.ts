@@ -3,7 +3,9 @@ import { PrismaClient } from "../generated/prisma/index";
 declare global {
   var prisma: PrismaClient | undefined;
 }
-const globalForPrisma = globalThis as typeof globalThis & { prisma?: PrismaClient };
+const globalForPrisma = globalThis as typeof globalThis & {
+  prisma?: PrismaClient;
+};
 
 export const db = globalForPrisma.prisma || new PrismaClient();
 

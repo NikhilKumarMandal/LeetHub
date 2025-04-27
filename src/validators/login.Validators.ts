@@ -1,13 +1,13 @@
 import { checkSchema } from "express-validator";
 
 export default checkSchema({
-    email: {
+  email: {
     errorMessage: "Email is requried!",
     notEmpty: true,
     trim: true,
-    },
-    
-    password: {
+  },
+
+  password: {
     trim: true,
     notEmpty: true,
     errorMessage: "Password is requried!",

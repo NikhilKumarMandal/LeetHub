@@ -26,7 +26,7 @@ model User {
   avatar       String?
   role         UserRole @default(USER)
   password     String
-  refreshToken String   @default("")
+  refreshToken String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
