@@ -7,3 +7,9 @@ export interface UserData {
   password: string;
   role?: Role;
 }
+
+
+export type AuthCookie = {
+  accessToken: string;
+  refreshToken: string;
+};

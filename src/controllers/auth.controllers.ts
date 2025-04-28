@@ -93,14 +93,12 @@ export class Auth {
 
     // set cookies
     res.cookie("accessToken", accessToken, {
-      domain: "localhost",
       sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 2, // 2 day
       httpOnly: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
-      domain: "localhost",
       sameSite: "strict",
       maxAge: 30 * 1000 * 60 * 60 * 24, // 30 days
       httpOnly: true,
@@ -108,6 +106,32 @@ export class Auth {
     // log
     this.logger.info("User login succfully", { user });
 
-    res.status(200).json(new ApiResponse(200, user, "User login successfully"));
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        user,
+        "User login successfully"
+      ));
   });
+
+  logout = asyncHandler(async (req: Request, res: Response) => {
+    const refreshToken = req.cookies?.refreshToken;
+
+    if (!refreshToken) {
+      throw new ApiError(200, "User logout successfully");
+    };
+
+    await this.tokenService.deleteRefreshToken(refreshToken);
+
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {},
+        "User logout succesfully"
+      ));
+
+  })
 }
