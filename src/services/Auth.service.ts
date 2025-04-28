@@ -10,6 +10,8 @@ export class AuthService {
         password: true,
         id: true,
         role: true,
+        email: true,
+        refreshToken: true
       },
     });
   }
@@ -21,4 +23,13 @@ export class AuthService {
       },
     });
   }
+
+async update(where: { id: string }, key: string, value: string) {
+  return db.user.update({
+    where,
+    data: {
+      [key]: value
+    }
+  });
+}
 }

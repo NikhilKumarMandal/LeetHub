@@ -1,5 +1,4 @@
-import { AuthService } from "../services/Auth.service";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { UserData } from "../types/types";
 import { UserRole } from "../generated/prisma";
@@ -8,6 +7,8 @@ import { CredentialService } from "../services/Credential.service";
 import { TokenService } from "../services/Token.service";
 import { JwtPayload } from "jsonwebtoken";
 import { validationResult } from "express-validator";
+import { AuthRequest } from "../types/types";
+import { AuthService } from "../services/Auth.service";
 
 export class Auth {
   constructor(
@@ -91,6 +92,9 @@ export class Auth {
 
     const refreshToken = this.tokenService.generateRefreshToken(payload);
 
+    user.refreshToken = refreshToken;
+    await this.authService.update({ id: user?.id }, "refreshToken", refreshToken);
+    
     // set cookies
     res.cookie("accessToken", accessToken, {
       sameSite: "strict",
@@ -114,15 +118,18 @@ export class Auth {
       ));
   });
 
-  logout = asyncHandler(async (req: Request, res: Response) => {
-    const refreshToken = req.cookies?.refreshToken;
+  logout = async (req: AuthRequest, res: Response,next:NextFunction) => {
+    try {
+      const userId = req.auth?.sub;
+      // log
+      this.logger.info("User Id", { userId });
 
-    if (!refreshToken) {
-      throw new ApiError(200, "User logout successfully");
-    };
+      if (!userId) {
+        throw new ApiError(401, "Unauthorized");
+      }
 
-    await this.tokenService.deleteRefreshToken(refreshToken);
-
+    await this.tokenService.deleteRefreshToken(userId);
+      // clear cookie
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
 
@@ -133,5 +140,31 @@ export class Auth {
         "User logout succesfully"
       ));
 
-  })
+    } catch (error) {
+      next(error);
+      return;
+    }
+  }
+
+  self = async (req: AuthRequest, res: Response,next:NextFunction) => {
+   try {
+     const id = req.auth?.sub;
+     
+     if (!id) {
+       throw new ApiError(401, "Unauthorized");
+     };
+ 
+     const user = await this.authService.findUnique({ id });
+ 
+     res.status(200).json(
+       new ApiResponse(
+         200,
+         { ...user, password: undefined },
+         "User fected successfully"
+       ));
+   } catch (error) {
+     next(error);
+     return;
+   }
+  }
 }

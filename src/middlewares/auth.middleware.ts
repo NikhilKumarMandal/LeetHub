@@ -14,7 +14,7 @@ export default expressjwt({
       }
     }
 
-    const accessToken = req.cookies?.accessToken;
+    const accessToken = req.cookies?.accessToken;    
     if (accessToken && accessToken !== "undefined") {
       return accessToken;
     }

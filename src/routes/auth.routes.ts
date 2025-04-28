@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import { Auth } from "../controllers/auth.controllers";
 import { CredentialService } from "../services/Credential.service";
 import { AuthService } from "../services/Auth.service";
@@ -27,6 +27,8 @@ router.post("/register", registerValidators, authController.register);
 
 router.post("/login", loginValidators, authController.login);
 
-router.post("/logout",authenticate,authController.logout);
+router.post("/logout", authenticate, authController.logout as RequestHandler);
+
+router.get("/self",authenticate,authController.self as RequestHandler);
 
 export default router;

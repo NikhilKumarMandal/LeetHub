@@ -18,9 +18,9 @@ export class TokenService {
     return refreshToken;
   }
 
-  async deleteRefreshToken(refreshToken: string) {
-    return await db.user.updateMany({
-      where: { refreshToken },
+  async deleteRefreshToken(userId: string) {
+    return await db.user.update({
+      where: { id: userId },
       data: { refreshToken: null },
     });
   }
