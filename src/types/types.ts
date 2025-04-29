@@ -17,6 +17,9 @@ export type AuthCookie = {
   refreshToken: string;
 };
 
+export interface IRefreshTokenPayload {
+  id: string;
+}
 
 export interface AuthRequest extends Request {
   auth: {

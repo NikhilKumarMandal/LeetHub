@@ -5,7 +5,7 @@ import { UserRole } from "../generated/prisma";
 import { Logger } from "winston";
 import { CredentialService } from "../services/Credential.service";
 import { TokenService } from "../services/Token.service";
-import { JwtPayload } from "jsonwebtoken";
+import { JwtPayload, verify } from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { AuthRequest } from "../types/types";
 import { AuthService } from "../services/Auth.service";
@@ -166,5 +166,73 @@ export class Auth {
      next(error);
      return;
    }
+  }
+
+  refresh = async (req: Request, res: Response,next:NextFunction) => {
+     const incomingRefreshToken =
+      req.cookies.refreshToken || req.body.refreshToken;
+  
+    if (!incomingRefreshToken) {
+      throw new ApiError(401, "Unauthorized request");
+    }
+  
+    try {
+      const decodedToken = verify(
+        incomingRefreshToken,
+        process.env.REFRESH_TOKEN_SECRET!
+      );
+
+      const user = await this.authService.findUnique({ id: String(decodedToken?.sub) });
+      
+      if (!user) {
+        throw new ApiError(401, "Invalid refresh token");
+      }
+      
+      console.log(user);
+     
+      if (incomingRefreshToken !== user?.refreshToken) {
+        // If token is valid but is used already
+        throw new ApiError(
+          401,
+          "Refresh token is expired or used"
+        );
+      }
+
+      const payload: JwtPayload = {
+        sub: String(user.id),
+        role: user.role,
+      };
+    
+    const accessToken = this.tokenService.generateAccessToken(payload);
+    const refreshToken = this.tokenService.generateRefreshToken(payload);
+
+    user.refreshToken = refreshToken;
+    await this.authService.update({ id: user?.id }, "refreshToken", refreshToken);
+      
+    res.cookie("accessToken", accessToken, {
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 2, // 2 day
+      httpOnly: true,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      sameSite: "strict",
+      maxAge: 30 * 1000 * 60 * 60 * 24, // 30 days
+      httpOnly: true,
+    });
+
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            { accessToken,refreshToken },
+            "Access token refreshed"
+          )
+        );
+    } catch (error) {
+      next(error);
+      return
+    }
   }
 }

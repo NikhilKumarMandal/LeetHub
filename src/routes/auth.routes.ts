@@ -29,6 +29,8 @@ router.post("/login", loginValidators, authController.login);
 
 router.post("/logout", authenticate, authController.logout as RequestHandler);
 
-router.get("/self",authenticate,authController.self as RequestHandler);
+router.get("/self", authenticate, authController.self as RequestHandler);
+
+router.post("/refresh", authController.refresh as RequestHandler);
 
 export default router;
