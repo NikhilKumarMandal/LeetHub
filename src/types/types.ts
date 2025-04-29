@@ -21,12 +21,16 @@ export interface IRefreshTokenPayload {
   id: string;
 }
 
+
 export interface AuthRequest extends Request {
   auth: {
     sub: string;
     role: string;
     id?: string;
-    name: string
-    email: string
+    name: string;
+    email: string;
+  };
+  files?: {
+    [fieldname: string]: Express.Multer.File[];
   };
 }

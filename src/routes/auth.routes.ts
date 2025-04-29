@@ -7,7 +7,7 @@ import { TokenService } from "../services/Token.service";
 import registerValidators from "../validators/register.validators";
 import loginValidators from "../validators/login.validators";
 import authenticate from "../middlewares/auth.middleware";
-
+import { upload } from "../middlewares/multer.middleware";
 
 const router = express.Router();
 
@@ -23,14 +23,45 @@ const authController = new Auth(
   logger
 );
 
-router.post("/register", registerValidators, authController.register);
+router.post(
+  "/register",
+  registerValidators,
+  authController.register
+);
 
-router.post("/login", loginValidators, authController.login);
+router.post(
+  "/login",
+  loginValidators,
+  authController.login
+);
 
-router.post("/logout", authenticate, authController.logout as RequestHandler);
+router.post(
+  "/logout",
+  authenticate,
+  authController.logout as RequestHandler
+);
 
-router.get("/self", authenticate, authController.self as RequestHandler);
+router.get(
+  "/self",
+  authenticate,
+  authController.self as RequestHandler
+);
 
-router.post("/refresh", authController.refresh as RequestHandler);
+router.post(
+  "/refresh",
+  authController.refresh as RequestHandler
+);
+
+router.post(
+  "/update-profile",
+  authenticate,
+  upload.fields([
+      {
+          name: "avatar",
+          maxCount: 1,
+      },
+  ]),
+  authController.updateProfile as RequestHandler
+);
 
 export default router;
