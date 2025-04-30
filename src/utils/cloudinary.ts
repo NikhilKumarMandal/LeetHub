@@ -28,7 +28,7 @@ const uploadOnCloudinary = async (
 
 const deleteFromCloudinary = async (
   public_id: string,
-  resource_type: "image" | "video"
+  resource_type: "image"
 ): Promise<UploadApiResponse | null> => {
   try {
     if (!public_id) {

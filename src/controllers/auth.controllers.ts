@@ -197,7 +197,7 @@ export class Auth {
     }
 
     const payload: JwtPayload = {
-      sub: String(user.id),
+      sub: user.id,
       role: user.role,
     };
     
@@ -230,17 +230,17 @@ export class Auth {
       );
   });
 
-  updateProfile = async (req: AuthRequest, res: Response,next:NextFunction) => {
+  updateProfile = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const { name } = req.body;
       if (!name) {
-        throw new ApiError(200,"User")
+        throw new ApiError(200, "User")
       }
 
       const user = await this.authService.findUnique({ id: req.auth.sub });
       
       if (!user) {
-        throw new ApiError(400,"User does not extist!")
+        throw new ApiError(400, "User does not extist!")
       }
 
       const avatarData = user.avatar as { public_id: string; url: string };
@@ -270,5 +270,6 @@ export class Auth {
       next(error);
       return error
     }
-  }
+  };
+
 }
