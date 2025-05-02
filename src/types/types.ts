@@ -54,7 +54,6 @@ export interface ProblemData {
   referenceSolutions: any;
 }
 
-
 export const Roles = {
   USER: "USER",
   ADMIN: "ADMIN",

@@ -42,7 +42,9 @@ export class Problem {
         if (!languageId) {
           throw new ApiError(400, "This languageId is not exits!");
         }
-        const submission: Submission[] = testcases.map(
+
+        const isSQL = languageId === 82;
+        const submission = testcases.map(
           ({ input, output }: { input: string; output: string }) => ({
             source_code: solutionCode,
             language_id: languageId,

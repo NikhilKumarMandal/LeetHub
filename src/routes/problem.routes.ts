@@ -6,20 +6,17 @@ import authenticate from "../middlewares/auth.middleware";
 import { canAccess } from "../middlewares/canAccess.midddleware";
 import { Roles } from "../types/types";
 
-
 const router = express.Router();
 
+const problemService = new ProblemService();
 
-const problemService = new ProblemService()
+const problemController = new Problem(problemService, logger);
 
-
-const problemController = new Problem(
-    problemService,
-    logger
-)
-
-router.post("/create-problem",authenticate,canAccess([Roles.ADMIN]),problemController.create as RequestHandler)
-
-
+router.post(
+  "/create-problem",
+  authenticate,
+  canAccess([Roles.ADMIN]),
+  problemController.create as RequestHandler
+);
 
 export default router;

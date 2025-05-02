@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Submission } from "../types/types";
-import { resolve } from "path";
 
 export const getJudge0LanguageId = (language: string): number | null => {
   const LanguageMap = {
@@ -12,11 +10,11 @@ export const getJudge0LanguageId = (language: string): number | null => {
   return LanguageMap[upperLang] || null;
 };
 
-export const submitBatch = async (submission: Submission[]) => {
+export const submitBatch = async (submissions: any) => {
   const { data } = await axios.post(
     `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
     {
-      submission,
+      submissions,
     }
   );
 
@@ -36,13 +34,13 @@ export const pollBatchResult = async (tokens: string[]) => {
         },
       }
     );
-    const result = data.submission;
+    const results = data.submissions;
 
-    const isAllDone = result.every(
+    const isAllDone = results.every(
       (r: any) => r.status.id !== 1 && r.status.id !== 2
     );
 
-    if (isAllDone) return result;
+    if (isAllDone) return results;
     await sleep(1000);
   }
 };

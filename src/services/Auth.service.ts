@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { db } from "../libs/db";
 import { UserData } from "../types/types";
 
-  type UserUpdateInput = Parameters<typeof db.user.update>[0]["data"];
+type UserUpdateInput = Parameters<typeof db.user.update>[0]["data"];
 export class AuthService {
   async findUnique(where: { id: string } | { email: string }) {
     return await db.user.findUnique({
@@ -14,7 +14,7 @@ export class AuthService {
         role: true,
         email: true,
         refreshToken: true,
-        avatar: true
+        avatar: true,
       },
     });
   }
@@ -27,10 +27,10 @@ export class AuthService {
     });
   }
 
-async update(where: { id: string }, data: UserUpdateInput ) {
-  return db.user.update({
-    where,
-    data
-  });
-}
+  async update(where: { id: string }, data: UserUpdateInput) {
+    return db.user.update({
+      where,
+      data,
+    });
+  }
 }
