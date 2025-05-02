@@ -1,6 +1,5 @@
 import { Request } from "express";
 
-
 type Role = "USER" | "ADMIN";
 
 export interface UserData {
@@ -11,7 +10,6 @@ export interface UserData {
   role?: Role;
 }
 
-
 export type AuthCookie = {
   accessToken: string;
   refreshToken: string;
@@ -20,7 +18,6 @@ export type AuthCookie = {
 export interface IRefreshTokenPayload {
   id: string;
 }
-
 
 export interface AuthRequest extends Request {
   auth: {
@@ -34,3 +31,32 @@ export interface AuthRequest extends Request {
     [fieldname: string]: Express.Multer.File[];
   };
 }
+
+export type Submission = {
+  source_code: string;
+  language_id: number;
+  stdin: string;
+  expected_output: string;
+};
+
+export interface ProblemData {
+  title: string;
+  description: string;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  tags: string[];
+  userId: string;
+  examples: any;
+  constraints: string;
+  hints?: string;
+  editorial?: string;
+  testcases: any;
+  codeSnippets: any;
+  referenceSolutions: any;
+}
+
+
+export const Roles = {
+  USER: "USER",
+  ADMIN: "ADMIN",
+  SUPERADMIN: "SUPERADMIN",
+} as const;

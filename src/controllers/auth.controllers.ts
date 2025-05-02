@@ -94,8 +94,11 @@ export class Auth {
     const refreshToken = this.tokenService.generateRefreshToken(payload);
 
     user.refreshToken = refreshToken;
-    await this.authService.update({ id: user?.id },{refreshToken:refreshToken});
-    
+    await this.authService.update(
+      { id: user?.id },
+      { refreshToken: refreshToken }
+    );
+
     // set cookies
     res.cookie("accessToken", accessToken, {
       sameSite: "strict",
@@ -111,12 +114,7 @@ export class Auth {
     // log
     this.logger.info("User login succfully", { user });
 
-    res.status(200).json(
-      new ApiResponse(
-        200,
-        user,
-        "User login successfully"
-      ));
+    res.status(200).json(new ApiResponse(200, user, "User login successfully"));
   });
 
   logout = async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -134,13 +132,7 @@ export class Auth {
       res.clearCookie("accessToken");
       res.clearCookie("refreshToken");
 
-      res.status(200).json(
-        new ApiResponse(
-          200,
-          {},
-          "User logout succesfully"
-        ));
-
+      res.status(200).json(new ApiResponse(200, {}, "User logout succesfully"));
     } catch (error) {
       next(error);
       return;
@@ -150,19 +142,22 @@ export class Auth {
   self = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const id = req.auth?.sub;
-     
+
       if (!id) {
         throw new ApiError(401, "Unauthorized");
-      };
- 
+      }
+
       const user = await this.authService.findUnique({ id });
- 
-      res.status(200).json(
-        new ApiResponse(
-          200,
-          { ...user, password: undefined },
-          "User fected successfully"
-        ));
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            { ...user, password: undefined },
+            "User fected successfully"
+          )
+        );
     } catch (error) {
       next(error);
       return;
@@ -172,41 +167,43 @@ export class Auth {
   refresh = asyncHandler(async (req: Request, res: Response) => {
     const incomingRefreshToken =
       req.cookies.refreshToken || req.body.refreshToken;
-  
+
     if (!incomingRefreshToken) {
       throw new ApiError(401, "Unauthorized request");
     }
-  
+
     const decodedToken = verify(
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET!
     );
 
-    const user = await this.authService.findUnique({ id: String(decodedToken?.sub) });
-      
+    const user = await this.authService.findUnique({
+      id: String(decodedToken?.sub),
+    });
+
     if (!user) {
       throw new ApiError(401, "Invalid refresh token");
     }
-           
+
     if (incomingRefreshToken !== user?.refreshToken) {
       // If token is valid but is used already
-      throw new ApiError(
-        401,
-        "Refresh token is expired or used"
-      );
+      throw new ApiError(401, "Refresh token is expired or used");
     }
 
     const payload: JwtPayload = {
       sub: user.id,
       role: user.role,
     };
-    
+
     const accessToken = this.tokenService.generateAccessToken(payload);
     const refreshToken = this.tokenService.generateRefreshToken(payload);
 
     user.refreshToken = refreshToken;
-    await this.authService.update({ id: user?.id },{refreshToken:refreshToken});
-      
+    await this.authService.update(
+      { id: user?.id },
+      { refreshToken: refreshToken }
+    );
+
     res.cookie("accessToken", accessToken, {
       sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 2, // 2 day
@@ -230,21 +227,25 @@ export class Auth {
       );
   });
 
-  updateProfile = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  updateProfile = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const { name } = req.body;
       if (!name) {
-        throw new ApiError(200, "User")
+        throw new ApiError(200, "User");
       }
 
       const user = await this.authService.findUnique({ id: req.auth.sub });
-      
+
       if (!user) {
-        throw new ApiError(400, "User does not extist!")
+        throw new ApiError(400, "User does not extist!");
       }
 
       const avatarData = user.avatar as { public_id: string; url: string };
-    
+
       // await deleteFromCloudinary(avatarData.public_id, 'image');
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -253,23 +254,23 @@ export class Auth {
 
       const avatar = await uploadOnCloudinary(avatarLocalPath);
 
-      const updatedUser = await this.authService.update({ id: user?.id }, {
-        name, avatar: {
-          public_id: avatar?.public_id,
-          url: avatar?.url
+      const updatedUser = await this.authService.update(
+        { id: user?.id },
+        {
+          name,
+          avatar: {
+            public_id: avatar?.public_id,
+            url: avatar?.url,
+          },
         }
-      });
+      );
 
-      res.status(200).json(
-        new ApiResponse(
-          200,
-          updatedUser,
-          "User updated succesfully"
-        ));
+      res
+        .status(200)
+        .json(new ApiResponse(200, updatedUser, "User updated succesfully"));
     } catch (error) {
       next(error);
-      return error
+      return error;
     }
   };
-
 }

@@ -15,7 +15,6 @@ const authService = new AuthService();
 const credentialService = new CredentialService();
 const tokenService = new TokenService();
 
-
 const authController = new Auth(
   authService,
   credentialService,
@@ -23,43 +22,24 @@ const authController = new Auth(
   logger
 );
 
-router.post(
-  "/register",
-  registerValidators,
-  authController.register
-);
+router.post("/register", registerValidators, authController.register);
 
-router.post(
-  "/login",
-  loginValidators,
-  authController.login
-);
+router.post("/login", loginValidators, authController.login);
 
-router.post(
-  "/logout",
-  authenticate,
-  authController.logout as RequestHandler
-);
+router.post("/logout", authenticate, authController.logout as RequestHandler);
 
-router.get(
-  "/self",
-  authenticate,
-  authController.self as RequestHandler
-);
+router.get("/self", authenticate, authController.self as RequestHandler);
 
-router.post(
-  "/refresh",
-  authController.refresh as RequestHandler
-);
+router.post("/refresh", authController.refresh as RequestHandler);
 
 router.post(
   "/update-profile",
   authenticate,
   upload.fields([
-      {
-          name: "avatar",
-          maxCount: 1,
-      },
+    {
+      name: "avatar",
+      maxCount: 1,
+    },
   ]),
   authController.updateProfile as RequestHandler
 );

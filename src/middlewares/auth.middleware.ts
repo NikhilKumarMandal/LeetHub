@@ -3,7 +3,7 @@ import { Request as ExpressRequest } from "express";
 
 export default expressjwt({
   secret: process.env.ACCESS_TOKEN_SECRET!,
-  algorithms: ["HS256"], 
+  algorithms: ["HS256"],
   getToken(req: ExpressRequest) {
     const authHeader = req.headers.authorization;
 
@@ -14,11 +14,11 @@ export default expressjwt({
       }
     }
 
-    const accessToken = req.cookies?.accessToken;    
+    const accessToken = req.cookies?.accessToken;
     if (accessToken && accessToken !== "undefined") {
       return accessToken;
     }
 
-    return null; 
-  }
+    return null;
+  },
 });
