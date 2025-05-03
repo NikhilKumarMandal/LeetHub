@@ -13,4 +13,12 @@ export class ProblemService {
   async getProblem() {
     return await db.problem.findMany();
   }
+
+  async findProblemById(id: string) {
+    return await db.problem.findUnique({
+      where: {
+        id
+      }
+    })
+  }
 }

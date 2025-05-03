@@ -119,4 +119,18 @@ export class Problem {
       new ApiResponse(200, problems, "Fected problem succesfully")
     );
   });
+
+  getProblemById = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+      throw new ApiError(400, "Please Id!");
+    };
+
+    const problem = await this.problemService.findProblemById(id);
+
+    res.status(200).json(
+      new ApiResponse(200, problem, "Fected problem")
+    );
+  });
 }

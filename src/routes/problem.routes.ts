@@ -23,6 +23,12 @@ router.get(
   "/get-problem",
   authenticate,
   problemController.getAllProblem
-)
+);
+
+router.get(
+  "/get-problem/:id",
+  authenticate,
+  problemController.getProblemById
+);
 
 export default router;
