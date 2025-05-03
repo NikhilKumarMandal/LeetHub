@@ -8,5 +8,9 @@ export class ProblemService {
         ...problemData,
       },
     });
+  };
+
+  async getProblem() {
+    return await db.problem.findMany();
   }
 }

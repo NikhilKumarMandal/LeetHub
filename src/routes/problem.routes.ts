@@ -19,4 +19,10 @@ router.post(
   problemController.create as RequestHandler
 );
 
+router.get(
+  "/get-problem",
+  authenticate,
+  problemController.getAllProblem
+)
+
 export default router;

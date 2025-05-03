@@ -108,4 +108,15 @@ export class Problem {
       return;
     }
   };
+
+  getAllProblem = asyncHandler(async (req: Request, res: Response) => {
+    const problems = await this.problemService.getProblem();
+
+    if (!problems) {
+      throw new ApiError(400,"There is no problem avaiable")
+    }
+    res.status(200).json(
+      new ApiResponse(200, problems, "Fected problem succesfully")
+    );
+  });
 }
