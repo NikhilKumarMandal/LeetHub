@@ -42,24 +42,34 @@ export class Problem {
         if (!languageId) {
           throw new ApiError(400, "This languageId is not exits!");
         }
-
-        const isSQL = languageId === 82;
+        let isSQL = false;
+        if (languageId == 82) {
+          isSQL = true;
+        }
         const submission = testcases.map(
-          ({ input, output }: { input: string; output: string }) => ({
-            source_code: solutionCode,
-            language_id: languageId,
-            stdin: input,
-            expected_output: output,
-          })
+          ({ input, output }: { input: string | null; output: string }) => {
+            const sourceCode = isSQL
+              ? `${input ? input + "\n" : ""}${solutionCode}`
+              : solutionCode;
+
+            console.log("Final SQL source code:\n", sourceCode);
+
+            return {
+              source_code: sourceCode,
+              language_id: languageId,
+              stdin: isSQL ? null : input,
+              expected_output: output,
+            };
+          }
         );
 
-        const submissionResult = await submitBatch(submission);
+        const submissionResult = await submitBatch(submission, isSQL);
 
         const tokens = submissionResult.map(
           (res: { token: string }) => res.token
         );
 
-        const result = await pollBatchResult(tokens);
+        const result = await pollBatchResult(tokens, isSQL);
 
         for (const res of result) {
           if (res.status.id !== 3) {
