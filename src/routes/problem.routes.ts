@@ -31,4 +31,10 @@ router.get(
   problemController.getProblemById
 );
 
+router.delete(
+  "/delete-problem/:id",
+  authenticate,
+  problemController.deleteProblem
+);
+
 export default router;

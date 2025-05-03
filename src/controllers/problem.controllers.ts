@@ -133,4 +133,19 @@ export class Problem {
       new ApiResponse(200, problem, "Fected problem")
     );
   });
+
+  deleteProblem = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+      throw new ApiError(400, "Please Provide Id of problem!");
+    };
+
+    await this.problemService.deleteProblem(id)
+
+    res.status(200).json(
+      new ApiResponse(200, {}, "Problem deleted successfully!")
+    );
+    
+  });
 }
