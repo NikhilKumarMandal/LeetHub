@@ -37,4 +37,11 @@ router.delete(
   problemController.deleteProblem
 );
 
+router.put(
+  "/update-problem/:id",
+  authenticate,
+  canAccess([Roles.ADMIN]),
+  problemController.updateProblem as RequestHandler
+);
+
 export default router;

@@ -29,4 +29,11 @@ export class ProblemService {
       }
     });
   };
+
+  async update(where: { id: string }, data: ProblemData) {
+      return db.problem.update({
+        where,
+        data,
+      });
+  };
 }
