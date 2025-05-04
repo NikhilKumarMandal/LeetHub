@@ -13,7 +13,8 @@ export class Problem {
   constructor(
     private problemService: ProblemService,
     private logger: Logger
-  ) {}
+  ) { }
+  
   create = async (req: AuthRequest, res: Response, next: NextFunction) => {
     const {
       title,
@@ -65,14 +66,18 @@ export class Problem {
 
         const submissionResult = await submitBatch(submission, isSQL);
 
+        console.log(submissionResult);
+        
+
         const tokens = submissionResult.map(
           (res: { token: string }) => res.token
         );
 
         const result = await pollBatchResult(tokens, isSQL);
-
+        console.log(result);
+        
         for (const res of result) {
-          if (res.status.id !== 3) {
+          if (res.status.id !== 3){
             throw new ApiError(
               400,
               `Testcase failed for language: ${language}`
@@ -243,4 +248,5 @@ export class Problem {
       return;
     }
   };
+  
 }
