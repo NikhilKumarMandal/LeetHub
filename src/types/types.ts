@@ -32,13 +32,6 @@ export interface AuthRequest extends Request {
   };
 }
 
-export type Submission = {
-  source_code: string;
-  language_id: number;
-  stdin: string;
-  expected_output: string;
-};
-
 export interface ProblemData {
   title: string;
   description: string;
@@ -58,3 +51,30 @@ export const Roles = {
   ADMIN: "ADMIN",
   SUPERADMIN: "SUPERADMIN",
 } as const;
+
+export interface Submission {
+  userId: string;
+  problemId: string;
+  sourceCode: string;
+  language: string;
+  stdin: string;
+  stdout: string;
+  stderr?: string | null;
+  compileOutput?: string | null;
+  status: string;
+  memory?: string | null;
+  time?: string | null;
+}
+
+export interface TestCaseResult {
+  submissionId: string | number | undefined;
+  testCase: string;
+  passed: boolean;
+  stdout: string;
+  expected: string;
+  stderr?: string;
+  compileOutput?: string;
+  status: string;
+  memory?: number | string;
+  time?: number | string;
+}

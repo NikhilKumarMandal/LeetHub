@@ -11,17 +11,6 @@ export const getJudge0LanguageId = (language: string): number | null => {
   return LanguageMap[upperLang] || null;
 };
 
-// export const submitBatch = async (submissions: any) => {
-//   const { data } = await axios.post(
-//     `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
-//     {
-//       submissions,
-//     }
-//   );
-
-//   return data;
-// };
-
 export const submitBatch = async (
   submission: any,
   useRapidApi: boolean = false
@@ -84,24 +73,14 @@ export const pollBatchResult = async (
   }
 };
 
-// export const pollBatchResult = async (tokens: string[]) => {
-//   while (true) {
-//     const { data } = await axios.get(
-//       `${process.env.JUDGE0_API_URL}/submissions/batch`,
-//       {
-//         params: {
-//           tokens: tokens.join(","),
-//           base64_encoded: false,
-//         },
-//       }
-//     );
-//     const results = data.submissions;
+export function getLanguageName(languageId: number): string {
+  const LANGUAGE_NAMES: Record<number, string> = {
+    74: "TypeScript",
+    63: "JavaScript",
+    71: "Python",
+    62: "Java",
+    82: "SQL",
+  };
 
-//     const isAllDone = results.every(
-//       (r: any) => r.status.id !== 1 && r.status.id !== 2
-//     );
-
-//     if (isAllDone) return results;
-//     await sleep(1000);
-//   }
-// };
+  return LANGUAGE_NAMES[languageId] || "Unknown";
+}
