@@ -11,4 +11,12 @@ export class SubmissionService {
       },
     });
   }
+
+  async findMany(userId: string) {
+    return await db.submission.findMany({
+      where: {
+        userId
+      }
+    })
+  }
 }
