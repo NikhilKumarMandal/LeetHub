@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import AuthRouter from "./routes/auth.routes";
 import ProblemRouter from "./routes/problem.routes";
-
+import ExecuteRouter from "./routes/executeCode.routes";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -18,6 +18,7 @@ app.use(express.static("public"));
 // Routes
 app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/problem", ProblemRouter);
+app.use("/api/v1/execute-code", ExecuteRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening on PORT: ${PORT}`);

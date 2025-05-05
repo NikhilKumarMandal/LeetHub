@@ -19,17 +19,9 @@ router.post(
   problemController.create as RequestHandler
 );
 
-router.get(
-  "/get-problem",
-  authenticate,
-  problemController.getAllProblem
-);
+router.get("/get-problem", authenticate, problemController.getAllProblem);
 
-router.get(
-  "/get-problem/:id",
-  authenticate,
-  problemController.getProblemById
-);
+router.get("/get-problem/:id", authenticate, problemController.getProblemById);
 
 router.delete(
   "/delete-problem/:id",

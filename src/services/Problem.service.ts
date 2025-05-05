@@ -8,32 +8,44 @@ export class ProblemService {
         ...problemData,
       },
     });
-  };
+  }
 
   async getProblem() {
     return await db.problem.findMany();
-  };
+  }
 
   async findProblemById(id: string) {
     return await db.problem.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     });
-  };
+  }
 
   async deleteProblem(id: string) {
     return await db.problem.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
-  };
+  }
 
   async update(where: { id: string }, data: ProblemData) {
-      return db.problem.update({
-        where,
-        data,
-      });
-  };
+    return db.problem.update({
+      where,
+      data,
+    });
+  }
+
+  async deleteTestCase(where: { problemId: string }) {
+    return await db.problemTestCase.deleteMany({
+      where,
+    });
+  }
+
+  // async createMany() {
+  //   await db.problemTestCase.createMany({
+  //     data: formattedTestcases,
+  //   });
+  // }
 }
