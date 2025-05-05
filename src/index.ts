@@ -6,7 +6,6 @@ import ProblemRouter from "./routes/problem.routes";
 import ExecuteRouter from "./routes/executeCode.routes";
 import SubmissionRouter from "./routes/submission.routes";
 
-
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;

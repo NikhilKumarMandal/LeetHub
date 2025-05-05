@@ -9,14 +9,15 @@ const submissionService = new SubmissionService();
 const submissionController = new Submission(submissionService);
 
 router.get(
-    "/submission",
-    authenticate,
-    submissionController.getAllSubmission as RequestHandler
+  "/submission",
+  authenticate,
+  submissionController.getAllSubmission as RequestHandler
 );
 
-
-
-
-
+router.get(
+  "/submission/:id",
+  authenticate,
+  submissionController.getSubmissionsForProblem as RequestHandler
+);
 
 export default router;
