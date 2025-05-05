@@ -20,4 +20,12 @@ export class SubmissionService {
       },
     });
   }
+
+  async count(problemId: string) {
+    return await db.submission.count({
+      where: {
+        problemId,
+      },
+    });
+  }
 }

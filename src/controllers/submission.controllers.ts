@@ -1,7 +1,7 @@
-import { NextFunction, Response } from "express";
+import { Request, NextFunction, Response } from "express";
 import { AuthRequest } from "../types/types";
 import { SubmissionService } from "../services/Submission.service";
-import { ApiResponse } from "express-strategy";
+import { ApiResponse, asyncHandler } from "express-strategy";
 
 export class Submission {
   constructor(private submissionService: SubmissionService) {}
@@ -46,7 +46,7 @@ export class Submission {
           new ApiResponse(
             200,
             submissionForProblem,
-            "Submission fected successfully"
+            "Submission for problem fected successfully"
           )
         );
     } catch (error) {
@@ -54,4 +54,18 @@ export class Submission {
       return;
     }
   };
+
+  getALlTheSubmissionForProblem = asyncHandler(
+    async (req: Request, res: Response) => {
+      const { problemId } = req.params;
+
+      const count = await this.submissionService.count(problemId);
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(200, count, "Submission count fected successfully")
+        );
+    }
+  );
 }

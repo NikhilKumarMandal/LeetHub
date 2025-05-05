@@ -15,9 +15,15 @@ router.get(
 );
 
 router.get(
-  "/submission/:id",
+  "/get-submission/:id",
   authenticate,
   submissionController.getSubmissionsForProblem as RequestHandler
+);
+
+router.get(
+  "/get-submission-count/:id",
+  authenticate,
+  submissionController.getALlTheSubmissionForProblem
 );
 
 export default router;
