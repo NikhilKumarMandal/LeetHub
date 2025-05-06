@@ -6,6 +6,7 @@ import ProblemRouter from "./routes/problem.routes";
 import ExecuteRouter from "./routes/executeCode.routes";
 import SubmissionRouter from "./routes/submission.routes";
 import DiscussionRouter from "./routes/discussion.routes";
+import VoteRouter from "./routes/vote.routes";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/api/v1/problem", ProblemRouter);
 app.use("/api/v1/execute-code", ExecuteRouter);
 app.use("/api/v1/submission", SubmissionRouter);
 app.use("/api/v1/discussion", DiscussionRouter);
+app.use("/api/v1/vote", VoteRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening on PORT: ${PORT}`);
