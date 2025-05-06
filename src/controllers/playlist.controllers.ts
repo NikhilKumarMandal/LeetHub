@@ -113,4 +113,26 @@ export class Playlist {
       .status(200)
       .json(new ApiResponse(200, {}, "Playlist deleted successfully"));
   });
+
+  removeProblemFromPlaylist = asyncHandler(
+    async (req: Request, res: Response) => {
+      const { playlistId } = req.params;
+      const { problemIds } = req.body;
+
+      if (!Array.isArray(problemIds) || problemIds.length === 0) {
+        throw new ApiError(400, "Invalid or missing problemsId");
+      }
+
+      const deletedProblems = await this.playlistService.deleteMany(
+        playlistId,
+        problemIds
+      );
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(200, deletedProblems, "Problem removed from Playlist")
+        );
+    }
+  );
 }

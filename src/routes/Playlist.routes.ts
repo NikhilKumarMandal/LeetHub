@@ -22,4 +22,10 @@ router.post("/add-problem/:id", authenticate, playlist.addProblemToPlaylist);
 
 router.delete("/:id", authenticate, playlist.deletePlaylist);
 
+router.delete(
+  "/remove-problem/:id",
+  authenticate,
+  playlist.removeProblemFromPlaylist
+);
+
 export default router;
