@@ -20,4 +20,6 @@ router.get("/:id", authenticate, playlist.getPlaylistDetails as RequestHandler);
 
 router.post("/add-problem/:id", authenticate, playlist.addProblemToPlaylist);
 
+router.delete("/:id", authenticate, playlist.deletePlaylist);
+
 export default router;

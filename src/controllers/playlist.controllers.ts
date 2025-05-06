@@ -103,4 +103,14 @@ export class Playlist {
       }
     }
   );
+
+  deletePlaylist = asyncHandler(async (req: Request, res: Response) => {
+    const { playlistId } = req.params;
+
+    await this.playlistService.deletePlaylist(playlistId);
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, {}, "Playlist deleted successfully"));
+  });
 }

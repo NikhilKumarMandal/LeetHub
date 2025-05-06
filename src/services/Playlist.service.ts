@@ -54,4 +54,12 @@ export class PlaylistService {
       })),
     });
   }
+
+  async deletePlaylist(playlistId: string) {
+    return await db.playlist.delete({
+      where: {
+        id: playlistId,
+      },
+    });
+  }
 }
