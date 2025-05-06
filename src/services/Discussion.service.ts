@@ -9,4 +9,29 @@ export class DiscussionService {
       },
     });
   }
+
+  async findMany(problemId: string) {
+    return await db.discussion.findMany({
+      where: {
+        problemId,
+        parentId: null,
+      },
+      include: {
+        user: true,
+        replies: {
+          include: {
+            user: true,
+            replies: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
 }

@@ -14,4 +14,6 @@ router.post(
   discussion.createDiscussion as RequestHandler
 );
 
+router.get("/discussion/:id", authenticate, discussion.getDiscussionsByProblem);
+
 export default router;

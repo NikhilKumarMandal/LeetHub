@@ -33,4 +33,18 @@ export class Discussion {
       return;
     }
   };
+
+  getDiscussionsByProblem = asyncHandler(
+    async (req: Request, res: Response) => {
+      const { problemId } = req.body;
+
+      const discussion = await this.disccussionService.findMany(problemId);
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(200, discussion, "Discussion fected successfully")
+        );
+    }
+  );
 }
