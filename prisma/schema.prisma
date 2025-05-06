@@ -39,6 +39,7 @@ model User {
   problem         Problem[]
   submission      Submission[]
   problemSolved   ProblemSolved[]
+  discussions     Discussion[]
 }
 
 model Problem {
@@ -62,6 +63,7 @@ model Problem {
   submission         Submission[]
   solvedBy           ProblemSolved[]
   testcases          ProblemTestCase[]  
+  discussions     Discussion[]
 }
 
 model ProblemTestCase {
@@ -133,4 +135,21 @@ model ProblemSolved {
   problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([userId, problemId])
+}
+
+
+model Discussion {
+  id         String   @id @default(uuid())
+  userId     String
+  problemId  String
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  parentId   String?
+  parent     Discussion?   @relation("ReplyThread", fields: [parentId], references: [id])
+  replies    Discussion[]  @relation("ReplyThread")
 }
