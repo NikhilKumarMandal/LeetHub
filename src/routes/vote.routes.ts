@@ -14,4 +14,6 @@ router.post(
   vote.voteOnProblem as RequestHandler
 );
 
+router.get("get-voted-problem/:id", authenticate, vote.getProblemVotes);
+
 export default router;

@@ -1,7 +1,6 @@
-import { NextFunction } from "express";
-import { Response } from "express";
+import { NextFunction, Response, Request } from "express";
 import { AuthRequest } from "../types/types";
-import { ApiError, ApiResponse } from "express-strategy";
+import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { VoteService } from "../services/Vote.service";
 
 export class Vote {
@@ -39,4 +38,23 @@ export class Vote {
       return;
     }
   };
+
+  getProblemVotes = asyncHandler(async (req: Request, res: Response) => {
+    const { problemId } = req.params;
+    const [upvote, downvote] = await Promise.all([
+      await this.voteService.count(problemId, "UPVOTE"),
+      await this.voteService.count(problemId, "DOWNVOTE"),
+    ]);
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          upvote,
+          downvote,
+        },
+        "Fected data successfully"
+      )
+    );
+  });
 }

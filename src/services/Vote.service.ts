@@ -39,4 +39,13 @@ export class VoteService {
       },
     });
   }
+
+  async count(problemId: string, data: "UPVOTE" | "DOWNVOTE") {
+    return await db.problemVote.count({
+      where: {
+        problemId,
+        type: data,
+      },
+    });
+  }
 }
