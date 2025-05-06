@@ -5,6 +5,7 @@ import AuthRouter from "./routes/auth.routes";
 import ProblemRouter from "./routes/problem.routes";
 import ExecuteRouter from "./routes/executeCode.routes";
 import SubmissionRouter from "./routes/submission.routes";
+import DiscussionRouter from "./routes/discussion.routes";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/problem", ProblemRouter);
 app.use("/api/v1/execute-code", ExecuteRouter);
 app.use("/api/v1/submission", SubmissionRouter);
+app.use("/api/v1/discussion", DiscussionRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening on PORT: ${PORT}`);

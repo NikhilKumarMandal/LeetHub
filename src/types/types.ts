@@ -78,3 +78,10 @@ export interface TestCaseResult {
   memory?: number | string;
   time?: number | string;
 }
+
+export interface DiscussionData {
+  content: string;
+  userId: string;
+  problemId: string;
+  parentId?: string | null;
+}
