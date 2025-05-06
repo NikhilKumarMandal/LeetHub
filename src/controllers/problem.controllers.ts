@@ -283,4 +283,22 @@ export class Problem {
       next(error);
     }
   };
+
+  getAllProblemSolvedByUser = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.auth.sub;
+      const problems = await this.problemService.findMany(userId);
+
+      res
+        .status(200)
+        .json(new ApiResponse(200, problems, "Problem fected successfully"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 }

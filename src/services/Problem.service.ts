@@ -43,9 +43,22 @@ export class ProblemService {
     });
   }
 
-  // async createMany() {
-  //   await db.problemTestCase.createMany({
-  //     data: formattedTestcases,
-  //   });
-  // }
+  async findMany(id: string) {
+    await db.problem.findMany({
+      where: {
+        solvedBy: {
+          some: {
+            userId: id,
+          },
+        },
+      },
+      include: {
+        solvedBy: {
+          where: {
+            userId: id,
+          },
+        },
+      },
+    });
+  }
 }

@@ -36,4 +36,10 @@ router.put(
   problemController.updateProblem as RequestHandler
 );
 
+router.get(
+  "/solvedBy",
+  authenticate,
+  problemController.getAllProblemSolvedByUser as RequestHandler
+);
+
 export default router;
