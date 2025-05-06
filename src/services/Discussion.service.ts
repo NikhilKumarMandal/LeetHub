@@ -10,6 +10,22 @@ export class DiscussionService {
     });
   }
 
+  async findunique(id: string) {
+    return db.discussion.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async delete(id: string) {
+    return db.discussion.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
   async findMany(problemId: string) {
     return await db.discussion.findMany({
       where: {

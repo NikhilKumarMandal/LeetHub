@@ -16,4 +16,10 @@ router.post(
 
 router.get("/discussion/:id", authenticate, discussion.getDiscussionsByProblem);
 
+router.delete(
+  "/discusssion/:id",
+  authenticate,
+  discussion.deleteDiscussion as RequestHandler
+);
+
 export default router;

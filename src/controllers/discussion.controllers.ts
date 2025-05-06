@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiResponse, asyncHandler } from "express-strategy";
+import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { DiscussionService } from "../services/Discussion.service";
 import { AuthRequest } from "../types/types";
 
@@ -47,4 +47,27 @@ export class Discussion {
         );
     }
   );
+
+  deleteDiscussion = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const userId = req.auth.sub;
+
+      const existing = await this.disccussionService.findunique(id);
+      if (!existing || existing.userId !== userId) {
+        throw new ApiError(403, "Not authorized");
+      }
+
+      await this.disccussionService.delete(id);
+
+      res.status(200).json(new ApiResponse(200, {}, "delete discussion"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 }
