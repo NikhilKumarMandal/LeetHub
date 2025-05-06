@@ -1,8 +1,7 @@
-import { NextFunction } from "express";
-import { Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AuthRequest } from "../types/types";
 import { PlaylistService } from "../services/Playlist.service";
-import { ApiError, ApiResponse } from "express-strategy";
+import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
@@ -77,4 +76,31 @@ export class Playlist {
       return;
     }
   };
+
+  addProblemToPlaylist = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { playlistId } = req.params;
+      const { problemIds } = req.body;
+
+      if (!Array.isArray(problemIds) || problemIds.length === 0) {
+        throw new ApiError(400, "Invalid or missing problemsId");
+      }
+
+      try {
+        const problemAdded = await this.playlistService.createMany(
+          problemIds,
+          playlistId
+        );
+
+        res
+          .status(200)
+          .json(
+            new ApiResponse(200, problemAdded, "Problem Added in playlist")
+          );
+      } catch (error) {
+        next(error);
+        return;
+      }
+    }
+  );
 }

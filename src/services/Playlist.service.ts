@@ -45,4 +45,13 @@ export class PlaylistService {
       },
     });
   }
+
+  async createMany(problemsId: string[], playlistId: string) {
+    return await db.problemInPlaylist.createMany({
+      data: problemsId.map((problemId) => ({
+        playlistId,
+        problemId,
+      })),
+    });
+  }
 }
