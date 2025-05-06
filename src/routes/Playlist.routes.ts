@@ -14,4 +14,6 @@ router.post(
   playlist.createPlaylist as RequestHandler
 );
 
+router.post("/", authenticate, playlist.getAllListDetails as RequestHandler);
+
 export default router;

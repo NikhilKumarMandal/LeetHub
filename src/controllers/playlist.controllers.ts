@@ -31,4 +31,23 @@ export class Playlist {
       return;
     }
   };
+
+  getAllListDetails = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.auth.sub;
+
+      const playlists = await this.playlistService.findMany(userId);
+
+      res
+        .status(200)
+        .json(new ApiResponse(200, playlists, "Playlist fected successfully"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 }
