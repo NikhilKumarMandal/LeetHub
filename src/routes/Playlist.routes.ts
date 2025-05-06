@@ -14,6 +14,8 @@ router.post(
   playlist.createPlaylist as RequestHandler
 );
 
-router.post("/", authenticate, playlist.getAllListDetails as RequestHandler);
+router.get("/", authenticate, playlist.getAllListDetails as RequestHandler);
+
+router.get("/:id", authenticate, playlist.getPlaylistDetails as RequestHandler);
 
 export default router;

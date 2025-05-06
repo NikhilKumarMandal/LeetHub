@@ -2,7 +2,7 @@ import { NextFunction } from "express";
 import { Response } from "express";
 import { AuthRequest } from "../types/types";
 import { PlaylistService } from "../services/Playlist.service";
-import { ApiResponse } from "express-strategy";
+import { ApiError, ApiResponse } from "express-strategy";
 
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
@@ -45,6 +45,33 @@ export class Playlist {
       res
         .status(200)
         .json(new ApiResponse(200, playlists, "Playlist fected successfully"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
+
+  getPlaylistDetails = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { playlistId } = req.params;
+    const userId = req.auth.sub;
+
+    try {
+      const playlist = await this.playlistService.findUnique(
+        playlistId,
+        userId
+      );
+
+      if (!playlist) {
+        throw new ApiError(400, "Playlist not found!");
+      }
+
+      res
+        .status(200)
+        .json(new ApiResponse(200, playlist, "Fected Playlist successfully!"));
     } catch (error) {
       next(error);
       return;

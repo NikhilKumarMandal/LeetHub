@@ -29,4 +29,20 @@ export class PlaylistService {
       },
     });
   }
+
+  async findUnique(playlistId: string, userId: string) {
+    return await db.playlist.findUnique({
+      where: {
+        id: playlistId,
+        userId: userId,
+      },
+      include: {
+        problems: {
+          include: {
+            problem: true,
+          },
+        },
+      },
+    });
+  }
 }
