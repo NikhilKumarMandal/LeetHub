@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import AuthRouter from "./routes/auth.routes";
 import ProblemRouter from "./routes/problem.routes";
@@ -19,6 +20,13 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: "116kb" }));
 app.use(express.static("public"));
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 // Routes
 app.use("/api/v1/auth", AuthRouter);

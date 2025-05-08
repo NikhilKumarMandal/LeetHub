@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
-import { UserData } from "../types/types";
+import { Roles, UserData } from "../types/types";
 import { UserRole } from "../generated/prisma";
 import { Logger } from "winston";
 import { CredentialService } from "../services/Credential.service";
@@ -10,6 +10,9 @@ import { validationResult } from "express-validator";
 import { AuthRequest } from "../types/types";
 import { AuthService } from "../services/Auth.service";
 import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
+import { google } from "googleapis";
+import axios from "axios";
+import { OAuth2Client } from "google-auth-library";
 
 export class Auth {
   constructor(
@@ -273,4 +276,111 @@ export class Auth {
       return error;
     }
   };
+
+  // OAuth2 client setup
+  googleLogin = asyncHandler(async (req: Request, res: Response) => {
+    const { token } = req.body;
+
+    if (!token) {
+      throw new ApiError(400, "Token is required!");
+    }
+
+    const googleOauthUrl = new URL("https://oauth2.googleapis.com/tokeninfo");
+    googleOauthUrl.searchParams.set("id_token", token);
+
+    const { data } = await axios.get(googleOauthUrl.toString(), {
+      responseType: "json",
+    });
+    console.log(data);
+
+    let user = await this.authService.findUnique({ email: data.email });
+
+    if (!user) {
+      const hasedPassword = await this.credentialService.hashPassword(
+        "random_password",
+        10
+      );
+      const userData = {
+        name: data.name,
+        email: data.email,
+        avatar: data.picture,
+        password: hasedPassword,
+        role: UserRole.USER,
+      };
+      user = await this.authService.create(userData);
+    }
+
+    console.log("User", user);
+
+    const payload: JwtPayload = {
+      sub: user.id,
+      role: user.role,
+    };
+
+    // genrate token
+    const accessToken = this.tokenService.generateAccessToken(payload);
+
+    const refreshToken = this.tokenService.generateRefreshToken(payload);
+
+    user.refreshToken = refreshToken;
+    await this.authService.update(
+      { id: user?.id },
+      { refreshToken: refreshToken }
+    );
+
+    // const oauth2Client = new OAuth2Client(
+    //   process.env.GOOGLE_CLIENT_ID,
+    //   process.env.GOOGLE_CLIENT_SECRET,
+    //   process.env.GOOGLE_REDIRECT_URI
+    // );
+
+    // oauth2Client.setCredentials({
+    //   access_token: accessToken,
+    //   refresh_token: refreshToken,
+    // });
+
+    // console.log(oauth2Client.credentials);
+    // console.log(accessToken,refreshToken);
+
+    // const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+
+    //   const events = await calendar.events.list({
+    //     calendarId: "primary",
+    //     timeMin: new Date().toISOString(),
+    //     maxResults: 10,
+    //     singleEvents: true,
+    //     orderBy: "startTime",
+    //   });
+    //   console.log("Event",events);
+
+    //   const upcomingEvents = events.data.items;
+    // console.log("Upcoming events:", upcomingEvents);
+
+    // console.log(upcomingEvents);
+
+    // set cookies
+    res.cookie("accessToken", accessToken, {
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 2,
+      httpOnly: true,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      sameSite: "strict",
+      maxAge: 30 * 1000 * 60 * 60 * 24,
+      httpOnly: true,
+    });
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          user,
+          accessToken,
+          refreshToken,
+        },
+        "User loggedd in successfully"
+      )
+    );
+  });
 }

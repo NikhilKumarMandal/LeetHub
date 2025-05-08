@@ -26,6 +26,8 @@ router.post("/register", registerValidators, authController.register);
 
 router.post("/login", loginValidators, authController.login);
 
+router.post("/oauth2", authController.googleLogin);
+
 router.post("/logout", authenticate, authController.logout as RequestHandler);
 
 router.get("/self", authenticate, authController.self as RequestHandler);
