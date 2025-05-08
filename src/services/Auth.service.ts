@@ -19,6 +19,19 @@ export class AuthService {
     });
   }
 
+  async findUniqueSelf(where: { id: string }) {
+    return await db.user.findUnique({
+      where,
+      select: {
+        name: true,
+        id: true,
+        role: true,
+        email: true,
+        avatar: true,
+      },
+    });
+  }
+
   async create(userData: UserData) {
     return await db.user.create({
       data: {

@@ -26,4 +26,10 @@ router.get(
   submissionController.getALlTheSubmissionForProblem
 );
 
+router.get(
+  "/activity",
+  authenticate,
+  submissionController.getSubmissionActivity as RequestHandler
+);
+
 export default router;

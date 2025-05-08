@@ -150,7 +150,11 @@ export class Auth {
         throw new ApiError(401, "Unauthorized");
       }
 
-      const user = await this.authService.findUnique({ id });
+      const user = await this.authService.findUniqueSelf({ id });
+
+      if (!user) {
+        throw new ApiError(401, "Unauthorized request");
+      }
 
       res
         .status(200)
@@ -291,7 +295,6 @@ export class Auth {
     const { data } = await axios.get(googleOauthUrl.toString(), {
       responseType: "json",
     });
-    console.log(data);
 
     let user = await this.authService.findUnique({ email: data.email });
 
@@ -307,10 +310,10 @@ export class Auth {
         password: hasedPassword,
         role: UserRole.USER,
       };
+
+      // TODO upload avatar in cloudinary
       user = await this.authService.create(userData);
     }
-
-    console.log("User", user);
 
     const payload: JwtPayload = {
       sub: user.id,

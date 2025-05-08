@@ -68,4 +68,30 @@ export class Submission {
         );
     }
   );
+
+  getSubmissionActivity = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.auth.sub;
+
+      const submissions = await this.submissionService.groupBy(userId);
+
+      const formatted = submissions.map((item) => {
+        const data = item.createdAt.toISOString().split("T")[0];
+        return {
+          data,
+          count: item._count._all,
+        };
+      });
+      res
+        .status(200)
+        .json(new ApiResponse(200, formatted, "Facted succesfully"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 }

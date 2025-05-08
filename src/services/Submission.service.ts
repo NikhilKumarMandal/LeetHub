@@ -28,4 +28,16 @@ export class SubmissionService {
       },
     });
   }
+
+  async groupBy(userId: string) {
+    return await db.submission.groupBy({
+      by: ["createdAt"],
+      where: {
+        userId,
+      },
+      _count: {
+        _all: true,
+      },
+    });
+  }
 }
