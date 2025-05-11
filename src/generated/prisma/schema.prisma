@@ -47,6 +47,7 @@ model User {
   discussions     Discussion[]
   votesOnProblems ProblemVote[]
   playlists       Playlist[]
+  subscription    Subscription?
 }
 
 model Problem {
@@ -62,6 +63,7 @@ model Problem {
   editorial          String?
   codeSnippets       Json
   referenceSolutions Json
+  isPremium          Boolean    @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -203,4 +205,14 @@ model ProblemInPlaylist {
   problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([playlistId, problemId])
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  startDate DateTime @default(now())
+  endDate   DateTime
+  isActive  Boolean  @default(true)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
