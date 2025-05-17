@@ -33,7 +33,7 @@ export default checkSchema(
           const validDifficulties = ["EASY", "MEDIUM", "HARD"];
           return !value || validDifficulties.includes(value);
         },
-      }
+      },
     },
     page: {
       customSanitizer: {

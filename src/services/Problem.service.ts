@@ -1,6 +1,7 @@
-import { Difficulty } from './../generated/prisma/index.d';
+import { Difficulty } from "./../generated/prisma/index.d";
 import { db } from "./../libs/db";
 import { ProblemData, ProblemQueryParams } from "../types/types";
+
 
 export class ProblemService {
   async create(problemData: ProblemData) {
@@ -63,12 +64,14 @@ export class ProblemService {
     });
   }
 
-  getProblemsPaginated(
+
+  async getProblemsPaginated(
     skip: number,
     limit: number,
-    validatedQuery: ProblemQueryParams
+    validatedQuery: ProblemQueryParams,
+    userId: string
   ) {
-    return db.problem.findMany({
+    const problems =  await db.problem.findMany({
       where: {
         ...(validatedQuery.title && {
           title: {
@@ -101,14 +104,63 @@ export class ProblemService {
         createdAt: "desc",
       },
     });
+
+    let solvedProblemIds = new Set<string>();
+
+  if (userId) {
+    // Get all problem IDs the user has solved from the current filtered list
+    const solvedProblems = await db.problemSolved.findMany({
+      where: {
+        userId,
+        problem: {
+          ...(validatedQuery.title && {
+            title: {
+              contains: validatedQuery.title,
+              mode: "insensitive",
+            },
+          }),
+          ...(validatedQuery.difficulty && {
+            difficulty: validatedQuery.difficulty,
+          }),
+          ...(validatedQuery.problemNumber && {
+            problemNumber: validatedQuery.problemNumber,
+          }),
+          ...(validatedQuery.topic &&
+            (Array.isArray(validatedQuery.topic)
+              ? {
+                  topic: {
+                    hasSome: validatedQuery.topic,
+                  },
+                }
+              : {
+                  topic: {
+                    has: validatedQuery.topic,
+                  },
+                })),
+        },
+      },
+      select: { problemId: true },
+    });
+
+    solvedProblemIds = new Set(solvedProblems.map((p) => p.problemId));
+
   }
 
-  // getTotalProblemCount() {
-  //   return db.problem.count();
-  // }
+  // Add `isSolved` flag to each problem
+  const problemsWithFlag = problems.map((problem) => ({
+    ...problem,
+    isSolved: solvedProblemIds.has(problem.id),
+  }));
+    
+  return {
+    problems: problemsWithFlag,
+    solvedCount: solvedProblemIds.size,
+  }
 
-  getTotalProblemCount(validatedQuery: ProblemQueryParams) {
-    return db.problem.count({
+  }
+
+  async getTotalProblemCount(validatedQuery: ProblemQueryParams) {
+    return await db.problem.count({
       where: {
         ...(validatedQuery.title && {
           title: {
@@ -118,6 +170,9 @@ export class ProblemService {
         }),
         ...(validatedQuery.problemNumber && {
           problemNumber: validatedQuery.problemNumber,
+        }),
+        ...(validatedQuery.difficulty && {
+          difficulty: validatedQuery.difficulty,
         }),
         ...(validatedQuery.topic &&
           (Array.isArray(validatedQuery.topic)
@@ -134,4 +189,7 @@ export class ProblemService {
       },
     });
   }
+
+
+  
 }

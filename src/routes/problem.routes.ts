@@ -24,7 +24,7 @@ router.get(
   "/get-problem",
   listProblemsValidators,
   authenticate,
-  problemController.getAllProblem
+  problemController.getAllProblem as RequestHandler
 );
 
 router.get("/get-problem/:id", authenticate, problemController.getProblemById);

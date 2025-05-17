@@ -125,39 +125,44 @@ export class Problem {
     }
   };
 
-  getAllProblem = asyncHandler(async (req: Request, res: Response) => {
+  getAllProblem = async (req: AuthRequest, res: Response, next: NextFunction) => {
     const validatedQuery = matchedData(req, { onlyValidData: true });
-    console.log(validatedQuery);
-
+  
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
+    const userId = req.auth.sub;
 
-    const [problems, total] = await Promise.all([
-      this.problemService.getProblemsPaginated(skip, limit, validatedQuery),
-      this.problemService.getTotalProblemCount(validatedQuery),
-    ]);
+    try {
+      const total = await this.problemService.getTotalProblemCount(validatedQuery);
 
-    if (!problems || problems.length === 0) {
-      throw new ApiError(404, "No problems found");
-    }
-
-    res.status(200).json(
-      new ApiResponse(
-        200,
-        {
-          problems,
-          pagination: {
-            total,
-            page,
-            limit,
-            totalPages: Math.ceil(total / limit),
+      const { problems, solvedCount } = await this.problemService.getProblemsPaginated(skip, limit, validatedQuery, userId);
+  
+      if (!problems || problems.length === 0) {
+        throw new ApiError(404, "No problems found");
+      }
+  
+      res.status(200).json(
+        new ApiResponse(
+          200,
+          {
+            problems,
+            solvedCount,  
+            pagination: {
+              total,      
+              page,
+              limit,
+              totalPages: Math.ceil(total / limit),
+            },
           },
-        },
-        "Fetched problems successfully"
-      )
-    );
-  });
+          "Fetched problems successfully"
+        )
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+  
 
   getProblemById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
