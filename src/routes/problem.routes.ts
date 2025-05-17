@@ -5,6 +5,7 @@ import logger from "../utils/logger";
 import authenticate from "../middlewares/auth.middleware";
 import { canAccess } from "../middlewares/canAccess.midddleware";
 import { Roles } from "../types/types";
+import listProblemsValidators from "../validators/listProblemsValidators";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.post(
   problemController.create as RequestHandler
 );
 
-router.get("/get-problem", authenticate, problemController.getAllProblem);
+router.get("/get-problem",listProblemsValidators ,authenticate, problemController.getAllProblem);
 
 router.get("/get-problem/:id", authenticate, problemController.getProblemById);
 

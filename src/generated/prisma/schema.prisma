@@ -53,9 +53,10 @@ model User {
 model Problem {
   id                 String     @id @default(uuid())
   title              String
+  problemNumber      Int        @default(autoincrement())
   description        String
   difficulty         Difficulty
-  tags               String[]
+  topic              String[]
   userId             String
   examples           Json
   constraints        String

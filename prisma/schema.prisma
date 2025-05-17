@@ -53,9 +53,10 @@ model User {
 model Problem {
   id                 String             @id @default(uuid())
   title              String
+  problemNumber      Int   @default(autoincrement()) 
   description        String
   difficulty         Difficulty
-  tags               String[]
+  topic               String[]
   userId             String
   examples           Json
   constraints        String
@@ -68,7 +69,7 @@ model Problem {
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
 
-  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   submission         Submission[]
   solvedBy           ProblemSolved[]
   testcases          ProblemTestCase[]  
@@ -76,7 +77,7 @@ model Problem {
   votes ProblemVote[]
   problemsPlatlists ProblemInPlaylist[]
 }
-
+ 
 model ProblemTestCase {
   id         String   @id @default(uuid())
   input      String

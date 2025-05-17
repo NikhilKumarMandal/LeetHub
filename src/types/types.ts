@@ -36,7 +36,7 @@ export interface ProblemData {
   title: string;
   description: string;
   difficulty: "EASY" | "MEDIUM" | "HARD";
-  tags: string[];
+  topic: string[];
   userId: string;
   examples: any;
   constraints: string;
@@ -84,4 +84,11 @@ export interface DiscussionData {
   userId: string;
   problemId: string;
   parentId?: string | null;
+}
+
+
+export interface ProblemQueryParams {
+  title?: string;
+  problemNumber?: number;
+  topic?: string[];
 }

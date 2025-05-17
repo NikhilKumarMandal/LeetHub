@@ -1,5 +1,5 @@
 import { db } from "./../libs/db";
-import { ProblemData } from "../types/types";
+import { ProblemData, ProblemQueryParams } from "../types/types";
 
 export class ProblemService {
   async create(problemData: ProblemData) {
@@ -61,4 +61,54 @@ export class ProblemService {
       },
     });
   }
+
+  getProblemsPaginated(
+    skip: number,
+    limit: number,
+    validatedQuery: ProblemQueryParams
+  ) {
+    return db.problem.findMany({
+      where: {
+        ...(validatedQuery.title && {
+          title: {
+            contains: validatedQuery.title,
+            mode: "insensitive",
+          },
+        }),
+        ...(validatedQuery.problemNumber && {
+          problemNumber: validatedQuery.problemNumber,
+        }),
+        ...(validatedQuery.topic &&
+          (Array.isArray(validatedQuery.topic)
+            ? {
+                topic: {
+                  hasSome: validatedQuery.topic,
+                },
+              }
+            : {
+                topic: {
+                  has: validatedQuery.topic,
+                },
+              })),
+      },
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+  
+
+ 
+
+  getTotalProblemCount() {
+    return db.problem.count();
+  }
+
+
+  
+  
+  
+  
 }

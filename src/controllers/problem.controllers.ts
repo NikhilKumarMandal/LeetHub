@@ -9,6 +9,7 @@ import {
 import { ProblemService } from "../services/Problem.service";
 import { Logger } from "winston";
 import { db } from "../libs/db";
+import { matchedData } from "express-validator";
 
 export class Problem {
   constructor(
@@ -20,7 +21,7 @@ export class Problem {
     const {
       title,
       description,
-      tags,
+      topic,
       difficulty,
       examples,
       constraints,
@@ -80,7 +81,7 @@ export class Problem {
       const problem: ProblemData = {
         title,
         description,
-        tags,
+        topic,
         difficulty,
         examples,
         constraints,
@@ -125,14 +126,35 @@ export class Problem {
   };
 
   getAllProblem = asyncHandler(async (req: Request, res: Response) => {
-    const problems = await this.problemService.getProblem();
+  const validatedQuery = matchedData(req, { onlyValidData: true });
+    console.log(validatedQuery);
+    
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = (page - 1) * limit;
+    
 
-    if (!problems) {
-      throw new ApiError(400, "There is no problem avaiable");
-    }
-    res
-      .status(200)
-      .json(new ApiResponse(200, problems, "Fected problem succesfully"));
+
+  const [problems, total] = await Promise.all([
+    this.problemService.getProblemsPaginated(skip, limit,validatedQuery),
+    this.problemService.getTotalProblemCount(),
+  ]);
+  
+  if (!problems || problems.length === 0) {
+    throw new ApiError(404, "No problems found");
+  }
+
+  res.status(200).json(
+    new ApiResponse(200, {
+      problems,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    }, "Fetched problems successfully")
+  );
   });
 
   getProblemById = asyncHandler(async (req: Request, res: Response) => {
@@ -169,7 +191,7 @@ export class Problem {
     const {
       title,
       description,
-      tags,
+      topic,
       difficulty,
       examples,
       constraints,
@@ -232,7 +254,7 @@ export class Problem {
       const problem: Omit<ProblemData, "testcases"> = {
         title,
         description,
-        tags,
+        topic,
         difficulty,
         examples,
         constraints,
