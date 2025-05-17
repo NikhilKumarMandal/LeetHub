@@ -23,7 +23,7 @@ export default checkSchema(
         options: (value: unknown) => {
           if (!value) return undefined;
           if (Array.isArray(value)) return value;
-          return [value]; 
+          return [value];
         },
       },
     },

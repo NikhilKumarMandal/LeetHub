@@ -98,17 +98,36 @@ export class ProblemService {
       },
     });
   }
-  
 
- 
+  // getTotalProblemCount() {
+  //   return db.problem.count();
+  // }
 
-  getTotalProblemCount() {
-    return db.problem.count();
+  getTotalProblemCount(validatedQuery: ProblemQueryParams) {
+    return db.problem.count({
+      where: {
+        ...(validatedQuery.title && {
+          title: {
+            contains: validatedQuery.title,
+            mode: "insensitive",
+          },
+        }),
+        ...(validatedQuery.problemNumber && {
+          problemNumber: validatedQuery.problemNumber,
+        }),
+        ...(validatedQuery.topic &&
+          (Array.isArray(validatedQuery.topic)
+            ? {
+                topic: {
+                  hasSome: validatedQuery.topic,
+                },
+              }
+            : {
+                topic: {
+                  has: validatedQuery.topic,
+                },
+              })),
+      },
+    });
   }
-
-
-  
-  
-  
-  
 }

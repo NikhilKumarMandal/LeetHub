@@ -126,35 +126,37 @@ export class Problem {
   };
 
   getAllProblem = asyncHandler(async (req: Request, res: Response) => {
-  const validatedQuery = matchedData(req, { onlyValidData: true });
+    const validatedQuery = matchedData(req, { onlyValidData: true });
     console.log(validatedQuery);
-    
-  const page = parseInt(req.query.page as string) || 1;
-  const limit = parseInt(req.query.limit as string) || 10;
-  const skip = (page - 1) * limit;
-    
 
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
 
-  const [problems, total] = await Promise.all([
-    this.problemService.getProblemsPaginated(skip, limit,validatedQuery),
-    this.problemService.getTotalProblemCount(),
-  ]);
-  
-  if (!problems || problems.length === 0) {
-    throw new ApiError(404, "No problems found");
-  }
+    const [problems, total] = await Promise.all([
+      this.problemService.getProblemsPaginated(skip, limit, validatedQuery),
+      this.problemService.getTotalProblemCount(validatedQuery),
+    ]);
 
-  res.status(200).json(
-    new ApiResponse(200, {
-      problems,
-      pagination: {
-        total,
-        page,
-        limit,
-        totalPages: Math.ceil(total / limit),
-      },
-    }, "Fetched problems successfully")
-  );
+    if (!problems || problems.length === 0) {
+      throw new ApiError(404, "No problems found");
+    }
+
+    res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          problems,
+          pagination: {
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+          },
+        },
+        "Fetched problems successfully"
+      )
+    );
   });
 
   getProblemById = asyncHandler(async (req: Request, res: Response) => {

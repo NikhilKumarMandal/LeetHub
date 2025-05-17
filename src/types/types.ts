@@ -86,7 +86,6 @@ export interface DiscussionData {
   parentId?: string | null;
 }
 
-
 export interface ProblemQueryParams {
   title?: string;
   problemNumber?: number;
