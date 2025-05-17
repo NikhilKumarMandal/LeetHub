@@ -125,31 +125,42 @@ export class Problem {
     }
   };
 
-  getAllProblem = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  getAllProblem = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     const validatedQuery = matchedData(req, { onlyValidData: true });
-  
+
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
     const userId = req.auth.sub;
 
     try {
-      const total = await this.problemService.getTotalProblemCount(validatedQuery);
+      const total =
+        await this.problemService.getTotalProblemCount(validatedQuery);
 
-      const { problems, solvedCount } = await this.problemService.getProblemsPaginated(skip, limit, validatedQuery, userId);
-  
+      const { problems, solvedCount } =
+        await this.problemService.getProblemsPaginated(
+          skip,
+          limit,
+          validatedQuery,
+          userId
+        );
+
       if (!problems || problems.length === 0) {
         throw new ApiError(404, "No problems found");
       }
-  
+
       res.status(200).json(
         new ApiResponse(
           200,
           {
             problems,
-            solvedCount,  
+            solvedCount,
             pagination: {
-              total,      
+              total,
               page,
               limit,
               totalPages: Math.ceil(total / limit),
@@ -162,7 +173,6 @@ export class Problem {
       next(error);
     }
   };
-  
 
   getProblemById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
