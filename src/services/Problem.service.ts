@@ -1,3 +1,4 @@
+import { Difficulty } from './../generated/prisma/index.d';
 import { db } from "./../libs/db";
 import { ProblemData, ProblemQueryParams } from "../types/types";
 
@@ -74,6 +75,9 @@ export class ProblemService {
             contains: validatedQuery.title,
             mode: "insensitive",
           },
+        }),
+        ...(validatedQuery.difficulty && {
+          difficulty: validatedQuery.difficulty,
         }),
         ...(validatedQuery.problemNumber && {
           problemNumber: validatedQuery.problemNumber,

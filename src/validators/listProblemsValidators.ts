@@ -27,6 +27,14 @@ export default checkSchema(
         },
       },
     },
+    difficulty: {
+      custom: {
+        options: (value) => {
+          const validDifficulties = ["EASY", "MEDIUM", "HARD"];
+          return !value || validDifficulties.includes(value);
+        },
+      }
+    },
     page: {
       customSanitizer: {
         options: (value) => {

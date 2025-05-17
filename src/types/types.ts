@@ -1,6 +1,8 @@
 import { Request } from "express";
 
 type Role = "USER" | "ADMIN";
+type Difficulty = "EASY" | "MEDIUM" | "HARD";
+
 
 export interface UserData {
   name: string;
@@ -90,4 +92,5 @@ export interface ProblemQueryParams {
   title?: string;
   problemNumber?: number;
   topic?: string[];
+  difficulty?: Difficulty
 }
