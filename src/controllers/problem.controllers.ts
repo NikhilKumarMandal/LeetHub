@@ -336,4 +336,22 @@ export class Problem {
       return;
     }
   };
+
+  getAllTopicAndCountFromProblem = asyncHandler(
+    async (req: Request, res: Response) => {
+      const problems = await this.problemService.getAllTopics();
+
+      const topicCounts: Record<string, number> = {};
+
+      for (const problem of problems) {
+        for (const topic of problem.topic) {
+          topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+        }
+      }
+
+      res
+        .status(200)
+        .json(new ApiResponse(200, topicCounts, "Fetch all Topics"));
+    }
+  );
 }

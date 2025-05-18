@@ -199,4 +199,12 @@ export class ProblemService {
       },
     });
   }
+
+  async getAllTopics() {
+    return await db.problem.findMany({
+      select: {
+        topic: true,
+      },
+    });
+  }
 }

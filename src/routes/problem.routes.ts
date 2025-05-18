@@ -48,4 +48,10 @@ router.get(
   problemController.getAllProblemSolvedByUser as RequestHandler
 );
 
+router.get(
+  "/all-topics",
+  authenticate,
+  problemController.getAllTopicAndCountFromProblem
+);
+
 export default router;
