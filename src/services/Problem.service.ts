@@ -71,17 +71,19 @@ export class ProblemService {
   ) {
     const problems = await db.problem.findMany({
       where: {
-        ...(validatedQuery.title && {
-          title: {
-            contains: validatedQuery.title,
-            mode: "insensitive",
-          },
-        }),
+        ...(validatedQuery.q &&
+          (isNaN(Number(validatedQuery.q))
+            ? {
+                title: {
+                  contains: validatedQuery.q,
+                  mode: "insensitive",
+                },
+              }
+            : {
+                problemNumber: Number(validatedQuery.q),
+              })),
         ...(validatedQuery.difficulty && {
           difficulty: validatedQuery.difficulty,
-        }),
-        ...(validatedQuery.problemNumber && {
-          problemNumber: validatedQuery.problemNumber,
         }),
         ...(validatedQuery.topic &&
           (Array.isArray(validatedQuery.topic)
@@ -110,12 +112,17 @@ export class ProblemService {
         where: {
           userId,
           problem: {
-            ...(validatedQuery.title && {
-              title: {
-                contains: validatedQuery.title,
-                mode: "insensitive",
-              },
-            }),
+            ...(validatedQuery.q &&
+              (isNaN(Number(validatedQuery.q))
+                ? {
+                    title: {
+                      contains: validatedQuery.q,
+                      mode: "insensitive",
+                    },
+                  }
+                : {
+                    problemNumber: Number(validatedQuery.q),
+                  })),
             ...(validatedQuery.difficulty && {
               difficulty: validatedQuery.difficulty,
             }),
@@ -155,17 +162,19 @@ export class ProblemService {
   async getTotalProblemCount(validatedQuery: ProblemQueryParams) {
     return await db.problem.count({
       where: {
-        ...(validatedQuery.title && {
-          title: {
-            contains: validatedQuery.title,
-            mode: "insensitive",
-          },
-        }),
+        ...(validatedQuery.q &&
+          (isNaN(Number(validatedQuery.q))
+            ? {
+                title: {
+                  contains: validatedQuery.q,
+                  mode: "insensitive",
+                },
+              }
+            : {
+                problemNumber: Number(validatedQuery.q),
+              })),
         ...(validatedQuery.problemNumber && {
           problemNumber: validatedQuery.problemNumber,
-        }),
-        ...(validatedQuery.difficulty && {
-          difficulty: validatedQuery.difficulty,
         }),
         ...(validatedQuery.topic &&
           (Array.isArray(validatedQuery.topic)

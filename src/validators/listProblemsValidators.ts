@@ -2,19 +2,12 @@ import { checkSchema } from "express-validator";
 
 export default checkSchema(
   {
-    title: {
+    q: {
+      optional: true,
       trim: true,
       customSanitizer: {
         options: (value: unknown) => {
-          return value ? value : "";
-        },
-      },
-    },
-    problemNumber: {
-      customSanitizer: {
-        options: (value: unknown) => {
-          const parsedValue = Number(value);
-          return value && !Number.isNaN(parsedValue) ? parsedValue : undefined;
+          return value ? String(value) : "";
         },
       },
     },

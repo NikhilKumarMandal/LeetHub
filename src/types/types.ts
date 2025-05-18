@@ -92,4 +92,5 @@ export interface ProblemQueryParams {
   problemNumber?: number;
   topic?: string[];
   difficulty?: Difficulty;
+  q?: string;
 }
