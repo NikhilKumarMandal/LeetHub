@@ -149,10 +149,6 @@ export class Problem {
           userId
         );
 
-      if (!problems || problems.length === 0) {
-        throw new ApiError(404, "No problems found");
-      }
-
       res.status(200).json(
         new ApiResponse(
           200,

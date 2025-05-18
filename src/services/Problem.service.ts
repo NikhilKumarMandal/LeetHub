@@ -153,8 +153,16 @@ export class ProblemService {
       ...problem,
       isSolved: solvedProblemIds.has(problem.id),
     }));
+    const filteredProblems = validatedQuery.status
+      ? problemsWithFlag.filter((problem) =>
+          validatedQuery.status === "Solved"
+            ? problem.isSolved
+            : !problem.isSolved
+        )
+      : problemsWithFlag;
+
     return {
-      problems: problemsWithFlag,
+      problems: filteredProblems,
       solvedCount: solvedProblemIds.size,
     };
   }

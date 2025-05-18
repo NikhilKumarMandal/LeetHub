@@ -28,6 +28,15 @@ export default checkSchema(
         },
       },
     },
+    status: {
+      optional: true,
+      custom: {
+        options: (value) => {
+          const allowed = ["Solved", "Unsolved"];
+          return allowed.includes(value);
+        },
+      },
+    },
     page: {
       customSanitizer: {
         options: (value) => {

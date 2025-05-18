@@ -93,4 +93,5 @@ export interface ProblemQueryParams {
   topic?: string[];
   difficulty?: Difficulty;
   q?: string;
+  status?: "Solved" | "Unsolved";
 }
