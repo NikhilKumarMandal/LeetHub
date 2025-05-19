@@ -42,6 +42,7 @@ export interface ProblemData {
   examples: any;
   constraints: string;
   hints?: string;
+  companyName?: string[];
   editorial?: string;
   codeSnippets: any;
   referenceSolutions: any;

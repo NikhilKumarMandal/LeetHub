@@ -30,6 +30,7 @@ export class Problem {
       testcases,
       codeSnippets,
       referenceSolutions,
+      companyName,
     } = req.body;
 
     if (req.auth.role !== "ADMIN") {
@@ -89,6 +90,7 @@ export class Problem {
         editorial,
         codeSnippets,
         referenceSolutions,
+        companyName,
         userId: req.auth.sub,
       };
 
@@ -213,6 +215,7 @@ export class Problem {
       testcases,
       codeSnippets,
       referenceSolutions,
+      companyName,
     } = req.body;
 
     const { id } = req.params;
@@ -275,6 +278,7 @@ export class Problem {
         editorial,
         codeSnippets,
         referenceSolutions,
+        companyName,
         userId: req.auth.sub,
       };
 
