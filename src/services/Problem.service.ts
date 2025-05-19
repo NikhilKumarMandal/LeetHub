@@ -1,6 +1,6 @@
-import { Difficulty } from "./../generated/prisma/index.d";
 import { db } from "./../libs/db";
 import { ProblemData, ProblemQueryParams } from "../types/types";
+
 
 export class ProblemService {
   async create(problemData: ProblemData) {
@@ -160,10 +160,12 @@ export class ProblemService {
             : !problem.isSolved
         )
       : problemsWithFlag;
-
+      
+    const totalProblem = await db.problem.count()
     return {
       problems: filteredProblems,
       solvedCount: solvedProblemIds.size,
+      totalProblem
     };
   }
 
