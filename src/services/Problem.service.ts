@@ -204,6 +204,7 @@ export class ProblemService {
     return await db.problem.findMany({
       select: {
         topic: true,
+        companyName: true,
       },
     });
   }
