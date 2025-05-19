@@ -58,6 +58,9 @@ export class Playlist {
     const { playlistId } = req.params;
     const userId = req.auth.sub;
 
+    if (!playlistId) {
+      throw new ApiError(400, "Playlist ID is missing");
+    }
     try {
       const playlist = await this.playlistService.findUnique(
         playlistId,
@@ -67,10 +70,41 @@ export class Playlist {
       if (!playlist) {
         throw new ApiError(400, "Playlist not found!");
       }
+      const groupedProblems: Record<string, any[]> = {};
+
+      for (const problemEntry of playlist.problems) {
+        const problem = problemEntry.problem;
+        const topics =
+          problem.topic && problem.topic.length > 0
+            ? problem.topic
+            : ["Uncategorized"];
+
+        for (const topic of topics) {
+          if (!groupedProblems[topic]) {
+            groupedProblems[topic] = [];
+          }
+          groupedProblems[topic].push(problem);
+        }
+      }
+
+      const playlistResponse = {
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description,
+        createdAt: playlist.createdAt,
+        updatedAt: playlist.updatedAt,
+        groupedProblems,
+      };
 
       res
         .status(200)
-        .json(new ApiResponse(200, playlist, "Fected Playlist successfully!"));
+        .json(
+          new ApiResponse(
+            200,
+            playlistResponse,
+            "Fected Playlist successfully!"
+          )
+        );
     } catch (error) {
       next(error);
       return;
@@ -80,15 +114,16 @@ export class Playlist {
   addProblemToPlaylist = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
       const { playlistId } = req.params;
-      const { problemIds } = req.body;
+      const { problemId } = req.body;
+      console.log(playlistId);
 
-      if (!Array.isArray(problemIds) || problemIds.length === 0) {
-        throw new ApiError(400, "Invalid or missing problemsId");
+      if (!problemId || typeof problemId !== "string") {
+        throw new ApiError(400, "Invalid or missing problemId");
       }
 
       try {
         const problemAdded = await this.playlistService.createMany(
-          problemIds,
+          [problemId],
           playlistId
         );
 

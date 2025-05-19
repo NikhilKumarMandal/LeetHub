@@ -8,17 +8,21 @@ const router = express.Router();
 const playlistService = new PlaylistService();
 const playlist = new Playlist(playlistService);
 
-router.post(
-  "/create-playlist",
-  authenticate,
-  playlist.createPlaylist as RequestHandler
-);
+router.post("/", authenticate, playlist.createPlaylist as RequestHandler);
 
 router.get("/", authenticate, playlist.getAllListDetails as RequestHandler);
 
-router.get("/:id", authenticate, playlist.getPlaylistDetails as RequestHandler);
+router.get(
+  "/:playlistId",
+  authenticate,
+  playlist.getPlaylistDetails as RequestHandler
+);
 
-router.post("/add-problem/:id", authenticate, playlist.addProblemToPlaylist);
+router.post(
+  "/:playlistId/add-problem",
+  authenticate,
+  playlist.addProblemToPlaylist
+);
 
 router.delete("/:id", authenticate, playlist.deletePlaylist);
 

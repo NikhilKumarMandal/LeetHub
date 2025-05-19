@@ -143,7 +143,7 @@ export class Problem {
       const total =
         await this.problemService.getTotalProblemCount(validatedQuery);
 
-      const { problems, solvedCount,totalProblem } =
+      const { problems, solvedCount, totalProblem } =
         await this.problemService.getProblemsPaginated(
           skip,
           limit,
@@ -349,19 +349,19 @@ export class Problem {
       const topicCounts: Record<string, number> = {};
       const companyCounts: Record<string, number> = {};
       const uniqueTopics: Set<string> = new Set();
-    const uniqueCompanies: Set<string> = new Set();
+      const uniqueCompanies: Set<string> = new Set();
 
-    for (const problem of problems) {
-      for (const topic of problem.topic) {
-        topicCounts[topic] = (topicCounts[topic] || 0) + 1;
-        uniqueTopics.add(topic);
-      }
+      for (const problem of problems) {
+        for (const topic of problem.topic) {
+          topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+          uniqueTopics.add(topic);
+        }
 
-      for (const companyName of problem.companyName) {
-        companyCounts[companyName] = (companyCounts[companyName] || 0) + 1;
-        uniqueCompanies.add(companyName);
+        for (const companyName of problem.companyName) {
+          companyCounts[companyName] = (companyCounts[companyName] || 0) + 1;
+          uniqueCompanies.add(companyName);
+        }
       }
-    }
 
       res.status(200).json(
         new ApiResponse(
