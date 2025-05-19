@@ -48,6 +48,8 @@ model User {
   votesOnProblems ProblemVote[]
   playlists Playlist[]
   subscription     Subscription?
+  userChallenges  UserChallenge[]
+  badges          Badge[]
 }
 
 model Problem {
@@ -77,6 +79,7 @@ model Problem {
   discussions     Discussion[]
   votes ProblemVote[]
   problemsPlatlists ProblemInPlaylist[]
+  challengeProblems  ChallengeProblem[]
 }
  
 model ProblemTestCase {
@@ -219,4 +222,52 @@ model Subscription {
   isActive    Boolean  @default(true)
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Challenge {
+  id          String              @id @default(uuid())
+  name        String
+  description String?
+  totalDays   Int
+  problems    ChallengeProblem[]
+  participants UserChallenge[]
+  createdAt   DateTime           @default(now())
+}
+
+model ChallengeProblem {
+  id          String   @id @default(uuid())
+  challengeId String
+  problemId   String
+  day         Int
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  problem     Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, day])
+}
+
+model UserChallenge {
+  id            String   @id @default(uuid())
+  userId        String
+  challengeId   String
+  startedAt     DateTime @default(now())
+  completedDays Int[]    @default([])
+  completed     Boolean  @default(false)
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, challengeId])
+}
+
+model Badge {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  iconUrl   String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
 }
