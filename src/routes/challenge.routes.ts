@@ -19,4 +19,11 @@ router.post(
   challenge.create
 );
 
+router.post(
+  "/:id/set-problem",
+  authenticate,
+  canAccess([Roles.ADMIN]),
+  challenge.assignProblemsToChallenge
+);
+
 export default router;

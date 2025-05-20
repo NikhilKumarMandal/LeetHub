@@ -9,4 +9,29 @@ export class ChallengeService {
       },
     });
   }
+
+  async findUnique(challengeId: string) {
+    return await db.challenge.findUnique({
+      where: {
+        id: challengeId,
+      },
+    });
+  }
+
+  async findUniqueProblemNumber(problemNumber: any) {
+    return await db.problem.findUnique({
+      where: {
+        problemNumber,
+      },
+    });
+  }
+
+  async createMany(
+    data: { challengeId: string; problemId: string; day: number }[]
+  ) {
+    return await db.challengeProblem.createMany({
+      data,
+      skipDuplicates: true,
+    });
+  }
 }

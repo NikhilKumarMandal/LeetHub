@@ -55,7 +55,7 @@ model User {
 model Problem {
   id                 String             @id @default(uuid())
   title              String
-  problemNumber      Int   @default(autoincrement()) 
+  problemNumber      Int   @default(autoincrement()) @unique
   description        String
   difficulty         Difficulty
   topic               String[]

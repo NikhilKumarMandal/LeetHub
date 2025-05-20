@@ -24639,11 +24639,11 @@ export namespace Prisma {
   export type ProblemWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
+      problemNumber?: number;
       AND?: ProblemWhereInput | ProblemWhereInput[];
       OR?: ProblemWhereInput[];
       NOT?: ProblemWhereInput | ProblemWhereInput[];
       title?: StringFilter<"Problem"> | string;
-      problemNumber?: IntFilter<"Problem"> | number;
       description?: StringFilter<"Problem"> | string;
       difficulty?: EnumDifficultyFilter<"Problem"> | $Enums.Difficulty;
       topic?: StringNullableListFilter<"Problem">;
@@ -24667,7 +24667,7 @@ export namespace Prisma {
       problemsPlatlists?: ProblemInPlaylistListRelationFilter;
       challengeProblems?: ChallengeProblemListRelationFilter;
     },
-    "id"
+    "id" | "problemNumber"
   >;
 
   export type ProblemOrderByWithAggregationInput = {
@@ -25895,7 +25895,6 @@ export namespace Prisma {
   export type ProblemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -25969,7 +25968,6 @@ export namespace Prisma {
   export type ProblemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -28939,14 +28937,6 @@ export namespace Prisma {
       | ChallengeProblemWhereUniqueInput[];
   };
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
-  };
-
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty;
   };
@@ -29206,6 +29196,14 @@ export namespace Prisma {
     deleteMany?:
       | ChallengeProblemScalarWhereInput
       | ChallengeProblemScalarWhereInput[];
+  };
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
   };
 
   export type SubmissionUncheckedUpdateManyWithoutProblemNestedInput = {
@@ -32072,7 +32070,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutTestcasesInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -32357,7 +32354,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -32740,7 +32736,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutSolvedByInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -33041,7 +33036,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutDiscussionsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -33349,7 +33343,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutVotesInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -33714,7 +33707,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutProblemsPlatlistsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -34132,7 +34124,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutChallengeProblemsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
@@ -34546,7 +34537,6 @@ export namespace Prisma {
   export type ProblemUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
-    problemNumber?: IntFieldUpdateOperationsInput | number;
     description?: StringFieldUpdateOperationsInput | string;
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
