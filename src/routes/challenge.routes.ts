@@ -26,4 +26,10 @@ router.post(
   challenge.assignProblemsToChallenge
 );
 
+router.post(
+  "/:id/join-challenge",
+  authenticate,
+  challenge.joinChallenge as RequestHandler
+);
+
 export default router;

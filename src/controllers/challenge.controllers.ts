@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
-import { ChallengeData } from "../types/types";
+import { AuthRequest, ChallengeData } from "../types/types";
 import { ChallengeService } from "../services/Challenge.service";
 import { validationResult } from "express-validator";
 
@@ -82,4 +82,48 @@ export class Challenge {
         );
     }
   );
+
+  joinChallenge = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const userId = req.auth.sub;
+    const challengeId = req.params.id;
+
+    try {
+      const challenge = await this.challengeService.findUnique(challengeId);
+      if (!challenge) {
+        throw new ApiError(400, "Challenge not found!");
+      }
+
+      const alreadyJoined =
+        await this.challengeService.checkUserAlreadyInChallengeOrNot(
+          userId,
+          challengeId
+        );
+
+      if (alreadyJoined) {
+        throw new ApiError(400, "Already joined");
+      }
+
+      const participation = await this.challengeService.userChallengeCreate(
+        userId,
+        challengeId
+      );
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            participation,
+            "User particapted successfully in challenge"
+          )
+        );
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 }

@@ -34,4 +34,24 @@ export class ChallengeService {
       skipDuplicates: true,
     });
   }
+
+  async checkUserAlreadyInChallengeOrNot(userId: string, challengeId: string) {
+    return await db.userChallenge.findUnique({
+      where: {
+        userId_challengeId: {
+          userId,
+          challengeId,
+        },
+      },
+    });
+  }
+
+  async userChallengeCreate(userId: string, challengeId: string) {
+    return await db.userChallenge.create({
+      data: {
+        userId,
+        challengeId,
+      },
+    });
+  }
 }
