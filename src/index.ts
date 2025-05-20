@@ -9,6 +9,7 @@ import SubmissionRouter from "./routes/submission.routes";
 import DiscussionRouter from "./routes/discussion.routes";
 import VoteRouter from "./routes/vote.routes";
 import PlaylistRouter from "./routes/Playlist.routes";
+import ChallengeRouter from "./routes/challenge.routes";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/v1/submission", SubmissionRouter);
 app.use("/api/v1/discussion", DiscussionRouter);
 app.use("/api/v1/vote", VoteRouter);
 app.use("/api/v1/playlist", PlaylistRouter);
+app.use("/api/v1/challenge", ChallengeRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening on PORT: ${PORT}`);

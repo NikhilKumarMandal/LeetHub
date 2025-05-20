@@ -96,3 +96,9 @@ export interface ProblemQueryParams {
   q?: string;
   status?: "Solved" | "Unsolved";
 }
+
+export interface ChallengeData {
+  name: string;
+  description: string;
+  totalDays: number;
+}
