@@ -9,7 +9,7 @@ import {
 import { ProblemService } from "../services/Problem.service";
 import { Logger } from "winston";
 import { db } from "../libs/db";
-import { matchedData } from "express-validator";
+import { matchedData, validationResult } from "express-validator";
 
 export class Problem {
   constructor(
@@ -18,6 +18,10 @@ export class Problem {
   ) {}
 
   create = async (req: AuthRequest, res: Response, next: NextFunction) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      throw new ApiError(400, result.array()[0].msg as string);
+    }
     const {
       title,
       description,
@@ -32,15 +36,20 @@ export class Problem {
       referenceSolutions,
       companyName,
     } = req.body;
-
+    console.log("Incoming body:", req.body);
     if (req.auth.role !== "ADMIN") {
       throw new ApiError(403, "You are not allowed to create a problem!");
     }
 
+    if (!title) {
+      throw new ApiError(400, "Missing required fields in request body");
+    }
+    const refSolutions =
+      referenceSolutions && typeof referenceSolutions === "object"
+        ? referenceSolutions
+        : {};
     try {
-      for (const [language, solutionCode] of Object.entries(
-        referenceSolutions
-      )) {
+      for (const [language, solutionCode] of Object.entries(refSolutions)) {
         const languageId = getJudge0LanguageId(language);
         if (!languageId) {
           throw new ApiError(400, `Language ID not found for: ${language}`);
@@ -80,19 +89,21 @@ export class Problem {
       }
 
       const problem: ProblemData = {
-        title,
-        description,
-        topic,
-        difficulty,
-        examples,
-        constraints,
-        hints,
-        editorial,
-        codeSnippets,
-        referenceSolutions,
-        companyName,
+        title: title ?? "",
+        description: description ?? "",
+        topic: topic ?? [],
+        difficulty: difficulty ?? "EASY",
+        examples: examples ?? {},
+        constraints: constraints ?? "",
+        hints: hints ?? "",
+        editorial: editorial ?? "",
+        codeSnippets: codeSnippets ?? {},
+        referenceSolutions: refSolutions,
+        companyName: companyName ?? [],
         userId: req.auth.sub,
       };
+
+      console.log(problem);
 
       const newProblem = await this.problemService.create(problem);
 
@@ -186,10 +197,14 @@ export class Problem {
   });
 
   deleteProblem = asyncHandler(async (req: Request, res: Response) => {
-    const { id } = req.params;
-
+    const id = req.params.id;
     if (!id) {
       throw new ApiError(400, "Please Provide Id of problem!");
+    }
+    const problem = await this.problemService.uniqueProblem(id);
+
+    if (!problem) {
+      throw new ApiError(404, "Problem not found!");
     }
 
     await this.problemService.deleteProblem(id);
@@ -221,23 +236,36 @@ export class Problem {
 
     const { id } = req.params;
 
+    if (!Array.isArray(testcases)) {
+      throw new ApiError(400, "Testcases must be an array.");
+    }
+
     if (req.auth.role !== "ADMIN") {
       throw new ApiError(403, "You are not allowed to update problems!");
     }
 
+    if (!Array.isArray(testcases)) {
+      throw new ApiError(400, "Testcases must be an array.");
+    }
+
     try {
+      const cleanedTestcases = testcases.map((t: any) => ({
+        input: t.input,
+        output: t.output,
+        isPublic: t.isPublic ?? false,
+      }));
       for (const [language, solutionCode] of Object.entries(
         referenceSolutions
       )) {
         const languageId = getJudge0LanguageId(language);
 
-        if (!languageId) {
+        if (languageId === undefined) {
           throw new ApiError(400, `Language ID not found for: ${language}`);
         }
 
         const isSQL = languageId === 82;
 
-        const submission = testcases.map(
+        const submission = cleanedTestcases.map(
           ({ input, output }: { input: string | null; output: string }) => {
             const sourceCode = isSQL
               ? `${input ? input + "\n" : ""}${solutionCode}`
@@ -289,7 +317,7 @@ export class Problem {
         problemId: problemUpdated.id,
       });
 
-      const formattedTestcases = testcases.map(
+      const formattedTestcases = cleanedTestcases.map(
         ({
           input,
           output,

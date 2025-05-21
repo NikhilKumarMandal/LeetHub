@@ -8,7 +8,7 @@ import ExecuteRouter from "./routes/executeCode.routes";
 import SubmissionRouter from "./routes/submission.routes";
 import DiscussionRouter from "./routes/discussion.routes";
 import VoteRouter from "./routes/vote.routes";
-import PlaylistRouter from "./routes/Playlist.routes";
+import PlaylistRouter from "./routes/playlist.routes";
 import ChallengeRouter from "./routes/challenge.routes";
 
 dotenv.config();
@@ -24,7 +24,7 @@ app.use(express.static("public"));
 app.use(
   cors({
     origin: ["http://localhost:5173"],
-    methods: ["POST", "GET"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );

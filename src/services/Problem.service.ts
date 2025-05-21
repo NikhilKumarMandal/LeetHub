@@ -19,6 +19,9 @@ export class ProblemService {
       where: {
         id,
       },
+      include: {
+        testcases: true,
+      },
     });
   }
 
@@ -40,6 +43,14 @@ export class ProblemService {
   async deleteTestCase(where: { problemId: string }) {
     return await db.problemTestCase.deleteMany({
       where,
+    });
+  }
+
+  async uniqueProblem(id: string) {
+    return await db.problem.findUnique({
+      where: {
+        id,
+      },
     });
   }
 

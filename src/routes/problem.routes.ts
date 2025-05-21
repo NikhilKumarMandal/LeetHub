@@ -6,7 +6,7 @@ import authenticate from "../middlewares/auth.middleware";
 import { canAccess } from "../middlewares/canAccess.midddleware";
 import { Roles } from "../types/types";
 import listProblemsValidators from "../validators/listProblemsValidators";
-
+import problemValidatiors from "../validators/problem.validatiors";
 const router = express.Router();
 
 const problemService = new ProblemService();
@@ -17,6 +17,7 @@ router.post(
   "/create-problem",
   authenticate,
   canAccess([Roles.ADMIN]),
+  problemValidatiors,
   problemController.create as RequestHandler
 );
 
@@ -30,8 +31,9 @@ router.get(
 router.get("/get-problem/:id", authenticate, problemController.getProblemById);
 
 router.delete(
-  "/delete-problem/:id",
+  "/:id",
   authenticate,
+  canAccess([Roles.ADMIN]),
   problemController.deleteProblem
 );
 
