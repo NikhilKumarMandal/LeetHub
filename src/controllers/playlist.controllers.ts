@@ -111,6 +111,14 @@ export class Playlist {
     }
   };
 
+  getALLPlaylistDetails = asyncHandler(async (req: Request, res: Response) => {
+    const playlist = await this.playlistService.getALL();
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, playlist, "Fetch all Playlist details "));
+  });
+
   addProblemToPlaylist = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
       const { playlistId } = req.params;

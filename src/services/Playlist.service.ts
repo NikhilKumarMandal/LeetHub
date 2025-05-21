@@ -15,6 +15,14 @@ export class PlaylistService {
     });
   }
 
+  async getALL() {
+    return await db.playlist.findMany({
+      include: {
+        problems: true,
+      },
+    });
+  }
+
   async findMany(id: string) {
     return await db.playlist.findMany({
       where: {

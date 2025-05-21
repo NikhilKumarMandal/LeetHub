@@ -25,6 +25,8 @@ router.get(
   playlist.getPlaylistDetails as RequestHandler
 );
 
+router.get("/getALLPlaylist", playlist.getALLPlaylistDetails);
+
 router.post(
   "/:playlistId/add-problem",
   authenticate,
