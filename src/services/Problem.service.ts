@@ -158,18 +158,32 @@ export class ProblemService {
 
       solvedProblemIds = new Set(solvedProblems.map((p) => p.problemId));
     }
+    const userWithFavorites = await db.user.findUnique({
+      where: { id: userId },
+      select: {
+        favoriteProblems: {
+          select: { id: true },
+        },
+      },
+    });
 
-    const problemsWithFlag = problems.map((problem) => ({
+    const favoriteProblemIds = new Set(
+      userWithFavorites?.favoriteProblems.map((p) => p.id) ?? []
+    );
+
+    const problemsWithFlags = problems.map((problem) => ({
       ...problem,
       isSolved: solvedProblemIds.has(problem.id),
+      isFavorite: favoriteProblemIds.has(problem.id),
     }));
+
     const filteredProblems = validatedQuery.status
-      ? problemsWithFlag.filter((problem) =>
+      ? problemsWithFlags.filter((problem) =>
           validatedQuery.status === "Solved"
             ? problem.isSolved
             : !problem.isSolved
         )
-      : problemsWithFlag;
+      : problemsWithFlags;
 
     const totalProblem = await db.problem.count();
     return {

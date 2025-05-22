@@ -149,7 +149,6 @@ export class Problem {
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
     const userId = req.auth.sub;
-
     try {
       const total =
         await this.problemService.getTotalProblemCount(validatedQuery);
