@@ -426,4 +426,26 @@ export class Auth {
       next(error);
     }
   };
+
+  getFavoriteProblems = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const userId = req.auth.sub;
+    try {
+      const user = await this.authService.findUniqueProblem(userId);
+      const totalProblems = user?.favoriteProblems.length;
+      const problem = user?.favoriteProblems ?? [];
+      const responseData = {
+        totalProblems,
+        problem,
+      };
+      res
+        .status(200)
+        .json(new ApiResponse(200, responseData, "Fetched favorite problems."));
+    } catch (error) {
+      next(error);
+    }
+  };
 }

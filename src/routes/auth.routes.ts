@@ -52,4 +52,10 @@ router.post(
   authController.toggleFavoriteProblem as RequestHandler
 );
 
+router.get(
+  "/favorite-problems",
+  authenticate,
+  authController.getFavoriteProblems as RequestHandler
+);
+
 export default router;
