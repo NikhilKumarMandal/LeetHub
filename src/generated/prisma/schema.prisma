@@ -41,15 +41,16 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  problem         Problem[]
-  submission      Submission[]
-  problemSolved   ProblemSolved[]
-  discussions     Discussion[]
-  votesOnProblems ProblemVote[]
-  playlists       Playlist[]
-  subscription    Subscription?
-  userChallenges  UserChallenge[]
-  badges          Badge[]
+  problem          Problem[]
+  submission       Submission[]
+  problemSolved    ProblemSolved[]
+  discussions      Discussion[]
+  votesOnProblems  ProblemVote[]
+  playlists        Playlist[]
+  subscription     Subscription?
+  userChallenges   UserChallenge[]
+  badges           Badge[]
+  favoriteProblems Problem[]       @relation("UserFavorites")
 }
 
 model Problem {
@@ -80,6 +81,7 @@ model Problem {
   votes             ProblemVote[]
   problemsPlatlists ProblemInPlaylist[]
   challengeProblems ChallengeProblem[]
+  favoredByUsers    User[]              @relation("UserFavorites")
 }
 
 model ProblemTestCase {

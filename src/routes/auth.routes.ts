@@ -46,4 +46,10 @@ router.post(
   authController.updateProfile as RequestHandler
 );
 
+router.post(
+  "/:problemId/favorite",
+  authenticate,
+  authController.toggleFavoriteProblem as RequestHandler
+);
+
 export default router;

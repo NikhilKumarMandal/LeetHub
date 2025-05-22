@@ -45,4 +45,31 @@ export class AuthService {
       data,
     });
   }
+
+  async findUniqueProblem(userId: string) {
+    return await db.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        favoriteProblems: true,
+      },
+    });
+  }
+
+  async updateFavorite(
+    userId: string,
+    problemId: string,
+    isAlreadyFavorited: boolean
+  ) {
+    return await db.user.update({
+      where: { id: userId },
+      data: {
+        favoriteProblems: {
+          [isAlreadyFavorited ? "disconnect" : "connect"]: { id: problemId },
+        },
+      },
+      include: { favoriteProblems: true },
+    });
+  }
 }

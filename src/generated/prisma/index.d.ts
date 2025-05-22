@@ -2318,6 +2318,7 @@ export namespace Prisma {
     playlists: number;
     userChallenges: number;
     badges: number;
+    favoriteProblems: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -2331,6 +2332,7 @@ export namespace Prisma {
     playlists?: boolean | UserCountOutputTypeCountPlaylistsArgs;
     userChallenges?: boolean | UserCountOutputTypeCountUserChallengesArgs;
     badges?: boolean | UserCountOutputTypeCountBadgesArgs;
+    favoriteProblems?: boolean | UserCountOutputTypeCountFavoriteProblemsArgs;
   };
 
   // Custom InputTypes
@@ -2419,6 +2421,15 @@ export namespace Prisma {
   };
 
   /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavoriteProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: ProblemWhereInput;
+  };
+
+  /**
    * Count Type ProblemCountOutputType
    */
 
@@ -2430,6 +2441,7 @@ export namespace Prisma {
     votes: number;
     problemsPlatlists: number;
     challengeProblems: number;
+    favoredByUsers: number;
   };
 
   export type ProblemCountOutputTypeSelect<
@@ -2446,6 +2458,7 @@ export namespace Prisma {
     challengeProblems?:
       | boolean
       | ProblemCountOutputTypeCountChallengeProblemsArgs;
+    favoredByUsers?: boolean | ProblemCountOutputTypeCountFavoredByUsersArgs;
   };
 
   // Custom InputTypes
@@ -2522,6 +2535,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: ChallengeProblemWhereInput;
+  };
+
+  /**
+   * ProblemCountOutputType without action
+   */
+  export type ProblemCountOutputTypeCountFavoredByUsersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserWhereInput;
   };
 
   /**
@@ -2887,6 +2909,7 @@ export namespace Prisma {
       subscription?: boolean | User$subscriptionArgs<ExtArgs>;
       userChallenges?: boolean | User$userChallengesArgs<ExtArgs>;
       badges?: boolean | User$badgesArgs<ExtArgs>;
+      favoriteProblems?: boolean | User$favoriteProblemsArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -2964,6 +2987,7 @@ export namespace Prisma {
     subscription?: boolean | User$subscriptionArgs<ExtArgs>;
     userChallenges?: boolean | User$userChallengesArgs<ExtArgs>;
     badges?: boolean | User$badgesArgs<ExtArgs>;
+    favoriteProblems?: boolean | User$favoriteProblemsArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type UserIncludeCreateManyAndReturn<
@@ -2987,6 +3011,7 @@ export namespace Prisma {
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null;
       userChallenges: Prisma.$UserChallengePayload<ExtArgs>[];
       badges: Prisma.$BadgePayload<ExtArgs>[];
+      favoriteProblems: Prisma.$ProblemPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -3639,6 +3664,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$BadgePayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    favoriteProblems<T extends User$favoriteProblemsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$favoriteProblemsArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$ProblemPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -4352,6 +4388,34 @@ export namespace Prisma {
   };
 
   /**
+   * User.favoriteProblems
+   */
+  export type User$favoriteProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Problem
+     */
+    select?: ProblemSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Problem
+     */
+    omit?: ProblemOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProblemInclude<ExtArgs> | null;
+    where?: ProblemWhereInput;
+    orderBy?:
+      | ProblemOrderByWithRelationInput
+      | ProblemOrderByWithRelationInput[];
+    cursor?: ProblemWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: ProblemScalarFieldEnum | ProblemScalarFieldEnum[];
+  };
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<
@@ -4659,6 +4723,7 @@ export namespace Prisma {
       votes?: boolean | Problem$votesArgs<ExtArgs>;
       problemsPlatlists?: boolean | Problem$problemsPlatlistsArgs<ExtArgs>;
       challengeProblems?: boolean | Problem$challengeProblemsArgs<ExtArgs>;
+      favoredByUsers?: boolean | Problem$favoredByUsersArgs<ExtArgs>;
       _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["problem"]
@@ -4769,6 +4834,7 @@ export namespace Prisma {
     votes?: boolean | Problem$votesArgs<ExtArgs>;
     problemsPlatlists?: boolean | Problem$problemsPlatlistsArgs<ExtArgs>;
     challengeProblems?: boolean | Problem$challengeProblemsArgs<ExtArgs>;
+    favoredByUsers?: boolean | Problem$favoredByUsersArgs<ExtArgs>;
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type ProblemIncludeCreateManyAndReturn<
@@ -4795,6 +4861,7 @@ export namespace Prisma {
       votes: Prisma.$ProblemVotePayload<ExtArgs>[];
       problemsPlatlists: Prisma.$ProblemInPlaylistPayload<ExtArgs>[];
       challengeProblems: Prisma.$ChallengeProblemPayload<ExtArgs>[];
+      favoredByUsers: Prisma.$UserPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -5446,6 +5513,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$ChallengeProblemPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    favoredByUsers<T extends Problem$favoredByUsersArgs<ExtArgs> = {}>(
+      args?: Subset<T, Problem$favoredByUsersArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -6137,6 +6215,32 @@ export namespace Prisma {
     distinct?:
       | ChallengeProblemScalarFieldEnum
       | ChallengeProblemScalarFieldEnum[];
+  };
+
+  /**
+   * Problem.favoredByUsers
+   */
+  export type Problem$favoredByUsersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null;
+    where?: UserWhereInput;
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[];
+    cursor?: UserWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[];
   };
 
   /**
@@ -24490,6 +24594,7 @@ export namespace Prisma {
     > | null;
     userChallenges?: UserChallengeListRelationFilter;
     badges?: BadgeListRelationFilter;
+    favoriteProblems?: ProblemListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -24511,6 +24616,7 @@ export namespace Prisma {
     subscription?: SubscriptionOrderByWithRelationInput;
     userChallenges?: UserChallengeOrderByRelationAggregateInput;
     badges?: BadgeOrderByRelationAggregateInput;
+    favoriteProblems?: ProblemOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -24539,6 +24645,7 @@ export namespace Prisma {
       > | null;
       userChallenges?: UserChallengeListRelationFilter;
       badges?: BadgeListRelationFilter;
+      favoriteProblems?: ProblemListRelationFilter;
     },
     "id" | "email"
   >;
@@ -24606,6 +24713,7 @@ export namespace Prisma {
     votes?: ProblemVoteListRelationFilter;
     problemsPlatlists?: ProblemInPlaylistListRelationFilter;
     challengeProblems?: ChallengeProblemListRelationFilter;
+    favoredByUsers?: UserListRelationFilter;
   };
 
   export type ProblemOrderByWithRelationInput = {
@@ -24634,6 +24742,7 @@ export namespace Prisma {
     votes?: ProblemVoteOrderByRelationAggregateInput;
     problemsPlatlists?: ProblemInPlaylistOrderByRelationAggregateInput;
     challengeProblems?: ChallengeProblemOrderByRelationAggregateInput;
+    favoredByUsers?: UserOrderByRelationAggregateInput;
   };
 
   export type ProblemWhereUniqueInput = Prisma.AtLeast<
@@ -24666,6 +24775,7 @@ export namespace Prisma {
       votes?: ProblemVoteListRelationFilter;
       problemsPlatlists?: ProblemInPlaylistListRelationFilter;
       challengeProblems?: ChallengeProblemListRelationFilter;
+      favoredByUsers?: UserListRelationFilter;
     },
     "id" | "problemNumber"
   >;
@@ -25737,6 +25847,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -25758,6 +25869,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUpdateInput = {
@@ -25779,6 +25891,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -25800,6 +25913,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -25863,6 +25977,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateInput = {
@@ -25890,6 +26005,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUpdateInput = {
@@ -25916,6 +26032,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateInput = {
@@ -25943,6 +26060,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemCreateManyInput = {
@@ -27292,6 +27410,12 @@ export namespace Prisma {
     none?: ChallengeProblemWhereInput;
   };
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput;
+    some?: UserWhereInput;
+    none?: UserWhereInput;
+  };
+
   export type ProblemTestCaseOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
@@ -27301,6 +27425,10 @@ export namespace Prisma {
   };
 
   export type ChallengeProblemOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -28060,6 +28188,20 @@ export namespace Prisma {
     connect?: BadgeWhereUniqueInput | BadgeWhereUniqueInput[];
   };
 
+  export type ProblemCreateNestedManyWithoutFavoredByUsersInput = {
+    create?:
+      | XOR<
+          ProblemCreateWithoutFavoredByUsersInput,
+          ProblemUncheckedCreateWithoutFavoredByUsersInput
+        >
+      | ProblemCreateWithoutFavoredByUsersInput[]
+      | ProblemUncheckedCreateWithoutFavoredByUsersInput[];
+    connectOrCreate?:
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput[];
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+  };
+
   export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
@@ -28184,6 +28326,20 @@ export namespace Prisma {
       | BadgeCreateOrConnectWithoutUserInput[];
     createMany?: BadgeCreateManyUserInputEnvelope;
     connect?: BadgeWhereUniqueInput | BadgeWhereUniqueInput[];
+  };
+
+  export type ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput = {
+    create?:
+      | XOR<
+          ProblemCreateWithoutFavoredByUsersInput,
+          ProblemUncheckedCreateWithoutFavoredByUsersInput
+        >
+      | ProblemCreateWithoutFavoredByUsersInput[]
+      | ProblemUncheckedCreateWithoutFavoredByUsersInput[];
+    connectOrCreate?:
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput[];
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -28450,6 +28606,33 @@ export namespace Prisma {
     deleteMany?: BadgeScalarWhereInput | BadgeScalarWhereInput[];
   };
 
+  export type ProblemUpdateManyWithoutFavoredByUsersNestedInput = {
+    create?:
+      | XOR<
+          ProblemCreateWithoutFavoredByUsersInput,
+          ProblemUncheckedCreateWithoutFavoredByUsersInput
+        >
+      | ProblemCreateWithoutFavoredByUsersInput[]
+      | ProblemUncheckedCreateWithoutFavoredByUsersInput[];
+    connectOrCreate?:
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput[];
+    upsert?:
+      | ProblemUpsertWithWhereUniqueWithoutFavoredByUsersInput
+      | ProblemUpsertWithWhereUniqueWithoutFavoredByUsersInput[];
+    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    update?:
+      | ProblemUpdateWithWhereUniqueWithoutFavoredByUsersInput
+      | ProblemUpdateWithWhereUniqueWithoutFavoredByUsersInput[];
+    updateMany?:
+      | ProblemUpdateManyWithWhereWithoutFavoredByUsersInput
+      | ProblemUpdateManyWithWhereWithoutFavoredByUsersInput[];
+    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
+  };
+
   export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<
@@ -28698,6 +28881,33 @@ export namespace Prisma {
     deleteMany?: BadgeScalarWhereInput | BadgeScalarWhereInput[];
   };
 
+  export type ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput = {
+    create?:
+      | XOR<
+          ProblemCreateWithoutFavoredByUsersInput,
+          ProblemUncheckedCreateWithoutFavoredByUsersInput
+        >
+      | ProblemCreateWithoutFavoredByUsersInput[]
+      | ProblemUncheckedCreateWithoutFavoredByUsersInput[];
+    connectOrCreate?:
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput
+      | ProblemCreateOrConnectWithoutFavoredByUsersInput[];
+    upsert?:
+      | ProblemUpsertWithWhereUniqueWithoutFavoredByUsersInput
+      | ProblemUpsertWithWhereUniqueWithoutFavoredByUsersInput[];
+    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+    update?:
+      | ProblemUpdateWithWhereUniqueWithoutFavoredByUsersInput
+      | ProblemUpdateWithWhereUniqueWithoutFavoredByUsersInput[];
+    updateMany?:
+      | ProblemUpdateManyWithWhereWithoutFavoredByUsersInput
+      | ProblemUpdateManyWithWhereWithoutFavoredByUsersInput[];
+    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
+  };
+
   export type ProblemCreatetopicInput = {
     set: string[];
   };
@@ -28826,6 +29036,20 @@ export namespace Prisma {
       | ChallengeProblemWhereUniqueInput[];
   };
 
+  export type UserCreateNestedManyWithoutFavoriteProblemsInput = {
+    create?:
+      | XOR<
+          UserCreateWithoutFavoriteProblemsInput,
+          UserUncheckedCreateWithoutFavoriteProblemsInput
+        >
+      | UserCreateWithoutFavoriteProblemsInput[]
+      | UserUncheckedCreateWithoutFavoriteProblemsInput[];
+    connectOrCreate?:
+      | UserCreateOrConnectWithoutFavoriteProblemsInput
+      | UserCreateOrConnectWithoutFavoriteProblemsInput[];
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
+  };
+
   export type SubmissionUncheckedCreateNestedManyWithoutProblemInput = {
     create?:
       | XOR<
@@ -28935,6 +29159,20 @@ export namespace Prisma {
     connect?:
       | ChallengeProblemWhereUniqueInput
       | ChallengeProblemWhereUniqueInput[];
+  };
+
+  export type UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput = {
+    create?:
+      | XOR<
+          UserCreateWithoutFavoriteProblemsInput,
+          UserUncheckedCreateWithoutFavoriteProblemsInput
+        >
+      | UserCreateWithoutFavoriteProblemsInput[]
+      | UserUncheckedCreateWithoutFavoriteProblemsInput[];
+    connectOrCreate?:
+      | UserCreateOrConnectWithoutFavoriteProblemsInput
+      | UserCreateOrConnectWithoutFavoriteProblemsInput[];
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
   };
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
@@ -29198,6 +29436,33 @@ export namespace Prisma {
       | ChallengeProblemScalarWhereInput[];
   };
 
+  export type UserUpdateManyWithoutFavoriteProblemsNestedInput = {
+    create?:
+      | XOR<
+          UserCreateWithoutFavoriteProblemsInput,
+          UserUncheckedCreateWithoutFavoriteProblemsInput
+        >
+      | UserCreateWithoutFavoriteProblemsInput[]
+      | UserUncheckedCreateWithoutFavoriteProblemsInput[];
+    connectOrCreate?:
+      | UserCreateOrConnectWithoutFavoriteProblemsInput
+      | UserCreateOrConnectWithoutFavoriteProblemsInput[];
+    upsert?:
+      | UserUpsertWithWhereUniqueWithoutFavoriteProblemsInput
+      | UserUpsertWithWhereUniqueWithoutFavoriteProblemsInput[];
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    update?:
+      | UserUpdateWithWhereUniqueWithoutFavoriteProblemsInput
+      | UserUpdateWithWhereUniqueWithoutFavoriteProblemsInput[];
+    updateMany?:
+      | UserUpdateManyWithWhereWithoutFavoriteProblemsInput
+      | UserUpdateManyWithWhereWithoutFavoriteProblemsInput[];
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[];
+  };
+
   export type IntFieldUpdateOperationsInput = {
     set?: number;
     increment?: number;
@@ -29430,6 +29695,33 @@ export namespace Prisma {
     deleteMany?:
       | ChallengeProblemScalarWhereInput
       | ChallengeProblemScalarWhereInput[];
+  };
+
+  export type UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput = {
+    create?:
+      | XOR<
+          UserCreateWithoutFavoriteProblemsInput,
+          UserUncheckedCreateWithoutFavoriteProblemsInput
+        >
+      | UserCreateWithoutFavoriteProblemsInput[]
+      | UserUncheckedCreateWithoutFavoriteProblemsInput[];
+    connectOrCreate?:
+      | UserCreateOrConnectWithoutFavoriteProblemsInput
+      | UserCreateOrConnectWithoutFavoriteProblemsInput[];
+    upsert?:
+      | UserUpsertWithWhereUniqueWithoutFavoriteProblemsInput
+      | UserUpsertWithWhereUniqueWithoutFavoriteProblemsInput[];
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
+    update?:
+      | UserUpdateWithWhereUniqueWithoutFavoriteProblemsInput
+      | UserUpdateWithWhereUniqueWithoutFavoriteProblemsInput[];
+    updateMany?:
+      | UserUpdateManyWithWhereWithoutFavoriteProblemsInput
+      | UserUpdateManyWithWhereWithoutFavoriteProblemsInput[];
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[];
   };
 
   export type ProblemCreateNestedOneWithoutTestcasesInput = {
@@ -30760,6 +31052,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutUserInput = {
@@ -30786,6 +31079,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutUserInput = {
@@ -31044,6 +31338,68 @@ export namespace Prisma {
   export type BadgeCreateManyUserInputEnvelope = {
     data: BadgeCreateManyUserInput | BadgeCreateManyUserInput[];
     skipDuplicates?: boolean;
+  };
+
+  export type ProblemCreateWithoutFavoredByUsersInput = {
+    id?: string;
+    title: string;
+    problemNumber?: number;
+    description: string;
+    difficulty: $Enums.Difficulty;
+    topic?: ProblemCreatetopicInput | string[];
+    companyName?: ProblemCreatecompanyNameInput | string[];
+    examples: JsonNullValueInput | InputJsonValue;
+    constraints: string;
+    hints?: string | null;
+    editorial?: string | null;
+    codeSnippets: JsonNullValueInput | InputJsonValue;
+    referenceSolutions: JsonNullValueInput | InputJsonValue;
+    isPremium?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutProblemInput;
+    submission?: SubmissionCreateNestedManyWithoutProblemInput;
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput;
+    testcases?: ProblemTestCaseCreateNestedManyWithoutProblemInput;
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput;
+    votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
+    problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
+    challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+  };
+
+  export type ProblemUncheckedCreateWithoutFavoredByUsersInput = {
+    id?: string;
+    title: string;
+    problemNumber?: number;
+    description: string;
+    difficulty: $Enums.Difficulty;
+    topic?: ProblemCreatetopicInput | string[];
+    companyName?: ProblemCreatecompanyNameInput | string[];
+    userId: string;
+    examples: JsonNullValueInput | InputJsonValue;
+    constraints: string;
+    hints?: string | null;
+    editorial?: string | null;
+    codeSnippets: JsonNullValueInput | InputJsonValue;
+    referenceSolutions: JsonNullValueInput | InputJsonValue;
+    isPremium?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
+    testcases?: ProblemTestCaseUncheckedCreateNestedManyWithoutProblemInput;
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput;
+    votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
+    problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
+    challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+  };
+
+  export type ProblemCreateOrConnectWithoutFavoredByUsersInput = {
+    where: ProblemWhereUniqueInput;
+    create: XOR<
+      ProblemCreateWithoutFavoredByUsersInput,
+      ProblemUncheckedCreateWithoutFavoredByUsersInput
+    >;
   };
 
   export type ProblemUpsertWithWhereUniqueWithoutUserInput = {
@@ -31418,6 +31774,34 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Badge"> | Date | string;
   };
 
+  export type ProblemUpsertWithWhereUniqueWithoutFavoredByUsersInput = {
+    where: ProblemWhereUniqueInput;
+    update: XOR<
+      ProblemUpdateWithoutFavoredByUsersInput,
+      ProblemUncheckedUpdateWithoutFavoredByUsersInput
+    >;
+    create: XOR<
+      ProblemCreateWithoutFavoredByUsersInput,
+      ProblemUncheckedCreateWithoutFavoredByUsersInput
+    >;
+  };
+
+  export type ProblemUpdateWithWhereUniqueWithoutFavoredByUsersInput = {
+    where: ProblemWhereUniqueInput;
+    data: XOR<
+      ProblemUpdateWithoutFavoredByUsersInput,
+      ProblemUncheckedUpdateWithoutFavoredByUsersInput
+    >;
+  };
+
+  export type ProblemUpdateManyWithWhereWithoutFavoredByUsersInput = {
+    where: ProblemScalarWhereInput;
+    data: XOR<
+      ProblemUpdateManyMutationInput,
+      ProblemUncheckedUpdateManyWithoutFavoredByUsersInput
+    >;
+  };
+
   export type UserCreateWithoutProblemInput = {
     id?: string;
     name?: string | null;
@@ -31436,6 +31820,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutProblemInput = {
@@ -31456,6 +31841,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutProblemInput = {
@@ -31693,6 +32079,56 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type UserCreateWithoutFavoriteProblemsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problem?: ProblemCreateNestedManyWithoutUserInput;
+    submission?: SubmissionCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
+    badges?: BadgeCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutFavoriteProblemsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
+    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutFavoriteProblemsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutFavoriteProblemsInput,
+      UserUncheckedCreateWithoutFavoriteProblemsInput
+    >;
+  };
+
   export type UserUpsertWithoutProblemInput = {
     update: XOR<
       UserUpdateWithoutProblemInput,
@@ -31731,6 +32167,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutProblemInput = {
@@ -31751,6 +32188,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
@@ -31987,6 +32425,49 @@ export namespace Prisma {
     day?: IntFilter<"ChallengeProblem"> | number;
   };
 
+  export type UserUpsertWithWhereUniqueWithoutFavoriteProblemsInput = {
+    where: UserWhereUniqueInput;
+    update: XOR<
+      UserUpdateWithoutFavoriteProblemsInput,
+      UserUncheckedUpdateWithoutFavoriteProblemsInput
+    >;
+    create: XOR<
+      UserCreateWithoutFavoriteProblemsInput,
+      UserUncheckedCreateWithoutFavoriteProblemsInput
+    >;
+  };
+
+  export type UserUpdateWithWhereUniqueWithoutFavoriteProblemsInput = {
+    where: UserWhereUniqueInput;
+    data: XOR<
+      UserUpdateWithoutFavoriteProblemsInput,
+      UserUncheckedUpdateWithoutFavoriteProblemsInput
+    >;
+  };
+
+  export type UserUpdateManyWithWhereWithoutFavoriteProblemsInput = {
+    where: UserScalarWhereInput;
+    data: XOR<
+      UserUpdateManyMutationInput,
+      UserUncheckedUpdateManyWithoutFavoriteProblemsInput
+    >;
+  };
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[];
+    OR?: UserScalarWhereInput[];
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[];
+    id?: StringFilter<"User"> | string;
+    name?: StringNullableFilter<"User"> | string | null;
+    email?: StringFilter<"User"> | string;
+    avatar?: JsonNullableFilter<"User">;
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole;
+    password?: StringFilter<"User"> | string;
+    refreshToken?: StringNullableFilter<"User"> | string | null;
+    createdAt?: DateTimeFilter<"User"> | Date | string;
+    updatedAt?: DateTimeFilter<"User"> | Date | string;
+  };
+
   export type ProblemCreateWithoutTestcasesInput = {
     id?: string;
     title: string;
@@ -32011,6 +32492,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutTestcasesInput = {
@@ -32037,6 +32519,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutTestcasesInput = {
@@ -32090,6 +32573,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutTestcasesInput = {
@@ -32116,6 +32600,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type UserCreateWithoutSubmissionInput = {
@@ -32136,6 +32621,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutSubmissionInput = {
@@ -32156,6 +32642,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutSubmissionInput = {
@@ -32190,6 +32677,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutSubmissionInput = {
@@ -32216,6 +32704,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutSubmissionInput = {
@@ -32309,6 +32798,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSubmissionInput = {
@@ -32329,6 +32819,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ProblemUpsertWithoutSubmissionInput = {
@@ -32374,6 +32865,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutSubmissionInput = {
@@ -32400,6 +32892,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type TestCaseUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -32563,6 +33056,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutProblemSolvedInput = {
@@ -32583,6 +33077,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutProblemSolvedInput = {
@@ -32617,6 +33112,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutSolvedByInput = {
@@ -32643,6 +33139,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutSolvedByInput = {
@@ -32691,6 +33188,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutProblemSolvedInput = {
@@ -32711,6 +33209,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ProblemUpsertWithoutSolvedByInput = {
@@ -32756,6 +33255,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutSolvedByInput = {
@@ -32782,6 +33282,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type UserCreateWithoutDiscussionsInput = {
@@ -32802,6 +33303,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutDiscussionsInput = {
@@ -32822,6 +33324,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutDiscussionsInput = {
@@ -32856,6 +33359,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutDiscussionsInput = {
@@ -32882,6 +33386,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutDiscussionsInput = {
@@ -32991,6 +33496,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutDiscussionsInput = {
@@ -33011,6 +33517,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ProblemUpsertWithoutDiscussionsInput = {
@@ -33056,6 +33563,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutDiscussionsInput = {
@@ -33082,6 +33590,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type DiscussionUpsertWithoutRepliesInput = {
@@ -33170,6 +33679,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutVotesOnProblemsInput = {
@@ -33190,6 +33700,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutVotesOnProblemsInput = {
@@ -33224,6 +33735,7 @@ export namespace Prisma {
     discussions?: DiscussionCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutVotesInput = {
@@ -33250,6 +33762,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutVotesInput = {
@@ -33298,6 +33811,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutVotesOnProblemsInput = {
@@ -33318,6 +33832,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ProblemUpsertWithoutVotesInput = {
@@ -33363,6 +33878,7 @@ export namespace Prisma {
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutVotesInput = {
@@ -33389,6 +33905,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemInPlaylistCreateWithoutPlaylistInput = {
@@ -33438,6 +33955,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutPlaylistsInput = {
@@ -33458,6 +33976,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutPlaylistsInput = {
@@ -33534,6 +34053,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutPlaylistsInput = {
@@ -33554,6 +34074,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type PlaylistCreateWithoutProblemsInput = {
@@ -33608,6 +34129,7 @@ export namespace Prisma {
     discussions?: DiscussionCreateNestedManyWithoutProblemInput;
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutProblemsPlatlistsInput = {
@@ -33634,6 +34156,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput;
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutProblemsPlatlistsInput = {
@@ -33727,6 +34250,7 @@ export namespace Prisma {
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput;
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutProblemsPlatlistsInput = {
@@ -33753,6 +34277,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput;
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -33773,6 +34298,7 @@ export namespace Prisma {
     playlists?: PlaylistCreateNestedManyWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -33793,6 +34319,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -33841,6 +34368,7 @@ export namespace Prisma {
     playlists?: PlaylistUpdateManyWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -33861,6 +34389,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ChallengeProblemCreateWithoutChallengeInput = {
@@ -34027,6 +34556,7 @@ export namespace Prisma {
     discussions?: DiscussionCreateNestedManyWithoutProblemInput;
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemUncheckedCreateWithoutChallengeProblemsInput = {
@@ -34053,6 +34583,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput;
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
   };
 
   export type ProblemCreateOrConnectWithoutChallengeProblemsInput = {
@@ -34144,6 +34675,7 @@ export namespace Prisma {
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput;
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutChallengeProblemsInput = {
@@ -34170,6 +34702,7 @@ export namespace Prisma {
     discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput;
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type UserCreateWithoutUserChallengesInput = {
@@ -34190,6 +34723,7 @@ export namespace Prisma {
     playlists?: PlaylistCreateNestedManyWithoutUserInput;
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutUserChallengesInput = {
@@ -34210,6 +34744,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutUserChallengesInput = {
@@ -34284,6 +34819,7 @@ export namespace Prisma {
     playlists?: PlaylistUpdateManyWithoutUserNestedInput;
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutUserChallengesInput = {
@@ -34304,6 +34840,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ChallengeUpsertWithoutParticipantsInput = {
@@ -34362,6 +34899,7 @@ export namespace Prisma {
     playlists?: PlaylistCreateNestedManyWithoutUserInput;
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserUncheckedCreateWithoutBadgesInput = {
@@ -34382,6 +34920,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
   };
 
   export type UserCreateOrConnectWithoutBadgesInput = {
@@ -34430,6 +34969,7 @@ export namespace Prisma {
     playlists?: PlaylistUpdateManyWithoutUserNestedInput;
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutBadgesInput = {
@@ -34450,6 +34990,7 @@ export namespace Prisma {
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
   };
 
   export type ProblemCreateManyUserInput = {
@@ -34557,6 +35098,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutUserInput = {
@@ -34583,6 +35125,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemUncheckedUpdateManyWithoutUserInput = {
@@ -34797,6 +35340,79 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type ProblemUpdateWithoutFavoredByUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    description?: StringFieldUpdateOperationsInput | string;
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
+    topic?: ProblemUpdatetopicInput | string[];
+    companyName?: ProblemUpdatecompanyNameInput | string[];
+    examples?: JsonNullValueInput | InputJsonValue;
+    constraints?: StringFieldUpdateOperationsInput | string;
+    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    codeSnippets?: JsonNullValueInput | InputJsonValue;
+    referenceSolutions?: JsonNullValueInput | InputJsonValue;
+    isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutProblemNestedInput;
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput;
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput;
+    testcases?: ProblemTestCaseUpdateManyWithoutProblemNestedInput;
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput;
+    votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
+    problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
+    challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+  };
+
+  export type ProblemUncheckedUpdateWithoutFavoredByUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    problemNumber?: IntFieldUpdateOperationsInput | number;
+    description?: StringFieldUpdateOperationsInput | string;
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
+    topic?: ProblemUpdatetopicInput | string[];
+    companyName?: ProblemUpdatecompanyNameInput | string[];
+    userId?: StringFieldUpdateOperationsInput | string;
+    examples?: JsonNullValueInput | InputJsonValue;
+    constraints?: StringFieldUpdateOperationsInput | string;
+    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    codeSnippets?: JsonNullValueInput | InputJsonValue;
+    referenceSolutions?: JsonNullValueInput | InputJsonValue;
+    isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
+    testcases?: ProblemTestCaseUncheckedUpdateManyWithoutProblemNestedInput;
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput;
+    votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
+    problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
+    challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+  };
+
+  export type ProblemUncheckedUpdateManyWithoutFavoredByUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    problemNumber?: IntFieldUpdateOperationsInput | number;
+    description?: StringFieldUpdateOperationsInput | string;
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
+    topic?: ProblemUpdatetopicInput | string[];
+    companyName?: ProblemUpdatecompanyNameInput | string[];
+    userId?: StringFieldUpdateOperationsInput | string;
+    examples?: JsonNullValueInput | InputJsonValue;
+    constraints?: StringFieldUpdateOperationsInput | string;
+    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    codeSnippets?: JsonNullValueInput | InputJsonValue;
+    referenceSolutions?: JsonNullValueInput | InputJsonValue;
+    isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type SubmissionCreateManyProblemInput = {
@@ -35045,6 +35661,60 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     challengeId?: StringFieldUpdateOperationsInput | string;
     day?: IntFieldUpdateOperationsInput | number;
+  };
+
+  export type UserUpdateWithoutFavoriteProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problem?: ProblemUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutFavoriteProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateManyWithoutFavoriteProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type TestCaseCreateManySubmissionInput = {

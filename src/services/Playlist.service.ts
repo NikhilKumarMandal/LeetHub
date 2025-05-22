@@ -15,14 +15,6 @@ export class PlaylistService {
     });
   }
 
-  async getALL() {
-    return await db.playlist.findMany({
-      include: {
-        problems: true,
-      },
-    });
-  }
-
   async findMany(id: string) {
     return await db.playlist.findMany({
       where: {
@@ -38,11 +30,10 @@ export class PlaylistService {
     });
   }
 
-  async findUnique(playlistId: string, userId: string) {
+  async findUnique(playlistId: string) {
     return await db.playlist.findUnique({
       where: {
         id: playlistId,
-        userId: userId,
       },
       include: {
         problems: {
@@ -59,10 +50,21 @@ export class PlaylistService {
       playlistId,
       problemId,
     }));
-
     return await db.problemInPlaylist.createMany({
       data,
       skipDuplicates: true,
+    });
+  }
+
+  async getALL() {
+    return await db.playlist.findMany({
+      include: {
+        problems: {
+          include: {
+            problem: true,
+          },
+        },
+      },
     });
   }
 

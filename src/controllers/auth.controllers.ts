@@ -9,10 +9,9 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { AuthRequest } from "../types/types";
 import { AuthService } from "../services/Auth.service";
-import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
-import { google } from "googleapis";
+import { uploadOnCloudinary } from "../utils/cloudinary";
+
 import axios from "axios";
-import { OAuth2Client } from "google-auth-library";
 
 export class Auth {
   constructor(
@@ -386,4 +385,45 @@ export class Auth {
       )
     );
   });
+
+  toggleFavoriteProblem = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const userId = req.auth.sub;
+    const { problemId } = req.params;
+
+    try {
+      const user = await this.authService.findUniqueProblem(userId);
+
+      if (!user) {
+        throw new ApiError(404, "User not found");
+      }
+
+      const isAlreadyFavorited = user.favoriteProblems.some(
+        (p) => p.id === problemId
+      );
+
+      const updatedUser = await this.authService.updateFavorite(
+        userId,
+        problemId,
+        isAlreadyFavorited
+      );
+
+      res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            updatedUser,
+            isAlreadyFavorited
+              ? "Problem removed from favorites."
+              : "Problem added to favorites."
+          )
+        );
+    } catch (error) {
+      next(error);
+    }
+  };
 }

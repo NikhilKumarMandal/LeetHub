@@ -19,13 +19,13 @@ router.post(
 
 router.get("/", authenticate, playlist.getAllListDetails as RequestHandler);
 
+router.get("/get-all-playlist", playlist.fecthPlaylist);
+
 router.get(
   "/:playlistId",
   authenticate,
-  playlist.getPlaylistDetails as RequestHandler
+  playlist.getPlaylistByID as RequestHandler
 );
-
-router.get("/getALLPlaylist", playlist.getALLPlaylistDetails);
 
 router.post(
   "/:playlistId/add-problem",

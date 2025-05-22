@@ -31,35 +31,36 @@ enum VoteType {
 }
 
 model User {
-  id              String           @id @default(uuid())
-  name            String?
-  email           String           @unique
-  avatar          Json?
-  role            UserRole         @default(USER)
-  password        String
-  refreshToken    String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id           String   @id @default(uuid())
+  name         String?
+  email        String   @unique
+  avatar       Json?
+  role         UserRole @default(USER)
+  password     String
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  problem         Problem[]
-  submission      Submission[]
-  problemSolved   ProblemSolved[]
-  discussions     Discussion[]
-  votesOnProblems ProblemVote[]
-  playlists Playlist[]
+  problem          Problem[]
+  submission       Submission[]
+  problemSolved    ProblemSolved[]
+  discussions      Discussion[]
+  votesOnProblems  ProblemVote[]
+  playlists        Playlist[]
   subscription     Subscription?
-  userChallenges  UserChallenge[]
-  badges          Badge[]
+  userChallenges   UserChallenge[]
+  badges           Badge[]
+  favoriteProblems Problem[]       @relation("UserFavorites")
 }
 
 model Problem {
-  id                 String             @id @default(uuid())
+  id                 String     @id @default(uuid())
   title              String
-  problemNumber      Int   @default(autoincrement()) @unique
+  problemNumber      Int        @unique @default(autoincrement())
   description        String
   difficulty         Difficulty
-  topic               String[]
-  companyName  String[]
+  topic              String[]
+  companyName        String[]
   userId             String
   examples           Json
   constraints        String
@@ -67,182 +68,181 @@ model Problem {
   editorial          String?
   codeSnippets       Json
   referenceSolutions Json
-  isPremium          Boolean   @default(false)
+  isPremium          Boolean    @default(false)
 
-  createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  submission         Submission[]
-  solvedBy           ProblemSolved[]
-  testcases          ProblemTestCase[]  
-  discussions     Discussion[]
-  votes ProblemVote[]
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submission        Submission[]
+  solvedBy          ProblemSolved[]
+  testcases         ProblemTestCase[]
+  discussions       Discussion[]
+  votes             ProblemVote[]
   problemsPlatlists ProblemInPlaylist[]
-  challengeProblems  ChallengeProblem[]
+  challengeProblems ChallengeProblem[]
+  favoredByUsers    User[]              @relation("UserFavorites")
 }
- 
-model ProblemTestCase {
-  id         String   @id @default(uuid())
-  input      String
-  output     String
-  isPublic   Boolean  @default(false)
-  problemId  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
-  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+model ProblemTestCase {
+  id        String   @id @default(uuid())
+  input     String
+  output    String
+  isPublic  Boolean  @default(false)
+  problemId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@index([problemId])
 }
 
 model Submission {
-  id             String      @id @default(uuid())
-  userId         String
-  problemId      String
-  sourceCode     Json
-  language       String
-  stdin          String?
-  stdout         String?
-  stderr         String?
-  compileOutput  String?
-  status         String
-  memory         String?
-  time           String?
+  id            String  @id @default(uuid())
+  userId        String
+  problemId     String
+  sourceCode    Json
+  language      String
+  stdin         String?
+  stdout        String?
+  stderr        String?
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
 
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem        Problem     @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  testcase       TestCase[]
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem  Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  testcase TestCase[]
 }
 
 model TestCase {
-  id             String      @id @default(uuid())
-  submissionId   String
-  testCase       String
-  passed         Boolean
-  stdout         String?
-  expected       String
-  stderr         String?
-  compileOutput  String?
-  status         String
-  memory         String?
-  time           String?
+  id            String  @id @default(uuid())
+  submissionId  String
+  testCase      String
+  passed        Boolean
+  stdout        String?
+  expected      String
+  stderr        String?
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
 
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  submission     Submission  @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
 
   @@index([submissionId])
 }
 
 model ProblemSolved {
-  id         String   @id @default(uuid())
-  userId     String
-  problemId  String
+  id        String @id @default(uuid())
+  userId    String
+  problemId String
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([userId, problemId])
 }
 
-
 model Discussion {
-  id         String   @id @default(uuid())
-  userId     String
-  problemId  String
-  content    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid())
+  userId    String
+  problemId String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
-  parentId   String?
-  parent     Discussion?   @relation("ReplyThread", fields: [parentId], references: [id])
-  replies    Discussion[]  @relation("ReplyThread")
+  parentId String?
+  parent   Discussion?  @relation("ReplyThread", fields: [parentId], references: [id])
+  replies  Discussion[] @relation("ReplyThread")
 }
 
 model ProblemVote {
-  id         String     @id @default(uuid())
-  userId     String
-  problemId  String
-  type       VoteType
-  createdAt  DateTime   @default(now())
+  id        String   @id @default(uuid())
+  userId    String
+  problemId String
+  type      VoteType
+  createdAt DateTime @default(now())
 
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem    Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, problemId]) 
+  @@unique([userId, problemId])
 }
 
-
-model Playlist{
-  id String @id @default(uuid())
-  name String
+model Playlist {
+  id          String   @id @default(uuid())
+  name        String
   description String?
-  userId String
-  topics   String[] 
-  
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  userId      String
+  topics      String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   problems ProblemInPlaylist[]
 
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([name,userId])
+  @@unique([name, userId])
 }
 
-model ProblemInPlaylist{
-  id String @id @default(uuid())
+model ProblemInPlaylist {
+  id         String @id @default(uuid())
   playlistId String
-  problemId String
+  problemId  String
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  playlist Playlist @relation(fields: [playlistId], references: [id],onDelete: Cascade)
-  problem    Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
-  @@unique([playlistId,problemId])
+  @@unique([playlistId, problemId])
 }
 
 model Subscription {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  startDate   DateTime @default(now())
-  endDate     DateTime
-  isActive    Boolean  @default(true)
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  startDate DateTime @default(now())
+  endDate   DateTime
+  isActive  Boolean  @default(true)
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Challenge {
-  id          String              @id @default(uuid())
-  name        String
-  description String?
-  totalDays   Int
-  problems    ChallengeProblem[]
+  id           String             @id @default(uuid())
+  name         String
+  description  String?
+  totalDays    Int
+  problems     ChallengeProblem[]
   participants UserChallenge[]
-  createdAt   DateTime           @default(now())
+  createdAt    DateTime           @default(now())
 }
 
 model ChallengeProblem {
-  id          String   @id @default(uuid())
+  id          String @id @default(uuid())
   challengeId String
   problemId   String
   day         Int
 
-  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
-  problem     Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  problem   Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([challengeId, day])
 }
@@ -255,8 +255,8 @@ model UserChallenge {
   completedDays Int[]    @default([])
   completed     Boolean  @default(false)
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, challengeId])
 }
@@ -268,7 +268,7 @@ model Badge {
   iconUrl   String?
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, name])
 }

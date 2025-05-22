@@ -30,6 +30,13 @@ export class Playlist {
       return;
     }
   };
+  fecthPlaylist = asyncHandler(async (req: Request, res: Response) => {
+    const playlist = await this.playlistService.getALL();
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, playlist, "Fetch all Playlist details "));
+  });
 
   getAllListDetails = async (
     req: AuthRequest,
@@ -50,7 +57,7 @@ export class Playlist {
     }
   };
 
-  getPlaylistDetails = async (
+  getPlaylistByID = async (
     req: AuthRequest,
     res: Response,
     next: NextFunction
@@ -61,15 +68,14 @@ export class Playlist {
     if (!playlistId) {
       throw new ApiError(400, "Playlist ID is missing");
     }
+
     try {
-      const playlist = await this.playlistService.findUnique(
-        playlistId,
-        userId
-      );
+      const playlist = await this.playlistService.findUnique(playlistId);
 
       if (!playlist) {
         throw new ApiError(400, "Playlist not found!");
       }
+
       const groupedProblems: Record<string, any[]> = {};
 
       for (const problemEntry of playlist.problems) {
@@ -87,13 +93,20 @@ export class Playlist {
         }
       }
 
+      const categories = Object.entries(groupedProblems).map(
+        ([name, problems]) => ({
+          name,
+          problems,
+        })
+      );
+
       const playlistResponse = {
         id: playlist.id,
         name: playlist.name,
         description: playlist.description,
         createdAt: playlist.createdAt,
         updatedAt: playlist.updatedAt,
-        groupedProblems,
+        categories,
       };
 
       res
@@ -107,17 +120,8 @@ export class Playlist {
         );
     } catch (error) {
       next(error);
-      return;
     }
   };
-
-  getALLPlaylistDetails = asyncHandler(async (req: Request, res: Response) => {
-    const playlist = await this.playlistService.getALL();
-
-    res
-      .status(200)
-      .json(new ApiResponse(200, playlist, "Fetch all Playlist details "));
-  });
 
   addProblemToPlaylist = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
