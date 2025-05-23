@@ -4462,6 +4462,7 @@ export namespace Prisma {
     description: string | null;
     difficulty: $Enums.Difficulty | null;
     userId: string | null;
+    ytLink: string | null;
     constraints: string | null;
     hints: string | null;
     editorial: string | null;
@@ -4477,6 +4478,7 @@ export namespace Prisma {
     description: string | null;
     difficulty: $Enums.Difficulty | null;
     userId: string | null;
+    ytLink: string | null;
     constraints: string | null;
     hints: string | null;
     editorial: string | null;
@@ -4494,6 +4496,7 @@ export namespace Prisma {
     topic: number;
     companyName: number;
     userId: number;
+    ytLink: number;
     examples: number;
     constraints: number;
     hints: number;
@@ -4521,6 +4524,7 @@ export namespace Prisma {
     description?: true;
     difficulty?: true;
     userId?: true;
+    ytLink?: true;
     constraints?: true;
     hints?: true;
     editorial?: true;
@@ -4536,6 +4540,7 @@ export namespace Prisma {
     description?: true;
     difficulty?: true;
     userId?: true;
+    ytLink?: true;
     constraints?: true;
     hints?: true;
     editorial?: true;
@@ -4553,6 +4558,7 @@ export namespace Prisma {
     topic?: true;
     companyName?: true;
     userId?: true;
+    ytLink?: true;
     examples?: true;
     constraints?: true;
     hints?: true;
@@ -4665,6 +4671,7 @@ export namespace Prisma {
     topic: string[];
     companyName: string[];
     userId: string;
+    ytLink: string | null;
     examples: JsonValue;
     constraints: string;
     hints: string | null;
@@ -4706,6 +4713,7 @@ export namespace Prisma {
       topic?: boolean;
       companyName?: boolean;
       userId?: boolean;
+      ytLink?: boolean;
       examples?: boolean;
       constraints?: boolean;
       hints?: boolean;
@@ -4741,6 +4749,7 @@ export namespace Prisma {
       topic?: boolean;
       companyName?: boolean;
       userId?: boolean;
+      ytLink?: boolean;
       examples?: boolean;
       constraints?: boolean;
       hints?: boolean;
@@ -4767,6 +4776,7 @@ export namespace Prisma {
       topic?: boolean;
       companyName?: boolean;
       userId?: boolean;
+      ytLink?: boolean;
       examples?: boolean;
       constraints?: boolean;
       hints?: boolean;
@@ -4790,6 +4800,7 @@ export namespace Prisma {
     topic?: boolean;
     companyName?: boolean;
     userId?: boolean;
+    ytLink?: boolean;
     examples?: boolean;
     constraints?: boolean;
     hints?: boolean;
@@ -4812,6 +4823,7 @@ export namespace Prisma {
     | "topic"
     | "companyName"
     | "userId"
+    | "ytLink"
     | "examples"
     | "constraints"
     | "hints"
@@ -4873,6 +4885,7 @@ export namespace Prisma {
         topic: string[];
         companyName: string[];
         userId: string;
+        ytLink: string | null;
         examples: Prisma.JsonValue;
         constraints: string;
         hints: string | null;
@@ -5578,6 +5591,7 @@ export namespace Prisma {
     readonly topic: FieldRef<"Problem", "String[]">;
     readonly companyName: FieldRef<"Problem", "String[]">;
     readonly userId: FieldRef<"Problem", "String">;
+    readonly ytLink: FieldRef<"Problem", "String">;
     readonly examples: FieldRef<"Problem", "Json">;
     readonly constraints: FieldRef<"Problem", "String">;
     readonly hints: FieldRef<"Problem", "String">;
@@ -24200,6 +24214,7 @@ export namespace Prisma {
     topic: "topic";
     companyName: "companyName";
     userId: "userId";
+    ytLink: "ytLink";
     examples: "examples";
     constraints: "constraints";
     hints: "hints";
@@ -24696,6 +24711,7 @@ export namespace Prisma {
     topic?: StringNullableListFilter<"Problem">;
     companyName?: StringNullableListFilter<"Problem">;
     userId?: StringFilter<"Problem"> | string;
+    ytLink?: StringNullableFilter<"Problem"> | string | null;
     examples?: JsonFilter<"Problem">;
     constraints?: StringFilter<"Problem"> | string;
     hints?: StringNullableFilter<"Problem"> | string | null;
@@ -24725,6 +24741,7 @@ export namespace Prisma {
     topic?: SortOrder;
     companyName?: SortOrder;
     userId?: SortOrder;
+    ytLink?: SortOrderInput | SortOrder;
     examples?: SortOrder;
     constraints?: SortOrder;
     hints?: SortOrderInput | SortOrder;
@@ -24758,6 +24775,7 @@ export namespace Prisma {
       topic?: StringNullableListFilter<"Problem">;
       companyName?: StringNullableListFilter<"Problem">;
       userId?: StringFilter<"Problem"> | string;
+      ytLink?: StringNullableFilter<"Problem"> | string | null;
       examples?: JsonFilter<"Problem">;
       constraints?: StringFilter<"Problem"> | string;
       hints?: StringNullableFilter<"Problem"> | string | null;
@@ -24789,6 +24807,7 @@ export namespace Prisma {
     topic?: SortOrder;
     companyName?: SortOrder;
     userId?: SortOrder;
+    ytLink?: SortOrderInput | SortOrder;
     examples?: SortOrder;
     constraints?: SortOrder;
     hints?: SortOrderInput | SortOrder;
@@ -24823,6 +24842,7 @@ export namespace Prisma {
     topic?: StringNullableListFilter<"Problem">;
     companyName?: StringNullableListFilter<"Problem">;
     userId?: StringWithAggregatesFilter<"Problem"> | string;
+    ytLink?: StringNullableWithAggregatesFilter<"Problem"> | string | null;
     examples?: JsonWithAggregatesFilter<"Problem">;
     constraints?: StringWithAggregatesFilter<"Problem"> | string;
     hints?: StringNullableWithAggregatesFilter<"Problem"> | string | null;
@@ -25960,6 +25980,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -25989,6 +26010,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -26015,6 +26037,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -26044,6 +26067,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -26072,6 +26096,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -26090,6 +26115,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -26110,6 +26136,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -27441,6 +27468,7 @@ export namespace Prisma {
     topic?: SortOrder;
     companyName?: SortOrder;
     userId?: SortOrder;
+    ytLink?: SortOrder;
     examples?: SortOrder;
     constraints?: SortOrder;
     hints?: SortOrder;
@@ -27463,6 +27491,7 @@ export namespace Prisma {
     description?: SortOrder;
     difficulty?: SortOrder;
     userId?: SortOrder;
+    ytLink?: SortOrder;
     constraints?: SortOrder;
     hints?: SortOrder;
     editorial?: SortOrder;
@@ -27478,6 +27507,7 @@ export namespace Prisma {
     description?: SortOrder;
     difficulty?: SortOrder;
     userId?: SortOrder;
+    ytLink?: SortOrder;
     constraints?: SortOrder;
     hints?: SortOrder;
     editorial?: SortOrder;
@@ -31036,6 +31066,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -31063,6 +31094,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -31348,6 +31380,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -31376,6 +31409,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -31442,6 +31476,7 @@ export namespace Prisma {
     topic?: StringNullableListFilter<"Problem">;
     companyName?: StringNullableListFilter<"Problem">;
     userId?: StringFilter<"Problem"> | string;
+    ytLink?: StringNullableFilter<"Problem"> | string | null;
     examples?: JsonFilter<"Problem">;
     constraints?: StringFilter<"Problem"> | string;
     hints?: StringNullableFilter<"Problem"> | string | null;
@@ -32476,6 +32511,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -32504,6 +32540,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -32557,6 +32594,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -32585,6 +32623,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -32661,6 +32700,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -32689,6 +32729,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -32849,6 +32890,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -32877,6 +32919,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33096,6 +33139,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33124,6 +33168,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33239,6 +33284,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33267,6 +33313,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33343,6 +33390,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33371,6 +33419,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33547,6 +33596,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33575,6 +33625,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33719,6 +33770,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33747,6 +33799,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -33862,6 +33915,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -33890,6 +33944,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -34113,6 +34168,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -34141,6 +34197,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -34234,6 +34291,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -34262,6 +34320,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -34540,6 +34599,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -34568,6 +34628,7 @@ export namespace Prisma {
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
     userId: string;
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -34659,6 +34720,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -34687,6 +34749,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35001,6 +35064,7 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty;
     topic?: ProblemCreatetopicInput | string[];
     companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
     constraints: string;
     hints?: string | null;
@@ -35082,6 +35146,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35109,6 +35174,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35136,6 +35202,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35349,6 +35416,7 @@ export namespace Prisma {
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35377,6 +35445,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -35404,6 +35473,7 @@ export namespace Prisma {
     topic?: ProblemUpdatetopicInput | string[];
     companyName?: ProblemUpdatecompanyNameInput | string[];
     userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
     constraints?: StringFieldUpdateOperationsInput | string;
     hints?: NullableStringFieldUpdateOperationsInput | string | null;

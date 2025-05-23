@@ -62,6 +62,7 @@ model Problem {
   topic              String[]
   companyName        String[]
   userId             String
+  ytLink             String?
   examples           Json
   constraints        String
   hints              String?

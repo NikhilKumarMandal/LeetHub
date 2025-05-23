@@ -35,6 +35,7 @@ export class Problem {
       codeSnippets,
       referenceSolutions,
       companyName,
+      ytLink,
     } = req.body;
     console.log("Incoming body:", req.body);
     if (req.auth.role !== "ADMIN") {
@@ -101,6 +102,7 @@ export class Problem {
         referenceSolutions: refSolutions,
         companyName: companyName ?? [],
         userId: req.auth.sub,
+        ytLink: ytLink ?? "",
       };
 
       console.log(problem);
@@ -231,6 +233,7 @@ export class Problem {
       codeSnippets,
       referenceSolutions,
       companyName,
+      ytLink,
     } = req.body;
 
     const { id } = req.params;
@@ -308,6 +311,7 @@ export class Problem {
         referenceSolutions,
         companyName,
         userId: req.auth.sub,
+        ytLink,
       };
 
       const problemUpdated = await this.problemService.update({ id }, problem);

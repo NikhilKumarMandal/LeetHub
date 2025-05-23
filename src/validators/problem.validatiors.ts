@@ -8,6 +8,32 @@ export default checkSchema({
       errorMessage: "Title is required!",
     },
   },
+  ytLink: {
+    in: ["body"],
+    optional: true,
+    isString: {
+      errorMessage: "YouTube link must be a string",
+    },
+    custom: {
+      options: (value) => {
+        if (!value) return true;
+        const videoIdMatch = value.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)?([a-zA-Z0-9_-]{11})/
+        );
+
+        if (!videoIdMatch || !videoIdMatch[1]) {
+          throw new Error("Invalid YouTube link or video ID");
+        }
+
+        const videoId = videoIdMatch[1];
+        if (videoId.length !== 11) {
+          throw new Error("Invalid YouTube video ID length");
+        }
+
+        return true;
+      },
+    },
+  },
   description: {
     in: ["body"],
     trim: true,

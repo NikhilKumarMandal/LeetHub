@@ -46,6 +46,7 @@ export interface ProblemData {
   editorial?: string;
   codeSnippets: any;
   referenceSolutions: any;
+  ytLink?: string;
 }
 
 export const Roles = {
