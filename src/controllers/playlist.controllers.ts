@@ -3,6 +3,7 @@ import { AuthRequest } from "../types/types";
 import { PlaylistService } from "../services/Playlist.service";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { uploadOnCloudinary } from "../utils/cloudinary";
+import { validationResult } from "express-validator";
 
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
@@ -12,6 +13,10 @@ export class Playlist {
     res: Response,
     next: NextFunction
   ) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      throw new ApiError(400, result.array()[0].msg as string);
+    }
     const { name, description, summary } = req.body;
     const userId = req.auth.sub;
 

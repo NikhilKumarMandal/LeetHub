@@ -5,6 +5,7 @@ import { Playlist } from "../controllers/playlist.controllers";
 import { PlaylistService } from "../services/Playlist.service";
 import { Roles } from "../types/types";
 import { upload } from "../middlewares/multer.middleware";
+import PlaylistValidators from "../validators/Playlist.validators";
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.post(
       maxCount: 1,
     },
   ]),
+  PlaylistValidators,
   playlist.createPlaylist as RequestHandler
 );
 
