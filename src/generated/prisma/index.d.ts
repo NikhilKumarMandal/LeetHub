@@ -4504,6 +4504,7 @@ export namespace Prisma {
     codeSnippets: number;
     referenceSolutions: number;
     isPremium: number;
+    image: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -4566,6 +4567,7 @@ export namespace Prisma {
     codeSnippets?: true;
     referenceSolutions?: true;
     isPremium?: true;
+    image?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -4679,6 +4681,7 @@ export namespace Prisma {
     codeSnippets: JsonValue;
     referenceSolutions: JsonValue;
     isPremium: boolean;
+    image: JsonValue | null;
     createdAt: Date;
     updatedAt: Date;
     _count: ProblemCountAggregateOutputType | null;
@@ -4721,6 +4724,7 @@ export namespace Prisma {
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
+      image?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4757,6 +4761,7 @@ export namespace Prisma {
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
+      image?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4784,6 +4789,7 @@ export namespace Prisma {
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
+      image?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4808,6 +4814,7 @@ export namespace Prisma {
     codeSnippets?: boolean;
     referenceSolutions?: boolean;
     isPremium?: boolean;
+    image?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   };
@@ -4831,6 +4838,7 @@ export namespace Prisma {
     | "codeSnippets"
     | "referenceSolutions"
     | "isPremium"
+    | "image"
     | "createdAt"
     | "updatedAt",
     ExtArgs["result"]["problem"]
@@ -4893,6 +4901,7 @@ export namespace Prisma {
         codeSnippets: Prisma.JsonValue;
         referenceSolutions: Prisma.JsonValue;
         isPremium: boolean;
+        image: Prisma.JsonValue | null;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -5599,6 +5608,7 @@ export namespace Prisma {
     readonly codeSnippets: FieldRef<"Problem", "Json">;
     readonly referenceSolutions: FieldRef<"Problem", "Json">;
     readonly isPremium: FieldRef<"Problem", "Boolean">;
+    readonly image: FieldRef<"Problem", "Json">;
     readonly createdAt: FieldRef<"Problem", "DateTime">;
     readonly updatedAt: FieldRef<"Problem", "DateTime">;
   }
@@ -14708,6 +14718,8 @@ export namespace Prisma {
     description: number;
     userId: number;
     topics: number;
+    image: number;
+    summary: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -14737,6 +14749,8 @@ export namespace Prisma {
     description?: true;
     userId?: true;
     topics?: true;
+    image?: true;
+    summary?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -14825,6 +14839,8 @@ export namespace Prisma {
     description: string | null;
     userId: string;
     topics: string[];
+    image: JsonValue | null;
+    summary: string[];
     createdAt: Date;
     updatedAt: Date;
     _count: PlaylistCountAggregateOutputType | null;
@@ -14854,6 +14870,8 @@ export namespace Prisma {
       description?: boolean;
       userId?: boolean;
       topics?: boolean;
+      image?: boolean;
+      summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       problems?: boolean | Playlist$problemsArgs<ExtArgs>;
@@ -14872,6 +14890,8 @@ export namespace Prisma {
       description?: boolean;
       userId?: boolean;
       topics?: boolean;
+      image?: boolean;
+      summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -14888,6 +14908,8 @@ export namespace Prisma {
       description?: boolean;
       userId?: boolean;
       topics?: boolean;
+      image?: boolean;
+      summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -14901,6 +14923,8 @@ export namespace Prisma {
     description?: boolean;
     userId?: boolean;
     topics?: boolean;
+    image?: boolean;
+    summary?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   };
@@ -14913,6 +14937,8 @@ export namespace Prisma {
     | "description"
     | "userId"
     | "topics"
+    | "image"
+    | "summary"
     | "createdAt"
     | "updatedAt",
     ExtArgs["result"]["playlist"]
@@ -14950,6 +14976,8 @@ export namespace Prisma {
         description: string | null;
         userId: string;
         topics: string[];
+        image: Prisma.JsonValue | null;
+        summary: string[];
         createdAt: Date;
         updatedAt: Date;
       },
@@ -15568,6 +15596,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Playlist", "String">;
     readonly userId: FieldRef<"Playlist", "String">;
     readonly topics: FieldRef<"Playlist", "String[]">;
+    readonly image: FieldRef<"Playlist", "Json">;
+    readonly summary: FieldRef<"Playlist", "String[]">;
     readonly createdAt: FieldRef<"Playlist", "DateTime">;
     readonly updatedAt: FieldRef<"Playlist", "DateTime">;
   }
@@ -24222,6 +24252,7 @@ export namespace Prisma {
     codeSnippets: "codeSnippets";
     referenceSolutions: "referenceSolutions";
     isPremium: "isPremium";
+    image: "image";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
   };
@@ -24322,6 +24353,8 @@ export namespace Prisma {
     description: "description";
     userId: "userId";
     topics: "topics";
+    image: "image";
+    summary: "summary";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
   };
@@ -24719,6 +24752,7 @@ export namespace Prisma {
     codeSnippets?: JsonFilter<"Problem">;
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
+    image?: JsonNullableFilter<"Problem">;
     createdAt?: DateTimeFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeFilter<"Problem"> | Date | string;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -24749,6 +24783,7 @@ export namespace Prisma {
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
+    image?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
@@ -24783,6 +24818,7 @@ export namespace Prisma {
       codeSnippets?: JsonFilter<"Problem">;
       referenceSolutions?: JsonFilter<"Problem">;
       isPremium?: BoolFilter<"Problem"> | boolean;
+      image?: JsonNullableFilter<"Problem">;
       createdAt?: DateTimeFilter<"Problem"> | Date | string;
       updatedAt?: DateTimeFilter<"Problem"> | Date | string;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -24815,6 +24851,7 @@ export namespace Prisma {
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
+    image?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: ProblemCountOrderByAggregateInput;
@@ -24850,6 +24887,7 @@ export namespace Prisma {
     codeSnippets?: JsonWithAggregatesFilter<"Problem">;
     referenceSolutions?: JsonWithAggregatesFilter<"Problem">;
     isPremium?: BoolWithAggregatesFilter<"Problem"> | boolean;
+    image?: JsonNullableWithAggregatesFilter<"Problem">;
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string;
   };
@@ -25375,6 +25413,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Playlist"> | string | null;
     userId?: StringFilter<"Playlist"> | string;
     topics?: StringNullableListFilter<"Playlist">;
+    image?: JsonNullableFilter<"Playlist">;
+    summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
     problems?: ProblemInPlaylistListRelationFilter;
@@ -25387,6 +25427,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder;
     userId?: SortOrder;
     topics?: SortOrder;
+    image?: SortOrderInput | SortOrder;
+    summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     problems?: ProblemInPlaylistOrderByRelationAggregateInput;
@@ -25404,6 +25446,8 @@ export namespace Prisma {
       description?: StringNullableFilter<"Playlist"> | string | null;
       userId?: StringFilter<"Playlist"> | string;
       topics?: StringNullableListFilter<"Playlist">;
+      image?: JsonNullableFilter<"Playlist">;
+      summary?: StringNullableListFilter<"Playlist">;
       createdAt?: DateTimeFilter<"Playlist"> | Date | string;
       updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
       problems?: ProblemInPlaylistListRelationFilter;
@@ -25418,6 +25462,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder;
     userId?: SortOrder;
     topics?: SortOrder;
+    image?: SortOrderInput | SortOrder;
+    summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: PlaylistCountOrderByAggregateInput;
@@ -25441,6 +25487,8 @@ export namespace Prisma {
       | null;
     userId?: StringWithAggregatesFilter<"Playlist"> | string;
     topics?: StringNullableListFilter<"Playlist">;
+    image?: JsonNullableWithAggregatesFilter<"Playlist">;
+    summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string;
   };
@@ -25988,6 +26036,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -26018,6 +26067,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -26045,6 +26095,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -26075,6 +26126,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -26104,6 +26156,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -26123,6 +26176,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -26144,6 +26198,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -26633,6 +26688,8 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistCreateNestedManyWithoutPlaylistInput;
@@ -26645,6 +26702,8 @@ export namespace Prisma {
     description?: string | null;
     userId: string;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput;
@@ -26655,6 +26714,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUpdateManyWithoutPlaylistNestedInput;
@@ -26667,6 +26728,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput;
@@ -26678,6 +26741,8 @@ export namespace Prisma {
     description?: string | null;
     userId: string;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -26687,6 +26752,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -26697,6 +26764,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -27476,6 +27545,7 @@ export namespace Prisma {
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
+    image?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -27866,6 +27936,8 @@ export namespace Prisma {
     description?: SortOrder;
     userId?: SortOrder;
     topics?: SortOrder;
+    image?: SortOrder;
+    summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -30222,6 +30294,10 @@ export namespace Prisma {
     set: string[];
   };
 
+  export type PlaylistCreatesummaryInput = {
+    set: string[];
+  };
+
   export type ProblemInPlaylistCreateNestedManyWithoutPlaylistInput = {
     create?:
       | XOR<
@@ -30266,6 +30342,11 @@ export namespace Prisma {
   };
 
   export type PlaylistUpdatetopicsInput = {
+    set?: string[];
+    push?: string | string[];
+  };
+
+  export type PlaylistUpdatesummaryInput = {
     set?: string[];
     push?: string | string[];
   };
@@ -31074,6 +31155,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionCreateNestedManyWithoutProblemInput;
@@ -31102,6 +31184,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -31266,6 +31349,8 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistCreateNestedManyWithoutPlaylistInput;
@@ -31276,6 +31361,8 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput;
@@ -31388,6 +31475,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -31417,6 +31505,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -31484,6 +31573,7 @@ export namespace Prisma {
     codeSnippets?: JsonFilter<"Problem">;
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
+    image?: JsonNullableFilter<"Problem">;
     createdAt?: DateTimeFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeFilter<"Problem"> | Date | string;
   };
@@ -31692,6 +31782,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Playlist"> | string | null;
     userId?: StringFilter<"Playlist"> | string;
     topics?: StringNullableListFilter<"Playlist">;
+    image?: JsonNullableFilter<"Playlist">;
+    summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
   };
@@ -32519,6 +32611,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -32548,6 +32641,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -32602,6 +32696,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -32631,6 +32726,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -32708,6 +32804,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -32737,6 +32834,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
@@ -32898,6 +32996,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -32927,6 +33026,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
@@ -33147,6 +33247,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -33176,6 +33277,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -33292,6 +33394,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -33321,6 +33424,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -33398,6 +33502,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -33427,6 +33532,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -33604,6 +33710,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -33633,6 +33740,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -33778,6 +33886,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -33807,6 +33916,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -33923,6 +34033,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -33952,6 +34063,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -34137,6 +34249,8 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutPlaylistsInput;
@@ -34148,6 +34262,8 @@ export namespace Prisma {
     description?: string | null;
     userId: string;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -34176,6 +34292,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -34205,6 +34322,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -34249,6 +34367,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput;
@@ -34260,6 +34380,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -34299,6 +34421,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -34328,6 +34451,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -34607,6 +34731,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -34636,6 +34761,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -34728,6 +34854,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -34757,6 +34884,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -35072,6 +35200,7 @@ export namespace Prisma {
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -35120,6 +35249,8 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -35154,6 +35285,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUpdateManyWithoutProblemNestedInput;
@@ -35182,6 +35314,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -35210,6 +35343,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -35340,6 +35474,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUpdateManyWithoutPlaylistNestedInput;
@@ -35350,6 +35486,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput;
@@ -35360,6 +35498,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -35424,6 +35564,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -35453,6 +35594,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -35481,6 +35623,7 @@ export namespace Prisma {
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

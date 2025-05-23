@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AuthRequest } from "../types/types";
 import { PlaylistService } from "../services/Playlist.service";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
+import { uploadOnCloudinary } from "../utils/cloudinary";
 
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
@@ -11,15 +12,26 @@ export class Playlist {
     res: Response,
     next: NextFunction
   ) => {
-    const { name, description } = req.body;
+    const { name, description, summary } = req.body;
     const userId = req.auth.sub;
 
     try {
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      const PlaylistImageLocalPath = files?.image?.[0]?.path;
+      const image = await uploadOnCloudinary(PlaylistImageLocalPath);
+
       const data = {
         name,
         description,
+        summary,
         userId,
+        image: {
+          public_id: image?.public_id,
+          url: image?.url,
+        },
       };
+
       const playlist = await this.playlistService.create(data);
 
       res

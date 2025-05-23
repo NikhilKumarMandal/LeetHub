@@ -142,6 +142,7 @@ exports.Prisma.ProblemScalarFieldEnum = {
   codeSnippets: "codeSnippets",
   referenceSolutions: "referenceSolutions",
   isPremium: "isPremium",
+  image: "image",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
 };
@@ -221,6 +222,8 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   description: "description",
   userId: "userId",
   topics: "topics",
+  image: "image",
+  summary: "summary",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
 };

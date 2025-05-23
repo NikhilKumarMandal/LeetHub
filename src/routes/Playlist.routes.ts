@@ -4,6 +4,7 @@ import authenticate from "../middlewares/auth.middleware";
 import { Playlist } from "../controllers/playlist.controllers";
 import { PlaylistService } from "../services/Playlist.service";
 import { Roles } from "../types/types";
+import { upload } from "../middlewares/multer.middleware";
 
 const router = express.Router();
 
@@ -14,6 +15,12 @@ router.post(
   "/",
   authenticate,
   canAccess([Roles.ADMIN]),
+  upload.fields([
+    {
+      name: "image",
+      maxCount: 1,
+    },
+  ]),
   playlist.createPlaylist as RequestHandler
 );
 

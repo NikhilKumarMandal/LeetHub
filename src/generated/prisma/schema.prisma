@@ -70,6 +70,7 @@ model Problem {
   codeSnippets       Json
   referenceSolutions Json
   isPremium          Boolean    @default(false)
+  image              Json?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -191,6 +192,8 @@ model Playlist {
   description String?
   userId      String
   topics      String[]
+  image       Json?
+  summary     String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
