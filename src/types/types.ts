@@ -40,13 +40,14 @@ export interface ProblemData {
   topic: string[];
   userId: string;
   examples: any;
-  constraints: string;
-  hints?: string;
+  constraints: string[];
+  hints?: string[];
   companyName?: string[];
   editorial?: string;
   codeSnippets: any;
   referenceSolutions: any;
   ytLink?: string;
+  starterFunction?: any;
 }
 
 export const Roles = {

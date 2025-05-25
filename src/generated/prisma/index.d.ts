@@ -4463,8 +4463,6 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty | null;
     userId: string | null;
     ytLink: string | null;
-    constraints: string | null;
-    hints: string | null;
     editorial: string | null;
     isPremium: boolean | null;
     createdAt: Date | null;
@@ -4479,8 +4477,6 @@ export namespace Prisma {
     difficulty: $Enums.Difficulty | null;
     userId: string | null;
     ytLink: string | null;
-    constraints: string | null;
-    hints: string | null;
     editorial: string | null;
     isPremium: boolean | null;
     createdAt: Date | null;
@@ -4501,6 +4497,7 @@ export namespace Prisma {
     constraints: number;
     hints: number;
     editorial: number;
+    starterFunction: number;
     codeSnippets: number;
     referenceSolutions: number;
     isPremium: number;
@@ -4526,8 +4523,6 @@ export namespace Prisma {
     difficulty?: true;
     userId?: true;
     ytLink?: true;
-    constraints?: true;
-    hints?: true;
     editorial?: true;
     isPremium?: true;
     createdAt?: true;
@@ -4542,8 +4537,6 @@ export namespace Prisma {
     difficulty?: true;
     userId?: true;
     ytLink?: true;
-    constraints?: true;
-    hints?: true;
     editorial?: true;
     isPremium?: true;
     createdAt?: true;
@@ -4564,6 +4557,7 @@ export namespace Prisma {
     constraints?: true;
     hints?: true;
     editorial?: true;
+    starterFunction?: true;
     codeSnippets?: true;
     referenceSolutions?: true;
     isPremium?: true;
@@ -4675,9 +4669,10 @@ export namespace Prisma {
     userId: string;
     ytLink: string | null;
     examples: JsonValue;
-    constraints: string;
-    hints: string | null;
+    constraints: string[];
+    hints: string[];
     editorial: string | null;
+    starterFunction: JsonValue | null;
     codeSnippets: JsonValue;
     referenceSolutions: JsonValue;
     isPremium: boolean;
@@ -4721,6 +4716,7 @@ export namespace Prisma {
       constraints?: boolean;
       hints?: boolean;
       editorial?: boolean;
+      starterFunction?: boolean;
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
@@ -4758,6 +4754,7 @@ export namespace Prisma {
       constraints?: boolean;
       hints?: boolean;
       editorial?: boolean;
+      starterFunction?: boolean;
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
@@ -4786,6 +4783,7 @@ export namespace Prisma {
       constraints?: boolean;
       hints?: boolean;
       editorial?: boolean;
+      starterFunction?: boolean;
       codeSnippets?: boolean;
       referenceSolutions?: boolean;
       isPremium?: boolean;
@@ -4811,6 +4809,7 @@ export namespace Prisma {
     constraints?: boolean;
     hints?: boolean;
     editorial?: boolean;
+    starterFunction?: boolean;
     codeSnippets?: boolean;
     referenceSolutions?: boolean;
     isPremium?: boolean;
@@ -4835,6 +4834,7 @@ export namespace Prisma {
     | "constraints"
     | "hints"
     | "editorial"
+    | "starterFunction"
     | "codeSnippets"
     | "referenceSolutions"
     | "isPremium"
@@ -4895,9 +4895,10 @@ export namespace Prisma {
         userId: string;
         ytLink: string | null;
         examples: Prisma.JsonValue;
-        constraints: string;
-        hints: string | null;
+        constraints: string[];
+        hints: string[];
         editorial: string | null;
+        starterFunction: Prisma.JsonValue | null;
         codeSnippets: Prisma.JsonValue;
         referenceSolutions: Prisma.JsonValue;
         isPremium: boolean;
@@ -5602,9 +5603,10 @@ export namespace Prisma {
     readonly userId: FieldRef<"Problem", "String">;
     readonly ytLink: FieldRef<"Problem", "String">;
     readonly examples: FieldRef<"Problem", "Json">;
-    readonly constraints: FieldRef<"Problem", "String">;
-    readonly hints: FieldRef<"Problem", "String">;
+    readonly constraints: FieldRef<"Problem", "String[]">;
+    readonly hints: FieldRef<"Problem", "String[]">;
     readonly editorial: FieldRef<"Problem", "String">;
+    readonly starterFunction: FieldRef<"Problem", "Json">;
     readonly codeSnippets: FieldRef<"Problem", "Json">;
     readonly referenceSolutions: FieldRef<"Problem", "Json">;
     readonly isPremium: FieldRef<"Problem", "Boolean">;
@@ -24249,6 +24251,7 @@ export namespace Prisma {
     constraints: "constraints";
     hints: "hints";
     editorial: "editorial";
+    starterFunction: "starterFunction";
     codeSnippets: "codeSnippets";
     referenceSolutions: "referenceSolutions";
     isPremium: "isPremium";
@@ -24746,9 +24749,10 @@ export namespace Prisma {
     userId?: StringFilter<"Problem"> | string;
     ytLink?: StringNullableFilter<"Problem"> | string | null;
     examples?: JsonFilter<"Problem">;
-    constraints?: StringFilter<"Problem"> | string;
-    hints?: StringNullableFilter<"Problem"> | string | null;
+    constraints?: StringNullableListFilter<"Problem">;
+    hints?: StringNullableListFilter<"Problem">;
     editorial?: StringNullableFilter<"Problem"> | string | null;
+    starterFunction?: JsonNullableFilter<"Problem">;
     codeSnippets?: JsonFilter<"Problem">;
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
@@ -24778,8 +24782,9 @@ export namespace Prisma {
     ytLink?: SortOrderInput | SortOrder;
     examples?: SortOrder;
     constraints?: SortOrder;
-    hints?: SortOrderInput | SortOrder;
+    hints?: SortOrder;
     editorial?: SortOrderInput | SortOrder;
+    starterFunction?: SortOrderInput | SortOrder;
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
@@ -24812,9 +24817,10 @@ export namespace Prisma {
       userId?: StringFilter<"Problem"> | string;
       ytLink?: StringNullableFilter<"Problem"> | string | null;
       examples?: JsonFilter<"Problem">;
-      constraints?: StringFilter<"Problem"> | string;
-      hints?: StringNullableFilter<"Problem"> | string | null;
+      constraints?: StringNullableListFilter<"Problem">;
+      hints?: StringNullableListFilter<"Problem">;
       editorial?: StringNullableFilter<"Problem"> | string | null;
+      starterFunction?: JsonNullableFilter<"Problem">;
       codeSnippets?: JsonFilter<"Problem">;
       referenceSolutions?: JsonFilter<"Problem">;
       isPremium?: BoolFilter<"Problem"> | boolean;
@@ -24846,8 +24852,9 @@ export namespace Prisma {
     ytLink?: SortOrderInput | SortOrder;
     examples?: SortOrder;
     constraints?: SortOrder;
-    hints?: SortOrderInput | SortOrder;
+    hints?: SortOrder;
     editorial?: SortOrderInput | SortOrder;
+    starterFunction?: SortOrderInput | SortOrder;
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
@@ -24881,9 +24888,10 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Problem"> | string;
     ytLink?: StringNullableWithAggregatesFilter<"Problem"> | string | null;
     examples?: JsonWithAggregatesFilter<"Problem">;
-    constraints?: StringWithAggregatesFilter<"Problem"> | string;
-    hints?: StringNullableWithAggregatesFilter<"Problem"> | string | null;
+    constraints?: StringNullableListFilter<"Problem">;
+    hints?: StringNullableListFilter<"Problem">;
     editorial?: StringNullableWithAggregatesFilter<"Problem"> | string | null;
+    starterFunction?: JsonNullableWithAggregatesFilter<"Problem">;
     codeSnippets?: JsonWithAggregatesFilter<"Problem">;
     referenceSolutions?: JsonWithAggregatesFilter<"Problem">;
     isPremium?: BoolWithAggregatesFilter<"Problem"> | boolean;
@@ -26030,9 +26038,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -26061,9 +26070,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -26089,9 +26099,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -26120,9 +26131,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -26150,9 +26162,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -26170,9 +26183,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -26192,9 +26206,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -27542,6 +27557,7 @@ export namespace Prisma {
     constraints?: SortOrder;
     hints?: SortOrder;
     editorial?: SortOrder;
+    starterFunction?: SortOrder;
     codeSnippets?: SortOrder;
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
@@ -27562,8 +27578,6 @@ export namespace Prisma {
     difficulty?: SortOrder;
     userId?: SortOrder;
     ytLink?: SortOrder;
-    constraints?: SortOrder;
-    hints?: SortOrder;
     editorial?: SortOrder;
     isPremium?: SortOrder;
     createdAt?: SortOrder;
@@ -27578,8 +27592,6 @@ export namespace Prisma {
     difficulty?: SortOrder;
     userId?: SortOrder;
     ytLink?: SortOrder;
-    constraints?: SortOrder;
-    hints?: SortOrder;
     editorial?: SortOrder;
     isPremium?: SortOrder;
     createdAt?: SortOrder;
@@ -29018,6 +29030,14 @@ export namespace Prisma {
     set: string[];
   };
 
+  export type ProblemCreateconstraintsInput = {
+    set: string[];
+  };
+
+  export type ProblemCreatehintsInput = {
+    set: string[];
+  };
+
   export type UserCreateNestedOneWithoutProblemInput = {
     create?: XOR<
       UserCreateWithoutProblemInput,
@@ -29287,6 +29307,16 @@ export namespace Prisma {
   };
 
   export type ProblemUpdatecompanyNameInput = {
+    set?: string[];
+    push?: string | string[];
+  };
+
+  export type ProblemUpdateconstraintsInput = {
+    set?: string[];
+    push?: string | string[];
+  };
+
+  export type ProblemUpdatehintsInput = {
     set?: string[];
     push?: string | string[];
   };
@@ -31149,9 +31179,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -31178,9 +31209,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -31469,9 +31501,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -31499,9 +31532,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -31567,9 +31601,10 @@ export namespace Prisma {
     userId?: StringFilter<"Problem"> | string;
     ytLink?: StringNullableFilter<"Problem"> | string | null;
     examples?: JsonFilter<"Problem">;
-    constraints?: StringFilter<"Problem"> | string;
-    hints?: StringNullableFilter<"Problem"> | string | null;
+    constraints?: StringNullableListFilter<"Problem">;
+    hints?: StringNullableListFilter<"Problem">;
     editorial?: StringNullableFilter<"Problem"> | string | null;
+    starterFunction?: JsonNullableFilter<"Problem">;
     codeSnippets?: JsonFilter<"Problem">;
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
@@ -32605,9 +32640,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -32635,9 +32671,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -32690,9 +32727,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -32720,9 +32758,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -32798,9 +32837,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -32828,9 +32868,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -32990,9 +33031,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33020,9 +33062,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33241,9 +33284,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -33271,9 +33315,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -33388,9 +33433,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33418,9 +33464,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33496,9 +33543,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -33526,9 +33574,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -33704,9 +33753,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33734,9 +33784,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -33880,9 +33931,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -33910,9 +33962,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -34027,9 +34080,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -34057,9 +34111,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -34286,9 +34341,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -34316,9 +34372,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -34415,9 +34472,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -34445,9 +34503,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -34725,9 +34784,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -34755,9 +34815,10 @@ export namespace Prisma {
     userId: string;
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -34848,9 +34909,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -34878,9 +34940,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35194,9 +35257,10 @@ export namespace Prisma {
     companyName?: ProblemCreatecompanyNameInput | string[];
     ytLink?: string | null;
     examples: JsonNullValueInput | InputJsonValue;
-    constraints: string;
-    hints?: string | null;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
     editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets: JsonNullValueInput | InputJsonValue;
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
@@ -35279,9 +35343,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35308,9 +35373,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35337,9 +35403,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35558,9 +35625,10 @@ export namespace Prisma {
     companyName?: ProblemUpdatecompanyNameInput | string[];
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35588,9 +35656,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
@@ -35617,9 +35686,10 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
     examples?: JsonNullValueInput | InputJsonValue;
-    constraints?: StringFieldUpdateOperationsInput | string;
-    hints?: NullableStringFieldUpdateOperationsInput | string | null;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
     editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
     codeSnippets?: JsonNullValueInput | InputJsonValue;
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;

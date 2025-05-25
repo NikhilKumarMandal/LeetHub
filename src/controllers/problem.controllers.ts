@@ -10,6 +10,7 @@ import { ProblemService } from "../services/Problem.service";
 import { Logger } from "winston";
 import { db } from "../libs/db";
 import { matchedData, validationResult } from "express-validator";
+import { extractFunctionCode } from "../utils/functionCode";
 
 export class Problem {
   constructor(
@@ -42,8 +43,14 @@ export class Problem {
       throw new ApiError(403, "You are not allowed to create a problem!");
     }
 
-    if (!title) {
-      throw new ApiError(400, "Missing required fields in request body");
+    const starterFunction: Record<string, string> = {};
+    if (codeSnippets && typeof codeSnippets === "object") {
+      for (const [lang, code] of Object.entries(codeSnippets)) {
+        const fn = extractFunctionCode(code as unknown as string, lang);
+        if (fn) {
+          starterFunction[lang] = fn;
+        }
+      }
     }
     const refSolutions =
       referenceSolutions && typeof referenceSolutions === "object"
@@ -96,13 +103,14 @@ export class Problem {
         difficulty: difficulty ?? "EASY",
         examples: examples ?? {},
         constraints: constraints ?? "",
-        hints: hints ?? "",
+        hints: hints ?? [],
         editorial: editorial ?? "",
-        codeSnippets: codeSnippets ?? {},
+        codeSnippets: codeSnippets ?? [],
         referenceSolutions: refSolutions,
         companyName: companyName ?? [],
         userId: req.auth.sub,
         ytLink: ytLink ?? "",
+        starterFunction: starterFunction,
       };
 
       console.log(problem);

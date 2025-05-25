@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
-import { Roles, UserData } from "../types/types";
+import { UserData } from "../types/types";
 import { UserRole } from "../generated/prisma";
 import { Logger } from "winston";
 import { CredentialService } from "../services/Credential.service";

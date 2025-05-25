@@ -1,5 +1,5 @@
 import { db } from "../libs/db";
-import { Submission, TestCaseResult } from "../types/types";
+import { Submission } from "../types/types";
 
 export class TestCaseService {
   async getTestCasesFromDB(problemId: string, mode: string) {
@@ -37,6 +37,7 @@ export class TestCaseService {
   async createMany(testCaseData: any) {
     return await db.testCase.createMany({
       data: testCaseData,
+      skipDuplicates: true,
     });
   }
 }

@@ -64,9 +64,10 @@ model Problem {
   userId             String
   ytLink             String?
   examples           Json
-  constraints        String
-  hints              String?
+  constraints        String[]
+  hints              String[]
   editorial          String?
+  starterFunction  Json?
   codeSnippets       Json
   referenceSolutions Json
   isPremium          Boolean    @default(false)
