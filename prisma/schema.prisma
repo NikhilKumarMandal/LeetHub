@@ -51,6 +51,8 @@ model User {
   userChallenges   UserChallenge[]
   badges           Badge[]
   favoriteProblems Problem[]       @relation("UserFavorites")
+  
+  solvedPlaylistProblems PlaylistProblemSolved[]  @relation("UserSolvedProblems")
 }
 
 model Problem {
@@ -85,6 +87,7 @@ model Problem {
   problemsPlatlists ProblemInPlaylist[]
   challengeProblems ChallengeProblem[]
   favoredByUsers    User[]              @relation("UserFavorites")
+  solvedByUsers         PlaylistProblemSolved[]   @relation("ProblemSolvedByUsers")
 }
 
 model ProblemTestCase {
@@ -204,6 +207,7 @@ model Playlist {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([name, userId])
+  solvedProblems        PlaylistProblemSolved[]   @relation("PlaylistSolvedProblems")
 }
 
 model ProblemInPlaylist {
@@ -276,4 +280,22 @@ model Badge {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, name])
+}
+
+
+model PlaylistProblemSolved {
+  id           String   @id @default(uuid())
+  userId       String
+  playlistId   String
+  problemId    String
+  solvedAt     DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User     @relation("UserSolvedProblems", fields: [userId], references: [id])
+  playlist     Playlist @relation("PlaylistSolvedProblems", fields: [playlistId], references: [id])
+  problem      Problem  @relation("ProblemSolvedByUsers", fields: [problemId], references: [id])
+
+  @@unique([userId, playlistId, problemId])
 }

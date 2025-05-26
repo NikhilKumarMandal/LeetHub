@@ -38,7 +38,6 @@ export class Problem {
       companyName,
       ytLink,
     } = req.body;
-    console.log("Incoming body:", req.body);
     if (req.auth.role !== "ADMIN") {
       throw new ApiError(403, "You are not allowed to create a problem!");
     }
@@ -112,8 +111,6 @@ export class Problem {
         ytLink: ytLink ?? "",
         starterFunction: starterFunction,
       };
-
-      console.log(problem);
 
       const newProblem = await this.problemService.create(problem);
 
@@ -353,8 +350,6 @@ export class Problem {
           problemId: id,
         })
       );
-
-      console.log("formattedTestcases", formattedTestcases);
 
       await db.problemTestCase.createMany({
         data: formattedTestcases,

@@ -277,6 +277,16 @@ exports.Prisma.BadgeScalarFieldEnum = {
   createdAt: "createdAt",
 };
 
+exports.Prisma.PlaylistProblemSolvedScalarFieldEnum = {
+  id: "id",
+  userId: "userId",
+  playlistId: "playlistId",
+  problemId: "problemId",
+  solvedAt: "solvedAt",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+};
+
 exports.Prisma.SortOrder = {
   asc: "asc",
   desc: "desc",
@@ -338,6 +348,7 @@ exports.Prisma.ModelName = {
   ChallengeProblem: "ChallengeProblem",
   UserChallenge: "UserChallenge",
   Badge: "Badge",
+  PlaylistProblemSolved: "PlaylistProblemSolved",
 };
 
 /**

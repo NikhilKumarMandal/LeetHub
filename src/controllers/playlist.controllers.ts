@@ -144,7 +144,6 @@ export class Playlist {
     async (req: Request, res: Response, next: NextFunction) => {
       const { playlistId } = req.params;
       const { problemId } = req.body;
-      console.log(playlistId);
 
       if (!problemId || typeof problemId !== "string") {
         throw new ApiError(400, "Invalid or missing problemId");

@@ -92,6 +92,12 @@ export type UserChallenge =
  *
  */
 export type Badge = $Result.DefaultSelection<Prisma.$BadgePayload>;
+/**
+ * Model PlaylistProblemSolved
+ *
+ */
+export type PlaylistProblemSolved =
+  $Result.DefaultSelection<Prisma.$PlaylistProblemSolvedPayload>;
 
 /**
  * Enums
@@ -453,6 +459,19 @@ export class PrismaClient<
    * ```
    */
   get badge(): Prisma.BadgeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playlistProblemSolved`: Exposes CRUD operations for the **PlaylistProblemSolved** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PlaylistProblemSolveds
+   * const playlistProblemSolveds = await prisma.playlistProblemSolved.findMany()
+   * ```
+   */
+  get playlistProblemSolved(): Prisma.PlaylistProblemSolvedDelegate<
+    ExtArgs,
+    ClientOptions
+  >;
 }
 
 export namespace Prisma {
@@ -926,6 +945,7 @@ export namespace Prisma {
     ChallengeProblem: "ChallengeProblem";
     UserChallenge: "UserChallenge";
     Badge: "Badge";
+    PlaylistProblemSolved: "PlaylistProblemSolved";
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -968,7 +988,8 @@ export namespace Prisma {
         | "challenge"
         | "challengeProblem"
         | "userChallenge"
-        | "badge";
+        | "badge"
+        | "playlistProblemSolved";
       txIsolationLevel: Prisma.TransactionIsolationLevel;
     };
     model: {
@@ -2100,6 +2121,82 @@ export namespace Prisma {
           };
         };
       };
+      PlaylistProblemSolved: {
+        payload: Prisma.$PlaylistProblemSolvedPayload<ExtArgs>;
+        fields: Prisma.PlaylistProblemSolvedFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.PlaylistProblemSolvedFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.PlaylistProblemSolvedFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          findFirst: {
+            args: Prisma.PlaylistProblemSolvedFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.PlaylistProblemSolvedFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          findMany: {
+            args: Prisma.PlaylistProblemSolvedFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>[];
+          };
+          create: {
+            args: Prisma.PlaylistProblemSolvedCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          createMany: {
+            args: Prisma.PlaylistProblemSolvedCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.PlaylistProblemSolvedCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>[];
+          };
+          delete: {
+            args: Prisma.PlaylistProblemSolvedDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          update: {
+            args: Prisma.PlaylistProblemSolvedUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          deleteMany: {
+            args: Prisma.PlaylistProblemSolvedDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.PlaylistProblemSolvedUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.PlaylistProblemSolvedUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>[];
+          };
+          upsert: {
+            args: Prisma.PlaylistProblemSolvedUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PlaylistProblemSolvedPayload>;
+          };
+          aggregate: {
+            args: Prisma.PlaylistProblemSolvedAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregatePlaylistProblemSolved>;
+          };
+          groupBy: {
+            args: Prisma.PlaylistProblemSolvedGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<PlaylistProblemSolvedGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.PlaylistProblemSolvedCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<PlaylistProblemSolvedCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
     };
   } & {
     other: {
@@ -2203,6 +2300,7 @@ export namespace Prisma {
     challengeProblem?: ChallengeProblemOmit;
     userChallenge?: UserChallengeOmit;
     badge?: BadgeOmit;
+    playlistProblemSolved?: PlaylistProblemSolvedOmit;
   };
 
   /* Types for Logging */
@@ -2319,6 +2417,7 @@ export namespace Prisma {
     userChallenges: number;
     badges: number;
     favoriteProblems: number;
+    solvedPlaylistProblems: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -2333,6 +2432,9 @@ export namespace Prisma {
     userChallenges?: boolean | UserCountOutputTypeCountUserChallengesArgs;
     badges?: boolean | UserCountOutputTypeCountBadgesArgs;
     favoriteProblems?: boolean | UserCountOutputTypeCountFavoriteProblemsArgs;
+    solvedPlaylistProblems?:
+      | boolean
+      | UserCountOutputTypeCountSolvedPlaylistProblemsArgs;
   };
 
   // Custom InputTypes
@@ -2430,6 +2532,15 @@ export namespace Prisma {
   };
 
   /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSolvedPlaylistProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PlaylistProblemSolvedWhereInput;
+  };
+
+  /**
    * Count Type ProblemCountOutputType
    */
 
@@ -2442,6 +2553,7 @@ export namespace Prisma {
     problemsPlatlists: number;
     challengeProblems: number;
     favoredByUsers: number;
+    solvedByUsers: number;
   };
 
   export type ProblemCountOutputTypeSelect<
@@ -2459,6 +2571,7 @@ export namespace Prisma {
       | boolean
       | ProblemCountOutputTypeCountChallengeProblemsArgs;
     favoredByUsers?: boolean | ProblemCountOutputTypeCountFavoredByUsersArgs;
+    solvedByUsers?: boolean | ProblemCountOutputTypeCountSolvedByUsersArgs;
   };
 
   // Custom InputTypes
@@ -2547,6 +2660,15 @@ export namespace Prisma {
   };
 
   /**
+   * ProblemCountOutputType without action
+   */
+  export type ProblemCountOutputTypeCountSolvedByUsersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PlaylistProblemSolvedWhereInput;
+  };
+
+  /**
    * Count Type SubmissionCountOutputType
    */
 
@@ -2624,12 +2746,14 @@ export namespace Prisma {
 
   export type PlaylistCountOutputType = {
     problems: number;
+    solvedProblems: number;
   };
 
   export type PlaylistCountOutputTypeSelect<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     problems?: boolean | PlaylistCountOutputTypeCountProblemsArgs;
+    solvedProblems?: boolean | PlaylistCountOutputTypeCountSolvedProblemsArgs;
   };
 
   // Custom InputTypes
@@ -2652,6 +2776,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: ProblemInPlaylistWhereInput;
+  };
+
+  /**
+   * PlaylistCountOutputType without action
+   */
+  export type PlaylistCountOutputTypeCountSolvedProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PlaylistProblemSolvedWhereInput;
   };
 
   /**
@@ -2910,6 +3043,9 @@ export namespace Prisma {
       userChallenges?: boolean | User$userChallengesArgs<ExtArgs>;
       badges?: boolean | User$badgesArgs<ExtArgs>;
       favoriteProblems?: boolean | User$favoriteProblemsArgs<ExtArgs>;
+      solvedPlaylistProblems?:
+        | boolean
+        | User$solvedPlaylistProblemsArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -2988,6 +3124,7 @@ export namespace Prisma {
     userChallenges?: boolean | User$userChallengesArgs<ExtArgs>;
     badges?: boolean | User$badgesArgs<ExtArgs>;
     favoriteProblems?: boolean | User$favoriteProblemsArgs<ExtArgs>;
+    solvedPlaylistProblems?: boolean | User$solvedPlaylistProblemsArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type UserIncludeCreateManyAndReturn<
@@ -3012,6 +3149,7 @@ export namespace Prisma {
       userChallenges: Prisma.$UserChallengePayload<ExtArgs>[];
       badges: Prisma.$BadgePayload<ExtArgs>[];
       favoriteProblems: Prisma.$ProblemPayload<ExtArgs>[];
+      solvedPlaylistProblems: Prisma.$PlaylistProblemSolvedPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -3675,6 +3813,19 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$ProblemPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    solvedPlaylistProblems<
+      T extends User$solvedPlaylistProblemsArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, User$solvedPlaylistProblemsArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -4416,6 +4567,36 @@ export namespace Prisma {
   };
 
   /**
+   * User.solvedPlaylistProblems
+   */
+  export type User$solvedPlaylistProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    where?: PlaylistProblemSolvedWhereInput;
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
+  };
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<
@@ -4732,6 +4913,7 @@ export namespace Prisma {
       problemsPlatlists?: boolean | Problem$problemsPlatlistsArgs<ExtArgs>;
       challengeProblems?: boolean | Problem$challengeProblemsArgs<ExtArgs>;
       favoredByUsers?: boolean | Problem$favoredByUsersArgs<ExtArgs>;
+      solvedByUsers?: boolean | Problem$solvedByUsersArgs<ExtArgs>;
       _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["problem"]
@@ -4855,6 +5037,7 @@ export namespace Prisma {
     problemsPlatlists?: boolean | Problem$problemsPlatlistsArgs<ExtArgs>;
     challengeProblems?: boolean | Problem$challengeProblemsArgs<ExtArgs>;
     favoredByUsers?: boolean | Problem$favoredByUsersArgs<ExtArgs>;
+    solvedByUsers?: boolean | Problem$solvedByUsersArgs<ExtArgs>;
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type ProblemIncludeCreateManyAndReturn<
@@ -4882,6 +5065,7 @@ export namespace Prisma {
       problemsPlatlists: Prisma.$ProblemInPlaylistPayload<ExtArgs>[];
       challengeProblems: Prisma.$ChallengeProblemPayload<ExtArgs>[];
       favoredByUsers: Prisma.$UserPayload<ExtArgs>[];
+      solvedByUsers: Prisma.$PlaylistProblemSolvedPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -5547,6 +5731,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    solvedByUsers<T extends Problem$solvedByUsersArgs<ExtArgs> = {}>(
+      args?: Subset<T, Problem$solvedByUsersArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -6267,6 +6462,36 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[];
+  };
+
+  /**
+   * Problem.solvedByUsers
+   */
+  export type Problem$solvedByUsersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    where?: PlaylistProblemSolvedWhereInput;
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
   };
 
   /**
@@ -14878,6 +15103,7 @@ export namespace Prisma {
       updatedAt?: boolean;
       problems?: boolean | Playlist$problemsArgs<ExtArgs>;
       user?: boolean | UserDefaultArgs<ExtArgs>;
+      solvedProblems?: boolean | Playlist$solvedProblemsArgs<ExtArgs>;
       _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["playlist"]
@@ -14950,6 +15176,7 @@ export namespace Prisma {
   > = {
     problems?: boolean | Playlist$problemsArgs<ExtArgs>;
     user?: boolean | UserDefaultArgs<ExtArgs>;
+    solvedProblems?: boolean | Playlist$solvedProblemsArgs<ExtArgs>;
     _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type PlaylistIncludeCreateManyAndReturn<
@@ -14970,6 +15197,7 @@ export namespace Prisma {
     objects: {
       problems: Prisma.$ProblemInPlaylistPayload<ExtArgs>[];
       user: Prisma.$UserPayload<ExtArgs>;
+      solvedProblems: Prisma.$PlaylistProblemSolvedPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -15553,6 +15781,17 @@ export namespace Prisma {
       ExtArgs,
       GlobalOmitOptions
     >;
+    solvedProblems<T extends Playlist$solvedProblemsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Playlist$solvedProblemsArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16064,6 +16303,36 @@ export namespace Prisma {
     distinct?:
       | ProblemInPlaylistScalarFieldEnum
       | ProblemInPlaylistScalarFieldEnum[];
+  };
+
+  /**
+   * Playlist.solvedProblems
+   */
+  export type Playlist$solvedProblemsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    where?: PlaylistProblemSolvedWhereInput;
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
   };
 
   /**
@@ -24209,6 +24478,1433 @@ export namespace Prisma {
   };
 
   /**
+   * Model PlaylistProblemSolved
+   */
+
+  export type AggregatePlaylistProblemSolved = {
+    _count: PlaylistProblemSolvedCountAggregateOutputType | null;
+    _min: PlaylistProblemSolvedMinAggregateOutputType | null;
+    _max: PlaylistProblemSolvedMaxAggregateOutputType | null;
+  };
+
+  export type PlaylistProblemSolvedMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    playlistId: string | null;
+    problemId: string | null;
+    solvedAt: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type PlaylistProblemSolvedMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    playlistId: string | null;
+    problemId: string | null;
+    solvedAt: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type PlaylistProblemSolvedCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    playlistId: number;
+    problemId: number;
+    solvedAt: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type PlaylistProblemSolvedMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    playlistId?: true;
+    problemId?: true;
+    solvedAt?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type PlaylistProblemSolvedMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    playlistId?: true;
+    problemId?: true;
+    solvedAt?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type PlaylistProblemSolvedCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    playlistId?: true;
+    problemId?: true;
+    solvedAt?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type PlaylistProblemSolvedAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PlaylistProblemSolved to aggregate.
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PlaylistProblemSolveds to fetch.
+     */
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PlaylistProblemSolveds from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PlaylistProblemSolveds.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PlaylistProblemSolveds
+     **/
+    _count?: true | PlaylistProblemSolvedCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: PlaylistProblemSolvedMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: PlaylistProblemSolvedMaxAggregateInputType;
+  };
+
+  export type GetPlaylistProblemSolvedAggregateType<
+    T extends PlaylistProblemSolvedAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregatePlaylistProblemSolved]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlaylistProblemSolved[P]>
+      : GetScalarType<T[P], AggregatePlaylistProblemSolved[P]>;
+  };
+
+  export type PlaylistProblemSolvedGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PlaylistProblemSolvedWhereInput;
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithAggregationInput
+      | PlaylistProblemSolvedOrderByWithAggregationInput[];
+    by:
+      | PlaylistProblemSolvedScalarFieldEnum[]
+      | PlaylistProblemSolvedScalarFieldEnum;
+    having?: PlaylistProblemSolvedScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PlaylistProblemSolvedCountAggregateInputType | true;
+    _min?: PlaylistProblemSolvedMinAggregateInputType;
+    _max?: PlaylistProblemSolvedMaxAggregateInputType;
+  };
+
+  export type PlaylistProblemSolvedGroupByOutputType = {
+    id: string;
+    userId: string;
+    playlistId: string;
+    problemId: string;
+    solvedAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: PlaylistProblemSolvedCountAggregateOutputType | null;
+    _min: PlaylistProblemSolvedMinAggregateOutputType | null;
+    _max: PlaylistProblemSolvedMaxAggregateOutputType | null;
+  };
+
+  type GetPlaylistProblemSolvedGroupByPayload<
+    T extends PlaylistProblemSolvedGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlaylistProblemSolvedGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof PlaylistProblemSolvedGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], PlaylistProblemSolvedGroupByOutputType[P]>
+          : GetScalarType<T[P], PlaylistProblemSolvedGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type PlaylistProblemSolvedSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      playlistId?: boolean;
+      problemId?: boolean;
+      solvedAt?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+      problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["playlistProblemSolved"]
+  >;
+
+  export type PlaylistProblemSolvedSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      playlistId?: boolean;
+      problemId?: boolean;
+      solvedAt?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+      problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["playlistProblemSolved"]
+  >;
+
+  export type PlaylistProblemSolvedSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      playlistId?: boolean;
+      problemId?: boolean;
+      solvedAt?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+      problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["playlistProblemSolved"]
+  >;
+
+  export type PlaylistProblemSolvedSelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    playlistId?: boolean;
+    problemId?: boolean;
+    solvedAt?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type PlaylistProblemSolvedOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    | "id"
+    | "userId"
+    | "playlistId"
+    | "problemId"
+    | "solvedAt"
+    | "createdAt"
+    | "updatedAt",
+    ExtArgs["result"]["playlistProblemSolved"]
+  >;
+  export type PlaylistProblemSolvedInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+  };
+  export type PlaylistProblemSolvedIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+  };
+  export type PlaylistProblemSolvedIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    playlist?: boolean | PlaylistDefaultArgs<ExtArgs>;
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>;
+  };
+
+  export type $PlaylistProblemSolvedPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "PlaylistProblemSolved";
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+      playlist: Prisma.$PlaylistPayload<ExtArgs>;
+      problem: Prisma.$ProblemPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        userId: string;
+        playlistId: string;
+        problemId: string;
+        solvedAt: Date;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["playlistProblemSolved"]
+    >;
+    composites: {};
+  };
+
+  type PlaylistProblemSolvedGetPayload<
+    S extends boolean | null | undefined | PlaylistProblemSolvedDefaultArgs,
+  > = $Result.GetResult<Prisma.$PlaylistProblemSolvedPayload, S>;
+
+  type PlaylistProblemSolvedCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    PlaylistProblemSolvedFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: PlaylistProblemSolvedCountAggregateInputType | true;
+  };
+
+  export interface PlaylistProblemSolvedDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["PlaylistProblemSolved"];
+      meta: { name: "PlaylistProblemSolved" };
+    };
+    /**
+     * Find zero or one PlaylistProblemSolved that matches the filter.
+     * @param {PlaylistProblemSolvedFindUniqueArgs} args - Arguments to find a PlaylistProblemSolved
+     * @example
+     * // Get one PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlaylistProblemSolvedFindUniqueArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedFindUniqueArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one PlaylistProblemSolved that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlaylistProblemSolvedFindUniqueOrThrowArgs} args - Arguments to find a PlaylistProblemSolved
+     * @example
+     * // Get one PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlaylistProblemSolvedFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PlaylistProblemSolved that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedFindFirstArgs} args - Arguments to find a PlaylistProblemSolved
+     * @example
+     * // Get one PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlaylistProblemSolvedFindFirstArgs>(
+      args?: SelectSubset<T, PlaylistProblemSolvedFindFirstArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PlaylistProblemSolved that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedFindFirstOrThrowArgs} args - Arguments to find a PlaylistProblemSolved
+     * @example
+     * // Get one PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlaylistProblemSolvedFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PlaylistProblemSolvedFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more PlaylistProblemSolveds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlaylistProblemSolveds
+     * const playlistProblemSolveds = await prisma.playlistProblemSolved.findMany()
+     *
+     * // Get first 10 PlaylistProblemSolveds
+     * const playlistProblemSolveds = await prisma.playlistProblemSolved.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const playlistProblemSolvedWithIdOnly = await prisma.playlistProblemSolved.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends PlaylistProblemSolvedFindManyArgs>(
+      args?: SelectSubset<T, PlaylistProblemSolvedFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a PlaylistProblemSolved.
+     * @param {PlaylistProblemSolvedCreateArgs} args - Arguments to create a PlaylistProblemSolved.
+     * @example
+     * // Create one PlaylistProblemSolved
+     * const PlaylistProblemSolved = await prisma.playlistProblemSolved.create({
+     *   data: {
+     *     // ... data to create a PlaylistProblemSolved
+     *   }
+     * })
+     *
+     */
+    create<T extends PlaylistProblemSolvedCreateArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedCreateArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many PlaylistProblemSolveds.
+     * @param {PlaylistProblemSolvedCreateManyArgs} args - Arguments to create many PlaylistProblemSolveds.
+     * @example
+     * // Create many PlaylistProblemSolveds
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PlaylistProblemSolvedCreateManyArgs>(
+      args?: SelectSubset<T, PlaylistProblemSolvedCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many PlaylistProblemSolveds and returns the data saved in the database.
+     * @param {PlaylistProblemSolvedCreateManyAndReturnArgs} args - Arguments to create many PlaylistProblemSolveds.
+     * @example
+     * // Create many PlaylistProblemSolveds
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PlaylistProblemSolveds and only return the `id`
+     * const playlistProblemSolvedWithIdOnly = await prisma.playlistProblemSolved.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PlaylistProblemSolvedCreateManyAndReturnArgs>(
+      args?: SelectSubset<
+        T,
+        PlaylistProblemSolvedCreateManyAndReturnArgs<ExtArgs>
+      >
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a PlaylistProblemSolved.
+     * @param {PlaylistProblemSolvedDeleteArgs} args - Arguments to delete one PlaylistProblemSolved.
+     * @example
+     * // Delete one PlaylistProblemSolved
+     * const PlaylistProblemSolved = await prisma.playlistProblemSolved.delete({
+     *   where: {
+     *     // ... filter to delete one PlaylistProblemSolved
+     *   }
+     * })
+     *
+     */
+    delete<T extends PlaylistProblemSolvedDeleteArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedDeleteArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one PlaylistProblemSolved.
+     * @param {PlaylistProblemSolvedUpdateArgs} args - Arguments to update one PlaylistProblemSolved.
+     * @example
+     * // Update one PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PlaylistProblemSolvedUpdateArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedUpdateArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more PlaylistProblemSolveds.
+     * @param {PlaylistProblemSolvedDeleteManyArgs} args - Arguments to filter PlaylistProblemSolveds to delete.
+     * @example
+     * // Delete a few PlaylistProblemSolveds
+     * const { count } = await prisma.playlistProblemSolved.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PlaylistProblemSolvedDeleteManyArgs>(
+      args?: SelectSubset<T, PlaylistProblemSolvedDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PlaylistProblemSolveds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlaylistProblemSolveds
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PlaylistProblemSolvedUpdateManyArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PlaylistProblemSolveds and returns the data updated in the database.
+     * @param {PlaylistProblemSolvedUpdateManyAndReturnArgs} args - Arguments to update many PlaylistProblemSolveds.
+     * @example
+     * // Update many PlaylistProblemSolveds
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more PlaylistProblemSolveds and only return the `id`
+     * const playlistProblemSolvedWithIdOnly = await prisma.playlistProblemSolved.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends PlaylistProblemSolvedUpdateManyAndReturnArgs>(
+      args: SelectSubset<
+        T,
+        PlaylistProblemSolvedUpdateManyAndReturnArgs<ExtArgs>
+      >
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one PlaylistProblemSolved.
+     * @param {PlaylistProblemSolvedUpsertArgs} args - Arguments to update or create a PlaylistProblemSolved.
+     * @example
+     * // Update or create a PlaylistProblemSolved
+     * const playlistProblemSolved = await prisma.playlistProblemSolved.upsert({
+     *   create: {
+     *     // ... data to create a PlaylistProblemSolved
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlaylistProblemSolved we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlaylistProblemSolvedUpsertArgs>(
+      args: SelectSubset<T, PlaylistProblemSolvedUpsertArgs<ExtArgs>>
+    ): Prisma__PlaylistProblemSolvedClient<
+      $Result.GetResult<
+        Prisma.$PlaylistProblemSolvedPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of PlaylistProblemSolveds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedCountArgs} args - Arguments to filter PlaylistProblemSolveds to count.
+     * @example
+     * // Count the number of PlaylistProblemSolveds
+     * const count = await prisma.playlistProblemSolved.count({
+     *   where: {
+     *     // ... the filter for the PlaylistProblemSolveds we want to count
+     *   }
+     * })
+     **/
+    count<T extends PlaylistProblemSolvedCountArgs>(
+      args?: Subset<T, PlaylistProblemSolvedCountArgs>
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<
+              T["select"],
+              PlaylistProblemSolvedCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a PlaylistProblemSolved.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends PlaylistProblemSolvedAggregateArgs>(
+      args: Subset<T, PlaylistProblemSolvedAggregateArgs>
+    ): Prisma.PrismaPromise<GetPlaylistProblemSolvedAggregateType<T>>;
+
+    /**
+     * Group by PlaylistProblemSolved.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistProblemSolvedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends PlaylistProblemSolvedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlaylistProblemSolvedGroupByArgs["orderBy"] }
+        : { orderBy?: PlaylistProblemSolvedGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<
+        T,
+        PlaylistProblemSolvedGroupByArgs,
+        OrderByArg
+      > &
+        InputErrors
+    ): {} extends InputErrors
+      ? GetPlaylistProblemSolvedGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PlaylistProblemSolved model
+     */
+    readonly fields: PlaylistProblemSolvedFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlaylistProblemSolved.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlaylistProblemSolvedClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    playlist<T extends PlaylistDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, PlaylistDefaultArgs<ExtArgs>>
+    ): Prisma__PlaylistClient<
+      | $Result.GetResult<
+          Prisma.$PlaylistPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, ProblemDefaultArgs<ExtArgs>>
+    ): Prisma__ProblemClient<
+      | $Result.GetResult<
+          Prisma.$ProblemPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the PlaylistProblemSolved model
+   */
+  interface PlaylistProblemSolvedFieldRefs {
+    readonly id: FieldRef<"PlaylistProblemSolved", "String">;
+    readonly userId: FieldRef<"PlaylistProblemSolved", "String">;
+    readonly playlistId: FieldRef<"PlaylistProblemSolved", "String">;
+    readonly problemId: FieldRef<"PlaylistProblemSolved", "String">;
+    readonly solvedAt: FieldRef<"PlaylistProblemSolved", "DateTime">;
+    readonly createdAt: FieldRef<"PlaylistProblemSolved", "DateTime">;
+    readonly updatedAt: FieldRef<"PlaylistProblemSolved", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * PlaylistProblemSolved findUnique
+   */
+  export type PlaylistProblemSolvedFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter, which PlaylistProblemSolved to fetch.
+     */
+    where: PlaylistProblemSolvedWhereUniqueInput;
+  };
+
+  /**
+   * PlaylistProblemSolved findUniqueOrThrow
+   */
+  export type PlaylistProblemSolvedFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter, which PlaylistProblemSolved to fetch.
+     */
+    where: PlaylistProblemSolvedWhereUniqueInput;
+  };
+
+  /**
+   * PlaylistProblemSolved findFirst
+   */
+  export type PlaylistProblemSolvedFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter, which PlaylistProblemSolved to fetch.
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PlaylistProblemSolveds to fetch.
+     */
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PlaylistProblemSolveds.
+     */
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PlaylistProblemSolveds from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PlaylistProblemSolveds.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PlaylistProblemSolveds.
+     */
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
+  };
+
+  /**
+   * PlaylistProblemSolved findFirstOrThrow
+   */
+  export type PlaylistProblemSolvedFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter, which PlaylistProblemSolved to fetch.
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PlaylistProblemSolveds to fetch.
+     */
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PlaylistProblemSolveds.
+     */
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PlaylistProblemSolveds from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PlaylistProblemSolveds.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PlaylistProblemSolveds.
+     */
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
+  };
+
+  /**
+   * PlaylistProblemSolved findMany
+   */
+  export type PlaylistProblemSolvedFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter, which PlaylistProblemSolveds to fetch.
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PlaylistProblemSolveds to fetch.
+     */
+    orderBy?:
+      | PlaylistProblemSolvedOrderByWithRelationInput
+      | PlaylistProblemSolvedOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PlaylistProblemSolveds.
+     */
+    cursor?: PlaylistProblemSolvedWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PlaylistProblemSolveds from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PlaylistProblemSolveds.
+     */
+    skip?: number;
+    distinct?:
+      | PlaylistProblemSolvedScalarFieldEnum
+      | PlaylistProblemSolvedScalarFieldEnum[];
+  };
+
+  /**
+   * PlaylistProblemSolved create
+   */
+  export type PlaylistProblemSolvedCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PlaylistProblemSolved.
+     */
+    data: XOR<
+      PlaylistProblemSolvedCreateInput,
+      PlaylistProblemSolvedUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * PlaylistProblemSolved createMany
+   */
+  export type PlaylistProblemSolvedCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many PlaylistProblemSolveds.
+     */
+    data:
+      | PlaylistProblemSolvedCreateManyInput
+      | PlaylistProblemSolvedCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * PlaylistProblemSolved createManyAndReturn
+   */
+  export type PlaylistProblemSolvedCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * The data used to create many PlaylistProblemSolveds.
+     */
+    data:
+      | PlaylistProblemSolvedCreateManyInput
+      | PlaylistProblemSolvedCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PlaylistProblemSolved update
+   */
+  export type PlaylistProblemSolvedUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PlaylistProblemSolved.
+     */
+    data: XOR<
+      PlaylistProblemSolvedUpdateInput,
+      PlaylistProblemSolvedUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which PlaylistProblemSolved to update.
+     */
+    where: PlaylistProblemSolvedWhereUniqueInput;
+  };
+
+  /**
+   * PlaylistProblemSolved updateMany
+   */
+  export type PlaylistProblemSolvedUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update PlaylistProblemSolveds.
+     */
+    data: XOR<
+      PlaylistProblemSolvedUpdateManyMutationInput,
+      PlaylistProblemSolvedUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PlaylistProblemSolveds to update
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * Limit how many PlaylistProblemSolveds to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PlaylistProblemSolved updateManyAndReturn
+   */
+  export type PlaylistProblemSolvedUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * The data used to update PlaylistProblemSolveds.
+     */
+    data: XOR<
+      PlaylistProblemSolvedUpdateManyMutationInput,
+      PlaylistProblemSolvedUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PlaylistProblemSolveds to update
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * Limit how many PlaylistProblemSolveds to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PlaylistProblemSolved upsert
+   */
+  export type PlaylistProblemSolvedUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PlaylistProblemSolved to update in case it exists.
+     */
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    /**
+     * In case the PlaylistProblemSolved found by the `where` argument doesn't exist, create a new PlaylistProblemSolved with this data.
+     */
+    create: XOR<
+      PlaylistProblemSolvedCreateInput,
+      PlaylistProblemSolvedUncheckedCreateInput
+    >;
+    /**
+     * In case the PlaylistProblemSolved was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      PlaylistProblemSolvedUpdateInput,
+      PlaylistProblemSolvedUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * PlaylistProblemSolved delete
+   */
+  export type PlaylistProblemSolvedDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+    /**
+     * Filter which PlaylistProblemSolved to delete.
+     */
+    where: PlaylistProblemSolvedWhereUniqueInput;
+  };
+
+  /**
+   * PlaylistProblemSolved deleteMany
+   */
+  export type PlaylistProblemSolvedDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PlaylistProblemSolveds to delete
+     */
+    where?: PlaylistProblemSolvedWhereInput;
+    /**
+     * Limit how many PlaylistProblemSolveds to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PlaylistProblemSolved without action
+   */
+  export type PlaylistProblemSolvedDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PlaylistProblemSolved
+     */
+    select?: PlaylistProblemSolvedSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlaylistProblemSolved
+     */
+    omit?: PlaylistProblemSolvedOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistProblemSolvedInclude<ExtArgs> | null;
+  };
+
+  /**
    * Enums
    */
 
@@ -24431,6 +26127,19 @@ export namespace Prisma {
   export type BadgeScalarFieldEnum =
     (typeof BadgeScalarFieldEnum)[keyof typeof BadgeScalarFieldEnum];
 
+  export const PlaylistProblemSolvedScalarFieldEnum: {
+    id: "id";
+    userId: "userId";
+    playlistId: "playlistId";
+    problemId: "problemId";
+    solvedAt: "solvedAt";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type PlaylistProblemSolvedScalarFieldEnum =
+    (typeof PlaylistProblemSolvedScalarFieldEnum)[keyof typeof PlaylistProblemSolvedScalarFieldEnum];
+
   export const SortOrder: {
     asc: "asc";
     desc: "desc";
@@ -24646,6 +26355,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeListRelationFilter;
     badges?: BadgeListRelationFilter;
     favoriteProblems?: ProblemListRelationFilter;
+    solvedPlaylistProblems?: PlaylistProblemSolvedListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -24668,6 +26378,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeOrderByRelationAggregateInput;
     badges?: BadgeOrderByRelationAggregateInput;
     favoriteProblems?: ProblemOrderByRelationAggregateInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -24697,6 +26408,7 @@ export namespace Prisma {
       userChallenges?: UserChallengeListRelationFilter;
       badges?: BadgeListRelationFilter;
       favoriteProblems?: ProblemListRelationFilter;
+      solvedPlaylistProblems?: PlaylistProblemSolvedListRelationFilter;
     },
     "id" | "email"
   >;
@@ -24768,6 +26480,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistListRelationFilter;
     challengeProblems?: ChallengeProblemListRelationFilter;
     favoredByUsers?: UserListRelationFilter;
+    solvedByUsers?: PlaylistProblemSolvedListRelationFilter;
   };
 
   export type ProblemOrderByWithRelationInput = {
@@ -24800,6 +26513,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistOrderByRelationAggregateInput;
     challengeProblems?: ChallengeProblemOrderByRelationAggregateInput;
     favoredByUsers?: UserOrderByRelationAggregateInput;
+    solvedByUsers?: PlaylistProblemSolvedOrderByRelationAggregateInput;
   };
 
   export type ProblemWhereUniqueInput = Prisma.AtLeast<
@@ -24836,6 +26550,7 @@ export namespace Prisma {
       problemsPlatlists?: ProblemInPlaylistListRelationFilter;
       challengeProblems?: ChallengeProblemListRelationFilter;
       favoredByUsers?: UserListRelationFilter;
+      solvedByUsers?: PlaylistProblemSolvedListRelationFilter;
     },
     "id" | "problemNumber"
   >;
@@ -25427,6 +27142,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
     problems?: ProblemInPlaylistListRelationFilter;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    solvedProblems?: PlaylistProblemSolvedListRelationFilter;
   };
 
   export type PlaylistOrderByWithRelationInput = {
@@ -25441,6 +27157,7 @@ export namespace Prisma {
     updatedAt?: SortOrder;
     problems?: ProblemInPlaylistOrderByRelationAggregateInput;
     user?: UserOrderByWithRelationInput;
+    solvedProblems?: PlaylistProblemSolvedOrderByRelationAggregateInput;
   };
 
   export type PlaylistWhereUniqueInput = Prisma.AtLeast<
@@ -25460,6 +27177,7 @@ export namespace Prisma {
       updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
       problems?: ProblemInPlaylistListRelationFilter;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      solvedProblems?: PlaylistProblemSolvedListRelationFilter;
     },
     "id" | "name_userId"
   >;
@@ -25904,6 +27622,94 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Badge"> | Date | string;
   };
 
+  export type PlaylistProblemSolvedWhereInput = {
+    AND?: PlaylistProblemSolvedWhereInput | PlaylistProblemSolvedWhereInput[];
+    OR?: PlaylistProblemSolvedWhereInput[];
+    NOT?: PlaylistProblemSolvedWhereInput | PlaylistProblemSolvedWhereInput[];
+    id?: StringFilter<"PlaylistProblemSolved"> | string;
+    userId?: StringFilter<"PlaylistProblemSolved"> | string;
+    playlistId?: StringFilter<"PlaylistProblemSolved"> | string;
+    problemId?: StringFilter<"PlaylistProblemSolved"> | string;
+    solvedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+    createdAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+    updatedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    playlist?: XOR<PlaylistScalarRelationFilter, PlaylistWhereInput>;
+    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>;
+  };
+
+  export type PlaylistProblemSolvedOrderByWithRelationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    playlistId?: SortOrder;
+    problemId?: SortOrder;
+    solvedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+    playlist?: PlaylistOrderByWithRelationInput;
+    problem?: ProblemOrderByWithRelationInput;
+  };
+
+  export type PlaylistProblemSolvedWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      userId_playlistId_problemId?: PlaylistProblemSolvedUserIdPlaylistIdProblemIdCompoundUniqueInput;
+      AND?: PlaylistProblemSolvedWhereInput | PlaylistProblemSolvedWhereInput[];
+      OR?: PlaylistProblemSolvedWhereInput[];
+      NOT?: PlaylistProblemSolvedWhereInput | PlaylistProblemSolvedWhereInput[];
+      userId?: StringFilter<"PlaylistProblemSolved"> | string;
+      playlistId?: StringFilter<"PlaylistProblemSolved"> | string;
+      problemId?: StringFilter<"PlaylistProblemSolved"> | string;
+      solvedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+      createdAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+      updatedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      playlist?: XOR<PlaylistScalarRelationFilter, PlaylistWhereInput>;
+      problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>;
+    },
+    "id" | "userId_playlistId_problemId"
+  >;
+
+  export type PlaylistProblemSolvedOrderByWithAggregationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    playlistId?: SortOrder;
+    problemId?: SortOrder;
+    solvedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: PlaylistProblemSolvedCountOrderByAggregateInput;
+    _max?: PlaylistProblemSolvedMaxOrderByAggregateInput;
+    _min?: PlaylistProblemSolvedMinOrderByAggregateInput;
+  };
+
+  export type PlaylistProblemSolvedScalarWhereWithAggregatesInput = {
+    AND?:
+      | PlaylistProblemSolvedScalarWhereWithAggregatesInput
+      | PlaylistProblemSolvedScalarWhereWithAggregatesInput[];
+    OR?: PlaylistProblemSolvedScalarWhereWithAggregatesInput[];
+    NOT?:
+      | PlaylistProblemSolvedScalarWhereWithAggregatesInput
+      | PlaylistProblemSolvedScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"PlaylistProblemSolved"> | string;
+    userId?: StringWithAggregatesFilter<"PlaylistProblemSolved"> | string;
+    playlistId?: StringWithAggregatesFilter<"PlaylistProblemSolved"> | string;
+    problemId?: StringWithAggregatesFilter<"PlaylistProblemSolved"> | string;
+    solvedAt?:
+      | DateTimeWithAggregatesFilter<"PlaylistProblemSolved">
+      | Date
+      | string;
+    createdAt?:
+      | DateTimeWithAggregatesFilter<"PlaylistProblemSolved">
+      | Date
+      | string;
+    updatedAt?:
+      | DateTimeWithAggregatesFilter<"PlaylistProblemSolved">
+      | Date
+      | string;
+  };
+
   export type UserCreateInput = {
     id?: string;
     name?: string | null;
@@ -25924,6 +27730,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -25946,6 +27753,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUpdateInput = {
@@ -25968,6 +27776,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -25990,6 +27799,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -26057,6 +27867,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateInput = {
@@ -26088,6 +27899,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUpdateInput = {
@@ -26118,6 +27930,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateInput = {
@@ -26149,6 +27962,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemCreateManyInput = {
@@ -26709,6 +28523,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistCreateNestedManyWithoutPlaylistInput;
     user: UserCreateNestedOneWithoutPlaylistsInput;
+    solvedProblems?: PlaylistProblemSolvedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistUncheckedCreateInput = {
@@ -26722,6 +28537,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput;
+    solvedProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistUpdateInput = {
@@ -26735,6 +28551,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUpdateManyWithoutPlaylistNestedInput;
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput;
+    solvedProblems?: PlaylistProblemSolvedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type PlaylistUncheckedUpdateInput = {
@@ -26748,6 +28565,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput;
+    solvedProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type PlaylistCreateManyInput = {
@@ -27121,6 +28939,73 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type PlaylistProblemSolvedCreateInput = {
+    id?: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutSolvedPlaylistProblemsInput;
+    playlist: PlaylistCreateNestedOneWithoutSolvedProblemsInput;
+    problem: ProblemCreateNestedOneWithoutSolvedByUsersInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    playlistId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PlaylistProblemSolvedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutSolvedPlaylistProblemsNestedInput;
+    playlist?: PlaylistUpdateOneRequiredWithoutSolvedProblemsNestedInput;
+    problem?: ProblemUpdateOneRequiredWithoutSolvedByUsersNestedInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedCreateManyInput = {
+    id?: string;
+    userId: string;
+    playlistId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PlaylistProblemSolvedUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -27256,6 +29141,12 @@ export namespace Prisma {
     none?: BadgeWhereInput;
   };
 
+  export type PlaylistProblemSolvedListRelationFilter = {
+    every?: PlaylistProblemSolvedWhereInput;
+    some?: PlaylistProblemSolvedWhereInput;
+    none?: PlaylistProblemSolvedWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -27290,6 +29181,10 @@ export namespace Prisma {
   };
 
   export type BadgeOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type PlaylistProblemSolvedOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -28176,6 +30071,43 @@ export namespace Prisma {
     createdAt?: SortOrder;
   };
 
+  export type PlaylistProblemSolvedUserIdPlaylistIdProblemIdCompoundUniqueInput =
+    {
+      userId: string;
+      playlistId: string;
+      problemId: string;
+    };
+
+  export type PlaylistProblemSolvedCountOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    playlistId?: SortOrder;
+    problemId?: SortOrder;
+    solvedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type PlaylistProblemSolvedMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    playlistId?: SortOrder;
+    problemId?: SortOrder;
+    solvedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type PlaylistProblemSolvedMinOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    playlistId?: SortOrder;
+    problemId?: SortOrder;
+    solvedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
   export type ProblemCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
@@ -28316,6 +30248,23 @@ export namespace Prisma {
     connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
   };
 
+  export type PlaylistProblemSolvedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutUserInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+        >
+      | PlaylistProblemSolvedCreateWithoutUserInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput[];
+    createMany?: PlaylistProblemSolvedCreateManyUserInputEnvelope;
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+  };
+
   export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
@@ -28454,6 +30403,23 @@ export namespace Prisma {
       | ProblemCreateOrConnectWithoutFavoredByUsersInput
       | ProblemCreateOrConnectWithoutFavoredByUsersInput[];
     connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+  };
+
+  export type PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutUserInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+        >
+      | PlaylistProblemSolvedCreateWithoutUserInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput[];
+    createMany?: PlaylistProblemSolvedCreateManyUserInputEnvelope;
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -28747,6 +30713,44 @@ export namespace Prisma {
     deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
   };
 
+  export type PlaylistProblemSolvedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutUserInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+        >
+      | PlaylistProblemSolvedCreateWithoutUserInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutUserInput
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PlaylistProblemSolvedCreateManyUserInputEnvelope;
+    set?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    disconnect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    delete?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    update?:
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutUserInput
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutUserInput
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+  };
+
   export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<
@@ -29022,6 +31026,44 @@ export namespace Prisma {
     deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
   };
 
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutUserInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+        >
+      | PlaylistProblemSolvedCreateWithoutUserInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutUserInput
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PlaylistProblemSolvedCreateManyUserInputEnvelope;
+    set?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    disconnect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    delete?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    update?:
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutUserInput
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutUserInput
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+  };
+
   export type ProblemCreatetopicInput = {
     set: string[];
   };
@@ -29172,6 +31214,23 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
   };
 
+  export type PlaylistProblemSolvedCreateNestedManyWithoutProblemInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutProblemInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+        >
+      | PlaylistProblemSolvedCreateWithoutProblemInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutProblemInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput[];
+    createMany?: PlaylistProblemSolvedCreateManyProblemInputEnvelope;
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+  };
+
   export type SubmissionUncheckedCreateNestedManyWithoutProblemInput = {
     create?:
       | XOR<
@@ -29296,6 +31355,24 @@ export namespace Prisma {
       | UserCreateOrConnectWithoutFavoriteProblemsInput[];
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[];
   };
+
+  export type PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput =
+    {
+      create?:
+        | XOR<
+            PlaylistProblemSolvedCreateWithoutProblemInput,
+            PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+          >
+        | PlaylistProblemSolvedCreateWithoutProblemInput[]
+        | PlaylistProblemSolvedUncheckedCreateWithoutProblemInput[];
+      connectOrCreate?:
+        | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput
+        | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput[];
+      createMany?: PlaylistProblemSolvedCreateManyProblemInputEnvelope;
+      connect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+    };
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty;
@@ -29595,6 +31672,44 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[];
   };
 
+  export type PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutProblemInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+        >
+      | PlaylistProblemSolvedCreateWithoutProblemInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutProblemInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput[];
+    upsert?:
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput[];
+    createMany?: PlaylistProblemSolvedCreateManyProblemInputEnvelope;
+    set?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    disconnect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    delete?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    update?:
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutProblemInput
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutProblemInput[];
+    updateMany?:
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutProblemInput
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutProblemInput[];
+    deleteMany?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+  };
+
   export type IntFieldUpdateOperationsInput = {
     set?: number;
     increment?: number;
@@ -29855,6 +31970,45 @@ export namespace Prisma {
       | UserUpdateManyWithWhereWithoutFavoriteProblemsInput[];
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[];
   };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput =
+    {
+      create?:
+        | XOR<
+            PlaylistProblemSolvedCreateWithoutProblemInput,
+            PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+          >
+        | PlaylistProblemSolvedCreateWithoutProblemInput[]
+        | PlaylistProblemSolvedUncheckedCreateWithoutProblemInput[];
+      connectOrCreate?:
+        | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput
+        | PlaylistProblemSolvedCreateOrConnectWithoutProblemInput[];
+      upsert?:
+        | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput
+        | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput[];
+      createMany?: PlaylistProblemSolvedCreateManyProblemInputEnvelope;
+      set?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      disconnect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      delete?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      connect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      update?:
+        | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutProblemInput
+        | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutProblemInput[];
+      updateMany?:
+        | PlaylistProblemSolvedUpdateManyWithWhereWithoutProblemInput
+        | PlaylistProblemSolvedUpdateManyWithWhereWithoutProblemInput[];
+      deleteMany?:
+        | PlaylistProblemSolvedScalarWhereInput
+        | PlaylistProblemSolvedScalarWhereInput[];
+    };
 
   export type ProblemCreateNestedOneWithoutTestcasesInput = {
     create?: XOR<
@@ -30354,6 +32508,23 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
+  export type PlaylistProblemSolvedCreateNestedManyWithoutPlaylistInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutPlaylistInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+        >
+      | PlaylistProblemSolvedCreateWithoutPlaylistInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput[];
+    createMany?: PlaylistProblemSolvedCreateManyPlaylistInputEnvelope;
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+  };
+
   export type ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput = {
     create?:
       | XOR<
@@ -30370,6 +32541,24 @@ export namespace Prisma {
       | ProblemInPlaylistWhereUniqueInput
       | ProblemInPlaylistWhereUniqueInput[];
   };
+
+  export type PlaylistProblemSolvedUncheckedCreateNestedManyWithoutPlaylistInput =
+    {
+      create?:
+        | XOR<
+            PlaylistProblemSolvedCreateWithoutPlaylistInput,
+            PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+          >
+        | PlaylistProblemSolvedCreateWithoutPlaylistInput[]
+        | PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput[];
+      connectOrCreate?:
+        | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput
+        | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput[];
+      createMany?: PlaylistProblemSolvedCreateManyPlaylistInputEnvelope;
+      connect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+    };
 
   export type PlaylistUpdatetopicsInput = {
     set?: string[];
@@ -30436,6 +32625,44 @@ export namespace Prisma {
     >;
   };
 
+  export type PlaylistProblemSolvedUpdateManyWithoutPlaylistNestedInput = {
+    create?:
+      | XOR<
+          PlaylistProblemSolvedCreateWithoutPlaylistInput,
+          PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+        >
+      | PlaylistProblemSolvedCreateWithoutPlaylistInput[]
+      | PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput[];
+    connectOrCreate?:
+      | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput
+      | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput[];
+    upsert?:
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutPlaylistInput
+      | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutPlaylistInput[];
+    createMany?: PlaylistProblemSolvedCreateManyPlaylistInputEnvelope;
+    set?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    disconnect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    delete?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    connect?:
+      | PlaylistProblemSolvedWhereUniqueInput
+      | PlaylistProblemSolvedWhereUniqueInput[];
+    update?:
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutPlaylistInput
+      | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutPlaylistInput[];
+    updateMany?:
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutPlaylistInput
+      | PlaylistProblemSolvedUpdateManyWithWhereWithoutPlaylistInput[];
+    deleteMany?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+  };
+
   export type ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput = {
     create?:
       | XOR<
@@ -30473,6 +32700,45 @@ export namespace Prisma {
       | ProblemInPlaylistScalarWhereInput
       | ProblemInPlaylistScalarWhereInput[];
   };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistNestedInput =
+    {
+      create?:
+        | XOR<
+            PlaylistProblemSolvedCreateWithoutPlaylistInput,
+            PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+          >
+        | PlaylistProblemSolvedCreateWithoutPlaylistInput[]
+        | PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput[];
+      connectOrCreate?:
+        | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput
+        | PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput[];
+      upsert?:
+        | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutPlaylistInput
+        | PlaylistProblemSolvedUpsertWithWhereUniqueWithoutPlaylistInput[];
+      createMany?: PlaylistProblemSolvedCreateManyPlaylistInputEnvelope;
+      set?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      disconnect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      delete?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      connect?:
+        | PlaylistProblemSolvedWhereUniqueInput
+        | PlaylistProblemSolvedWhereUniqueInput[];
+      update?:
+        | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutPlaylistInput
+        | PlaylistProblemSolvedUpdateWithWhereUniqueWithoutPlaylistInput[];
+      updateMany?:
+        | PlaylistProblemSolvedUpdateManyWithWhereWithoutPlaylistInput
+        | PlaylistProblemSolvedUpdateManyWithWhereWithoutPlaylistInput[];
+      deleteMany?:
+        | PlaylistProblemSolvedScalarWhereInput
+        | PlaylistProblemSolvedScalarWhereInput[];
+    };
 
   export type PlaylistCreateNestedOneWithoutProblemsInput = {
     create?: XOR<
@@ -30891,6 +33157,84 @@ export namespace Prisma {
     >;
   };
 
+  export type UserCreateNestedOneWithoutSolvedPlaylistProblemsInput = {
+    create?: XOR<
+      UserCreateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedCreateWithoutSolvedPlaylistProblemsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutSolvedPlaylistProblemsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type PlaylistCreateNestedOneWithoutSolvedProblemsInput = {
+    create?: XOR<
+      PlaylistCreateWithoutSolvedProblemsInput,
+      PlaylistUncheckedCreateWithoutSolvedProblemsInput
+    >;
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSolvedProblemsInput;
+    connect?: PlaylistWhereUniqueInput;
+  };
+
+  export type ProblemCreateNestedOneWithoutSolvedByUsersInput = {
+    create?: XOR<
+      ProblemCreateWithoutSolvedByUsersInput,
+      ProblemUncheckedCreateWithoutSolvedByUsersInput
+    >;
+    connectOrCreate?: ProblemCreateOrConnectWithoutSolvedByUsersInput;
+    connect?: ProblemWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutSolvedPlaylistProblemsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedCreateWithoutSolvedPlaylistProblemsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutSolvedPlaylistProblemsInput;
+    upsert?: UserUpsertWithoutSolvedPlaylistProblemsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutSolvedPlaylistProblemsInput,
+        UserUpdateWithoutSolvedPlaylistProblemsInput
+      >,
+      UserUncheckedUpdateWithoutSolvedPlaylistProblemsInput
+    >;
+  };
+
+  export type PlaylistUpdateOneRequiredWithoutSolvedProblemsNestedInput = {
+    create?: XOR<
+      PlaylistCreateWithoutSolvedProblemsInput,
+      PlaylistUncheckedCreateWithoutSolvedProblemsInput
+    >;
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSolvedProblemsInput;
+    upsert?: PlaylistUpsertWithoutSolvedProblemsInput;
+    connect?: PlaylistWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PlaylistUpdateToOneWithWhereWithoutSolvedProblemsInput,
+        PlaylistUpdateWithoutSolvedProblemsInput
+      >,
+      PlaylistUncheckedUpdateWithoutSolvedProblemsInput
+    >;
+  };
+
+  export type ProblemUpdateOneRequiredWithoutSolvedByUsersNestedInput = {
+    create?: XOR<
+      ProblemCreateWithoutSolvedByUsersInput,
+      ProblemUncheckedCreateWithoutSolvedByUsersInput
+    >;
+    connectOrCreate?: ProblemCreateOrConnectWithoutSolvedByUsersInput;
+    upsert?: ProblemUpsertWithoutSolvedByUsersInput;
+    connect?: ProblemWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        ProblemUpdateToOneWithWhereWithoutSolvedByUsersInput,
+        ProblemUpdateWithoutSolvedByUsersInput
+      >,
+      ProblemUncheckedUpdateWithoutSolvedByUsersInput
+    >;
+  };
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -31197,6 +33541,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutUserInput = {
@@ -31227,6 +33572,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutUserInput = {
@@ -31386,6 +33732,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistCreateNestedManyWithoutPlaylistInput;
+    solvedProblems?: PlaylistProblemSolvedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistUncheckedCreateWithoutUserInput = {
@@ -31398,6 +33745,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     problems?: ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput;
+    solvedProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistCreateOrConnectWithoutUserInput = {
@@ -31519,6 +33867,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutFavoredByUsersInput = {
@@ -31549,6 +33898,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutFavoredByUsersInput = {
@@ -31557,6 +33907,39 @@ export namespace Prisma {
       ProblemCreateWithoutFavoredByUsersInput,
       ProblemUncheckedCreateWithoutFavoredByUsersInput
     >;
+  };
+
+  export type PlaylistProblemSolvedCreateWithoutUserInput = {
+    id?: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    playlist: PlaylistCreateNestedOneWithoutSolvedProblemsInput;
+    problem: ProblemCreateNestedOneWithoutSolvedByUsersInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedCreateWithoutUserInput = {
+    id?: string;
+    playlistId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PlaylistProblemSolvedCreateOrConnectWithoutUserInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutUserInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedCreateManyUserInputEnvelope = {
+    data:
+      | PlaylistProblemSolvedCreateManyUserInput
+      | PlaylistProblemSolvedCreateManyUserInput[];
+    skipDuplicates?: boolean;
   };
 
   export type ProblemUpsertWithWhereUniqueWithoutUserInput = {
@@ -31964,6 +34347,51 @@ export namespace Prisma {
     >;
   };
 
+  export type PlaylistProblemSolvedUpsertWithWhereUniqueWithoutUserInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    update: XOR<
+      PlaylistProblemSolvedUpdateWithoutUserInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutUserInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithWhereUniqueWithoutUserInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateWithoutUserInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateManyWithWhereWithoutUserInput = {
+    where: PlaylistProblemSolvedScalarWhereInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateManyMutationInput,
+      PlaylistProblemSolvedUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedScalarWhereInput = {
+    AND?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+    OR?: PlaylistProblemSolvedScalarWhereInput[];
+    NOT?:
+      | PlaylistProblemSolvedScalarWhereInput
+      | PlaylistProblemSolvedScalarWhereInput[];
+    id?: StringFilter<"PlaylistProblemSolved"> | string;
+    userId?: StringFilter<"PlaylistProblemSolved"> | string;
+    playlistId?: StringFilter<"PlaylistProblemSolved"> | string;
+    problemId?: StringFilter<"PlaylistProblemSolved"> | string;
+    solvedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+    createdAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+    updatedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
+  };
+
   export type UserCreateWithoutProblemInput = {
     id?: string;
     name?: string | null;
@@ -31983,6 +34411,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutProblemInput = {
@@ -32004,6 +34433,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutProblemInput = {
@@ -32260,6 +34690,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutFavoriteProblemsInput = {
@@ -32281,6 +34712,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutFavoriteProblemsInput = {
@@ -32289,6 +34721,39 @@ export namespace Prisma {
       UserCreateWithoutFavoriteProblemsInput,
       UserUncheckedCreateWithoutFavoriteProblemsInput
     >;
+  };
+
+  export type PlaylistProblemSolvedCreateWithoutProblemInput = {
+    id?: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutSolvedPlaylistProblemsInput;
+    playlist: PlaylistCreateNestedOneWithoutSolvedProblemsInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedCreateWithoutProblemInput = {
+    id?: string;
+    userId: string;
+    playlistId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PlaylistProblemSolvedCreateOrConnectWithoutProblemInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutProblemInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedCreateManyProblemInputEnvelope = {
+    data:
+      | PlaylistProblemSolvedCreateManyProblemInput
+      | PlaylistProblemSolvedCreateManyProblemInput[];
+    skipDuplicates?: boolean;
   };
 
   export type UserUpsertWithoutProblemInput = {
@@ -32330,6 +34795,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutProblemInput = {
@@ -32351,6 +34817,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
@@ -32630,6 +35097,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string;
   };
 
+  export type PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    update: XOR<
+      PlaylistProblemSolvedUpdateWithoutProblemInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutProblemInput
+    >;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutProblemInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutProblemInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithWhereUniqueWithoutProblemInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateWithoutProblemInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutProblemInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateManyWithWhereWithoutProblemInput = {
+    where: PlaylistProblemSolvedScalarWhereInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateManyMutationInput,
+      PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemInput
+    >;
+  };
+
   export type ProblemCreateWithoutTestcasesInput = {
     id?: string;
     title: string;
@@ -32658,6 +35153,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutTestcasesInput = {
@@ -32688,6 +35184,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutTestcasesInput = {
@@ -32745,6 +35242,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutTestcasesInput = {
@@ -32775,6 +35273,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type UserCreateWithoutSubmissionInput = {
@@ -32796,6 +35295,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutSubmissionInput = {
@@ -32817,6 +35317,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutSubmissionInput = {
@@ -32855,6 +35356,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutSubmissionInput = {
@@ -32885,6 +35387,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutSubmissionInput = {
@@ -32979,6 +35482,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSubmissionInput = {
@@ -33000,6 +35504,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ProblemUpsertWithoutSubmissionInput = {
@@ -33049,6 +35554,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutSubmissionInput = {
@@ -33079,6 +35585,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type TestCaseUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -33243,6 +35750,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutProblemSolvedInput = {
@@ -33264,6 +35772,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutProblemSolvedInput = {
@@ -33302,6 +35811,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutSolvedByInput = {
@@ -33332,6 +35842,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutSolvedByInput = {
@@ -33381,6 +35892,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutProblemSolvedInput = {
@@ -33402,6 +35914,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ProblemUpsertWithoutSolvedByInput = {
@@ -33451,6 +35964,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutSolvedByInput = {
@@ -33481,6 +35995,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type UserCreateWithoutDiscussionsInput = {
@@ -33502,6 +36017,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutDiscussionsInput = {
@@ -33523,6 +36039,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutDiscussionsInput = {
@@ -33561,6 +36078,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutDiscussionsInput = {
@@ -33591,6 +36109,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutDiscussionsInput = {
@@ -33701,6 +36220,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutDiscussionsInput = {
@@ -33722,6 +36242,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ProblemUpsertWithoutDiscussionsInput = {
@@ -33771,6 +36292,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutDiscussionsInput = {
@@ -33801,6 +36323,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type DiscussionUpsertWithoutRepliesInput = {
@@ -33890,6 +36413,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutVotesOnProblemsInput = {
@@ -33911,6 +36435,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutVotesOnProblemsInput = {
@@ -33949,6 +36474,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutVotesInput = {
@@ -33979,6 +36505,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutVotesInput = {
@@ -34028,6 +36555,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutVotesOnProblemsInput = {
@@ -34049,6 +36577,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ProblemUpsertWithoutVotesInput = {
@@ -34098,6 +36627,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutVotesInput = {
@@ -34128,6 +36658,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemInPlaylistCreateWithoutPlaylistInput = {
@@ -34178,6 +36709,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutPlaylistsInput = {
@@ -34199,6 +36731,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutPlaylistsInput = {
@@ -34207,6 +36740,39 @@ export namespace Prisma {
       UserCreateWithoutPlaylistsInput,
       UserUncheckedCreateWithoutPlaylistsInput
     >;
+  };
+
+  export type PlaylistProblemSolvedCreateWithoutPlaylistInput = {
+    id?: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutSolvedPlaylistProblemsInput;
+    problem: ProblemCreateNestedOneWithoutSolvedByUsersInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput = {
+    id?: string;
+    userId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PlaylistProblemSolvedCreateOrConnectWithoutPlaylistInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutPlaylistInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedCreateManyPlaylistInputEnvelope = {
+    data:
+      | PlaylistProblemSolvedCreateManyPlaylistInput
+      | PlaylistProblemSolvedCreateManyPlaylistInput[];
+    skipDuplicates?: boolean;
   };
 
   export type ProblemInPlaylistUpsertWithWhereUniqueWithoutPlaylistInput = {
@@ -34276,6 +36842,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutPlaylistsInput = {
@@ -34297,6 +36864,35 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type PlaylistProblemSolvedUpsertWithWhereUniqueWithoutPlaylistInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    update: XOR<
+      PlaylistProblemSolvedUpdateWithoutPlaylistInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutPlaylistInput
+    >;
+    create: XOR<
+      PlaylistProblemSolvedCreateWithoutPlaylistInput,
+      PlaylistProblemSolvedUncheckedCreateWithoutPlaylistInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithWhereUniqueWithoutPlaylistInput = {
+    where: PlaylistProblemSolvedWhereUniqueInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateWithoutPlaylistInput,
+      PlaylistProblemSolvedUncheckedUpdateWithoutPlaylistInput
+    >;
+  };
+
+  export type PlaylistProblemSolvedUpdateManyWithWhereWithoutPlaylistInput = {
+    where: PlaylistProblemSolvedScalarWhereInput;
+    data: XOR<
+      PlaylistProblemSolvedUpdateManyMutationInput,
+      PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistInput
+    >;
   };
 
   export type PlaylistCreateWithoutProblemsInput = {
@@ -34309,6 +36905,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutPlaylistsInput;
+    solvedProblems?: PlaylistProblemSolvedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistUncheckedCreateWithoutProblemsInput = {
@@ -34321,6 +36918,7 @@ export namespace Prisma {
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    solvedProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutPlaylistInput;
   };
 
   export type PlaylistCreateOrConnectWithoutProblemsInput = {
@@ -34359,6 +36957,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutProblemsPlatlistsInput = {
@@ -34389,6 +36988,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutProblemsPlatlistsInput = {
@@ -34429,6 +37029,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput;
+    solvedProblems?: PlaylistProblemSolvedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type PlaylistUncheckedUpdateWithoutProblemsInput = {
@@ -34441,6 +37042,7 @@ export namespace Prisma {
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    solvedProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type ProblemUpsertWithoutProblemsPlatlistsInput = {
@@ -34490,6 +37092,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutProblemsPlatlistsInput = {
@@ -34520,6 +37123,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -34541,6 +37145,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -34562,6 +37167,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -34611,6 +37217,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -34632,6 +37239,7 @@ export namespace Prisma {
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ChallengeProblemCreateWithoutChallengeInput = {
@@ -34802,6 +37410,7 @@ export namespace Prisma {
     votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemUncheckedCreateWithoutChallengeProblemsInput = {
@@ -34832,6 +37441,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
     favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
   };
 
   export type ProblemCreateOrConnectWithoutChallengeProblemsInput = {
@@ -34927,6 +37537,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutChallengeProblemsInput = {
@@ -34957,6 +37568,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type UserCreateWithoutUserChallengesInput = {
@@ -34978,6 +37590,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     badges?: BadgeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutUserChallengesInput = {
@@ -34999,6 +37612,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutUserChallengesInput = {
@@ -35074,6 +37688,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutUserChallengesInput = {
@@ -35095,6 +37710,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ChallengeUpsertWithoutParticipantsInput = {
@@ -35154,6 +37770,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutBadgesInput = {
@@ -35175,6 +37792,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
     favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutBadgesInput = {
@@ -35224,6 +37842,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutBadgesInput = {
@@ -35245,6 +37864,354 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserCreateWithoutSolvedPlaylistProblemsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problem?: ProblemCreateNestedManyWithoutUserInput;
+    submission?: SubmissionCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
+    badges?: BadgeCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+  };
+
+  export type UserUncheckedCreateWithoutSolvedPlaylistProblemsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
+    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+  };
+
+  export type UserCreateOrConnectWithoutSolvedPlaylistProblemsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedCreateWithoutSolvedPlaylistProblemsInput
+    >;
+  };
+
+  export type PlaylistCreateWithoutSolvedProblemsInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problems?: ProblemInPlaylistCreateNestedManyWithoutPlaylistInput;
+    user: UserCreateNestedOneWithoutPlaylistsInput;
+  };
+
+  export type PlaylistUncheckedCreateWithoutSolvedProblemsInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    userId: string;
+    topics?: PlaylistCreatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistCreatesummaryInput | string[];
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    problems?: ProblemInPlaylistUncheckedCreateNestedManyWithoutPlaylistInput;
+  };
+
+  export type PlaylistCreateOrConnectWithoutSolvedProblemsInput = {
+    where: PlaylistWhereUniqueInput;
+    create: XOR<
+      PlaylistCreateWithoutSolvedProblemsInput,
+      PlaylistUncheckedCreateWithoutSolvedProblemsInput
+    >;
+  };
+
+  export type ProblemCreateWithoutSolvedByUsersInput = {
+    id?: string;
+    title: string;
+    problemNumber?: number;
+    description: string;
+    difficulty: $Enums.Difficulty;
+    topic?: ProblemCreatetopicInput | string[];
+    companyName?: ProblemCreatecompanyNameInput | string[];
+    ytLink?: string | null;
+    examples: JsonNullValueInput | InputJsonValue;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
+    editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
+    codeSnippets: JsonNullValueInput | InputJsonValue;
+    referenceSolutions: JsonNullValueInput | InputJsonValue;
+    isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutProblemInput;
+    submission?: SubmissionCreateNestedManyWithoutProblemInput;
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput;
+    testcases?: ProblemTestCaseCreateNestedManyWithoutProblemInput;
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput;
+    votes?: ProblemVoteCreateNestedManyWithoutProblemInput;
+    problemsPlatlists?: ProblemInPlaylistCreateNestedManyWithoutProblemInput;
+    challengeProblems?: ChallengeProblemCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserCreateNestedManyWithoutFavoriteProblemsInput;
+  };
+
+  export type ProblemUncheckedCreateWithoutSolvedByUsersInput = {
+    id?: string;
+    title: string;
+    problemNumber?: number;
+    description: string;
+    difficulty: $Enums.Difficulty;
+    topic?: ProblemCreatetopicInput | string[];
+    companyName?: ProblemCreatecompanyNameInput | string[];
+    userId: string;
+    ytLink?: string | null;
+    examples: JsonNullValueInput | InputJsonValue;
+    constraints?: ProblemCreateconstraintsInput | string[];
+    hints?: ProblemCreatehintsInput | string[];
+    editorial?: string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
+    codeSnippets: JsonNullValueInput | InputJsonValue;
+    referenceSolutions: JsonNullValueInput | InputJsonValue;
+    isPremium?: boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
+    testcases?: ProblemTestCaseUncheckedCreateNestedManyWithoutProblemInput;
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput;
+    votes?: ProblemVoteUncheckedCreateNestedManyWithoutProblemInput;
+    problemsPlatlists?: ProblemInPlaylistUncheckedCreateNestedManyWithoutProblemInput;
+    challengeProblems?: ChallengeProblemUncheckedCreateNestedManyWithoutProblemInput;
+    favoredByUsers?: UserUncheckedCreateNestedManyWithoutFavoriteProblemsInput;
+  };
+
+  export type ProblemCreateOrConnectWithoutSolvedByUsersInput = {
+    where: ProblemWhereUniqueInput;
+    create: XOR<
+      ProblemCreateWithoutSolvedByUsersInput,
+      ProblemUncheckedCreateWithoutSolvedByUsersInput
+    >;
+  };
+
+  export type UserUpsertWithoutSolvedPlaylistProblemsInput = {
+    update: XOR<
+      UserUpdateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedUpdateWithoutSolvedPlaylistProblemsInput
+    >;
+    create: XOR<
+      UserCreateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedCreateWithoutSolvedPlaylistProblemsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutSolvedPlaylistProblemsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutSolvedPlaylistProblemsInput,
+      UserUncheckedUpdateWithoutSolvedPlaylistProblemsInput
+    >;
+  };
+
+  export type UserUpdateWithoutSolvedPlaylistProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problem?: ProblemUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutSolvedPlaylistProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+  };
+
+  export type PlaylistUpsertWithoutSolvedProblemsInput = {
+    update: XOR<
+      PlaylistUpdateWithoutSolvedProblemsInput,
+      PlaylistUncheckedUpdateWithoutSolvedProblemsInput
+    >;
+    create: XOR<
+      PlaylistCreateWithoutSolvedProblemsInput,
+      PlaylistUncheckedCreateWithoutSolvedProblemsInput
+    >;
+    where?: PlaylistWhereInput;
+  };
+
+  export type PlaylistUpdateToOneWithWhereWithoutSolvedProblemsInput = {
+    where?: PlaylistWhereInput;
+    data: XOR<
+      PlaylistUpdateWithoutSolvedProblemsInput,
+      PlaylistUncheckedUpdateWithoutSolvedProblemsInput
+    >;
+  };
+
+  export type PlaylistUpdateWithoutSolvedProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problems?: ProblemInPlaylistUpdateManyWithoutPlaylistNestedInput;
+    user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput;
+  };
+
+  export type PlaylistUncheckedUpdateWithoutSolvedProblemsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    topics?: PlaylistUpdatetopicsInput | string[];
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    summary?: PlaylistUpdatesummaryInput | string[];
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    problems?: ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput;
+  };
+
+  export type ProblemUpsertWithoutSolvedByUsersInput = {
+    update: XOR<
+      ProblemUpdateWithoutSolvedByUsersInput,
+      ProblemUncheckedUpdateWithoutSolvedByUsersInput
+    >;
+    create: XOR<
+      ProblemCreateWithoutSolvedByUsersInput,
+      ProblemUncheckedCreateWithoutSolvedByUsersInput
+    >;
+    where?: ProblemWhereInput;
+  };
+
+  export type ProblemUpdateToOneWithWhereWithoutSolvedByUsersInput = {
+    where?: ProblemWhereInput;
+    data: XOR<
+      ProblemUpdateWithoutSolvedByUsersInput,
+      ProblemUncheckedUpdateWithoutSolvedByUsersInput
+    >;
+  };
+
+  export type ProblemUpdateWithoutSolvedByUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    description?: StringFieldUpdateOperationsInput | string;
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
+    topic?: ProblemUpdatetopicInput | string[];
+    companyName?: ProblemUpdatecompanyNameInput | string[];
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
+    examples?: JsonNullValueInput | InputJsonValue;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
+    editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
+    codeSnippets?: JsonNullValueInput | InputJsonValue;
+    referenceSolutions?: JsonNullValueInput | InputJsonValue;
+    isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutProblemNestedInput;
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput;
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput;
+    testcases?: ProblemTestCaseUpdateManyWithoutProblemNestedInput;
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput;
+    votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
+    problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
+    challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+  };
+
+  export type ProblemUncheckedUpdateWithoutSolvedByUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    problemNumber?: IntFieldUpdateOperationsInput | number;
+    description?: StringFieldUpdateOperationsInput | string;
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty;
+    topic?: ProblemUpdatetopicInput | string[];
+    companyName?: ProblemUpdatecompanyNameInput | string[];
+    userId?: StringFieldUpdateOperationsInput | string;
+    ytLink?: NullableStringFieldUpdateOperationsInput | string | null;
+    examples?: JsonNullValueInput | InputJsonValue;
+    constraints?: ProblemUpdateconstraintsInput | string[];
+    hints?: ProblemUpdatehintsInput | string[];
+    editorial?: NullableStringFieldUpdateOperationsInput | string | null;
+    starterFunction?: NullableJsonNullValueInput | InputJsonValue;
+    codeSnippets?: JsonNullValueInput | InputJsonValue;
+    referenceSolutions?: JsonNullValueInput | InputJsonValue;
+    isPremium?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
+    testcases?: ProblemTestCaseUncheckedUpdateManyWithoutProblemNestedInput;
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput;
+    votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
+    problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
+    challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
   };
 
   export type ProblemCreateManyUserInput = {
@@ -35334,6 +38301,15 @@ export namespace Prisma {
     createdAt?: Date | string;
   };
 
+  export type PlaylistProblemSolvedCreateManyUserInput = {
+    id?: string;
+    playlistId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
   export type ProblemUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
@@ -35361,6 +38337,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutUserInput = {
@@ -35391,6 +38368,7 @@ export namespace Prisma {
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
     favoredByUsers?: UserUncheckedUpdateManyWithoutFavoriteProblemsNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateManyWithoutUserInput = {
@@ -35546,6 +38524,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUpdateManyWithoutPlaylistNestedInput;
+    solvedProblems?: PlaylistProblemSolvedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type PlaylistUncheckedUpdateWithoutUserInput = {
@@ -35558,6 +38537,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     problems?: ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput;
+    solvedProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistNestedInput;
   };
 
   export type PlaylistUncheckedUpdateManyWithoutUserInput = {
@@ -35643,6 +38623,7 @@ export namespace Prisma {
     votes?: ProblemVoteUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUpdateManyWithoutProblemNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateWithoutFavoredByUsersInput = {
@@ -35673,6 +38654,7 @@ export namespace Prisma {
     votes?: ProblemVoteUncheckedUpdateManyWithoutProblemNestedInput;
     problemsPlatlists?: ProblemInPlaylistUncheckedUpdateManyWithoutProblemNestedInput;
     challengeProblems?: ChallengeProblemUncheckedUpdateManyWithoutProblemNestedInput;
+    solvedByUsers?: PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
   };
 
   export type ProblemUncheckedUpdateManyWithoutFavoredByUsersInput = {
@@ -35694,6 +38676,33 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    playlist?: PlaylistUpdateOneRequiredWithoutSolvedProblemsNestedInput;
+    problem?: ProblemUpdateOneRequiredWithoutSolvedByUsersNestedInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -35757,6 +38766,15 @@ export namespace Prisma {
     id?: string;
     challengeId: string;
     day: number;
+  };
+
+  export type PlaylistProblemSolvedCreateManyProblemInput = {
+    id?: string;
+    userId: string;
+    playlistId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
   };
 
   export type SubmissionUpdateWithoutProblemInput = {
@@ -35965,6 +38983,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
     badges?: BadgeUpdateManyWithoutUserNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutFavoriteProblemsInput = {
@@ -35986,6 +39005,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateManyWithoutFavoriteProblemsInput = {
@@ -35996,6 +39016,33 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     password?: StringFieldUpdateOperationsInput | string;
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutSolvedPlaylistProblemsNestedInput;
+    playlist?: PlaylistUpdateOneRequiredWithoutSolvedProblemsNestedInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    playlistId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -36105,6 +39152,15 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
+  export type PlaylistProblemSolvedCreateManyPlaylistInput = {
+    id?: string;
+    userId: string;
+    problemId: string;
+    solvedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
   export type ProblemInPlaylistUpdateWithoutPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -36122,6 +39178,33 @@ export namespace Prisma {
   export type ProblemInPlaylistUncheckedUpdateManyWithoutPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string;
     problemId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutSolvedPlaylistProblemsNestedInput;
+    problem?: ProblemUpdateOneRequiredWithoutSolvedByUsersNestedInput;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PlaylistProblemSolvedUncheckedUpdateManyWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    problemId?: StringFieldUpdateOperationsInput | string;
+    solvedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

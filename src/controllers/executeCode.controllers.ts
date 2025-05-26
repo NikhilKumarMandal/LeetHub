@@ -1,3 +1,4 @@
+import { Playlist } from "./../generated/prisma/index.d";
 import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse } from "express-strategy";
 import {
@@ -8,21 +9,17 @@ import {
 import { TestCaseService } from "../services/TestCase.service";
 import { SubmissionService } from "../services/Submission.service";
 import { ProblemService } from "../services/Problem.service";
+import { PlaylistService } from "../services/Playlist.service";
 
 export class ExecuteCode {
   constructor(
     private testCaseSerive: TestCaseService,
     private submissionService: SubmissionService,
-    private problemService: ProblemService
+    private playlistService: PlaylistService
   ) {}
 
   executeCode = async (req: Request, res: Response, next: NextFunction) => {
-    const {
-      source_code,
-      language_id,
-      problemId,
-      mode = "run", // "run" or "submit"
-    } = req.body;
+    const { source_code, language_id, problemId, mode = "run" } = req.body;
 
     const userId = (req as any).auth?.sub;
 
@@ -107,6 +104,21 @@ export class ExecuteCode {
 
         if (allPassed) {
           await this.testCaseSerive.upsert(userId, problemId);
+        }
+
+        if (allPassed) {
+          await this.testCaseSerive.upsert(userId, problemId);
+
+          const { playlistId } = req.body;
+          console.log(playlistId);
+
+          if (playlistId) {
+            await this.playlistService.markProblemAsSolvedInPlaylist({
+              playlistId,
+              userId,
+              problemId,
+            });
+          }
         }
 
         const testCaseResults = formattedResults.map((result: any) => ({

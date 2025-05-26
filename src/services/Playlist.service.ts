@@ -86,4 +86,34 @@ export class PlaylistService {
       },
     });
   }
+
+  async markProblemAsSolvedInPlaylist({
+    playlistId,
+    userId,
+    problemId,
+  }: {
+    playlistId: string;
+    userId: string;
+    problemId: string;
+  }) {
+    const playlistProgress = await db.playlistProblemSolved.upsert({
+      where: {
+        userId_playlistId_problemId: {
+          userId,
+          playlistId,
+          problemId,
+        },
+      },
+      update: {
+        solvedAt: new Date(),
+      },
+      create: {
+        userId,
+        playlistId,
+        problemId,
+      },
+    });
+
+    return playlistProgress;
+  }
 }
