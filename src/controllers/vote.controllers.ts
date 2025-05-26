@@ -14,6 +14,9 @@ export class Vote {
     const { problemId } = req.params;
     const { type } = req.body;
     try {
+      if (!problemId || !type) {
+        return res.status(400).json({ message: "Missing id or vote type" });
+      }
       if (!["UPVOTE", "DOWNVOTE"].includes(type)) {
         throw new ApiError(400, "Invalid vote type.");
       }

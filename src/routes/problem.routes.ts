@@ -28,7 +28,11 @@ router.get(
   problemController.getAllProblem as RequestHandler
 );
 
-router.get("/get-problem/:id", authenticate, problemController.getProblemById);
+router.get(
+  "/get-problem/:id",
+  authenticate,
+  problemController.getProblemById as RequestHandler
+);
 
 router.delete(
   "/:id",

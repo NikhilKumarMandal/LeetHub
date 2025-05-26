@@ -14,15 +14,23 @@ export class ProblemService {
     return await db.problem.findMany();
   }
 
-  async findProblemById(id: string) {
-    return await db.problem.findUnique({
-      where: {
-        id,
-      },
+  async findProblemById(id: string, userId: string) {
+    const problem = await db.problem.findUnique({
+      where: { id },
       include: {
         testcases: true,
+        votes: {
+          where: { userId },
+          select: { type: true },
+        },
       },
     });
+
+    return {
+      ...problem,
+      vote: problem?.votes?.[0]?.type || null,
+      votes: undefined,
+    };
   }
 
   async deleteProblem(id: string) {

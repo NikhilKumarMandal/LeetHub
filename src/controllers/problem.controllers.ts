@@ -193,17 +193,26 @@ export class Problem {
     }
   };
 
-  getProblemById = asyncHandler(async (req: Request, res: Response) => {
+  getProblemById = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
-
+    const userId = req.auth.sub;
     if (!id) {
       throw new ApiError(400, "Please Id!");
     }
 
-    const problem = await this.problemService.findProblemById(id);
+    try {
+      const problem = await this.problemService.findProblemById(id, userId);
 
-    res.status(200).json(new ApiResponse(200, problem, "Fected problem"));
-  });
+      res.status(200).json(new ApiResponse(200, problem, "Fected problem"));
+    } catch (error) {
+      next(error);
+      return;
+    }
+  };
 
   deleteProblem = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;

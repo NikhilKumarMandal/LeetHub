@@ -9,11 +9,11 @@ const voteService = new VoteService();
 const vote = new Vote(voteService);
 
 router.post(
-  "/vote-problem/:id",
+  "/vote-problem/:problemId",
   authenticate,
   vote.voteOnProblem as RequestHandler
 );
 
-router.get("get-voted-problem/:id", authenticate, vote.getProblemVotes);
+router.get("/get-voted-problem/:problemId", authenticate, vote.getProblemVotes);
 
 export default router;
