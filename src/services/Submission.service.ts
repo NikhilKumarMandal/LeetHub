@@ -18,6 +18,9 @@ export class SubmissionService {
         userId,
         ...(problemId && { problemId }),
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
 

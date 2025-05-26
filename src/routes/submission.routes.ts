@@ -15,21 +15,21 @@ router.get(
 );
 
 router.get(
-  "/get-submission/:id",
+  "/activity",
+  authenticate,
+  submissionController.getSubmissionActivity as RequestHandler
+);
+
+router.get(
+  "/get-submission/:problemId",
   authenticate,
   submissionController.getSubmissionsForProblem as RequestHandler
 );
 
 router.get(
-  "/get-submission-count/:id",
+  "/get-submission-count/:problemId",
   authenticate,
   submissionController.getALlTheSubmissionForProblem
-);
-
-router.get(
-  "/activity",
-  authenticate,
-  submissionController.getSubmissionActivity as RequestHandler
 );
 
 export default router;
