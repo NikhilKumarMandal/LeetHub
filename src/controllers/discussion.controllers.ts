@@ -3,6 +3,7 @@ import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { DiscussionService } from "../services/Discussion.service";
 import { AuthRequest } from "../types/types";
 import { buildDiscussionTree } from "../utils/functionCode";
+import { validationResult } from "express-validator";
 
 export class Discussion {
   constructor(private disccussionService: DiscussionService) {}
@@ -13,6 +14,10 @@ export class Discussion {
     next: NextFunction
   ) => {
     try {
+      const result = validationResult(req);
+      if (!result.isEmpty()) {
+        throw new ApiError(400, result.array()[0].msg as string);
+      }
       const { content, problemId, parentId } = req.body;
 
       const discussionData = {
