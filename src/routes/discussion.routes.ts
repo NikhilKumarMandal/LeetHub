@@ -14,7 +14,7 @@ router.post(
   discussion.createDiscussion as RequestHandler
 );
 
-router.get("/discussion/:id", authenticate, discussion.getDiscussionsByProblem);
+router.get("/:problemId", authenticate, discussion.getDiscussionsByProblem);
 
 router.delete(
   "/discusssion/:id",

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { DiscussionService } from "../services/Discussion.service";
 import { AuthRequest } from "../types/types";
+import { buildDiscussionTree } from "../utils/functionCode";
 
 export class Discussion {
   constructor(private disccussionService: DiscussionService) {}
@@ -25,25 +26,31 @@ export class Discussion {
 
       res
         .status(200)
-        .json(
-          new ApiResponse(200, discussion, "Discussion created successfully")
-        );
+        .json(new ApiResponse(200, discussion, "Discussion added"));
     } catch (error) {
       next(error);
       return;
     }
   };
-
   getDiscussionsByProblem = asyncHandler(
     async (req: Request, res: Response) => {
-      const { problemId } = req.body;
+      const { problemId } = req.params;
+
+      if (!problemId) {
+        throw new ApiError(400, "ProblemId not found!");
+      }
 
       const discussion = await this.disccussionService.findMany(problemId);
+      const nestedDiscussions = buildDiscussionTree(discussion);
 
       res
         .status(200)
         .json(
-          new ApiResponse(200, discussion, "Discussion fected successfully")
+          new ApiResponse(
+            200,
+            nestedDiscussions,
+            "Discussion fetched successfully"
+          )
         );
     }
   );

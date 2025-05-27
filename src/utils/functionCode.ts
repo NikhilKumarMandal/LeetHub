@@ -55,3 +55,41 @@ export function extractFunctionCode(
       return code.trim();
   }
 }
+
+export interface Comment {
+  id: string;
+  content: string;
+  parentId: string | null;
+  problemId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  user: {
+    name: string | null;
+  };
+  replies?: Comment[];
+}
+
+export function buildDiscussionTree(comments: Comment[]): Comment[] {
+  const map = new Map<string, Comment>();
+  const roots: Comment[] = [];
+
+  // Initialize replies array
+  comments.forEach((comment) => {
+    comment.replies = [];
+    map.set(comment.id, comment);
+  });
+
+  comments.forEach((comment) => {
+    if (comment.parentId) {
+      const parent = map.get(comment.parentId);
+      if (parent) {
+        parent.replies!.push(comment);
+      }
+    } else {
+      roots.push(comment);
+    }
+  });
+
+  return roots;
+}
