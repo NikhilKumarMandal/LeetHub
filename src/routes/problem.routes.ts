@@ -41,12 +41,12 @@ router.delete(
   problemController.deleteProblem
 );
 
-router.put(
-  "/update-problem/:id",
-  authenticate,
-  canAccess([Roles.ADMIN]),
-  problemController.updateProblem as RequestHandler
-);
+// router.put(
+//   "/update-problem/:id",
+//   authenticate,
+//   canAccess([Roles.ADMIN]),
+//   problemController.updateProblem as RequestHandler
+// );
 
 router.get(
   "/solvedBy",

@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { DiscussionService } from "../services/Discussion.service";
 import { AuthRequest } from "../types/types";
-import { buildDiscussionTree } from "../utils/functionCode";
 import { validationResult } from "express-validator";
+import { buildDiscussionTree } from "../utils/functionCode";
 
 export class Discussion {
   constructor(private disccussionService: DiscussionService) {}

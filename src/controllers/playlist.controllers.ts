@@ -1,10 +1,11 @@
+import { AuthRequest } from "./../types/types";
 import { NextFunction, Request, Response } from "express";
-import { AuthRequest } from "../types/types";
+
 import { PlaylistService } from "../services/Playlist.service";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { validationResult } from "express-validator";
-
+import { startOfWeek } from "date-fns";
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
 
@@ -198,4 +199,88 @@ export class Playlist {
         );
     }
   );
+
+  // getWeeklyPlaylistLeaderboard = async (
+  //   req: AuthRequest,
+  //   res: Response,
+  //   next: NextFunction
+  // ) => {
+  //   const { playlistId } = req.params;
+  //   const userId = req.auth.sub
+
+  //   const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 1 });
+
+  //   try {
+  //     // Get all playlist problem solves this week
+  //     const solves = await prisma.playlistProblemSolved.findMany({
+  //       where: {
+  //         playlistId,
+  //         solvedAt: { gte: startOfThisWeek },
+  //       },
+  //       select: {
+  //         userId: true,
+  //         solvedAt: true,
+  //       },
+  //       orderBy: {
+  //         solvedAt: "asc",
+  //       },
+  //     });
+
+  //     const userMap: Record<
+  //       string,
+  //       { count: number; earliestSolve: Date }
+  //     > = {};
+
+  //     for (const solve of solves) {
+  //       if (!userMap[solve.userId]) {
+  //         userMap[solve.userId] = { count: 0, earliestSolve: solve.solvedAt };
+  //       }
+  //       userMap[solve.userId].count++;
+  //     }
+
+  //     const leaderboardList = Object.entries(userMap).map(([uid, data]) => ({
+  //       userId: uid,
+  //       count: data.count,
+  //       earliestSolve: data.earliestSolve,
+  //     }));
+
+  //     leaderboardList.sort((a, b) => {
+  //       if (b.count !== a.count) return b.count - a.count;
+  //       return a.earliestSolve.getTime() - b.earliestSolve.getTime();
+  //     });
+
+  //     const ranked = leaderboardList.map((entry, index, arr) => {
+  //       let rank = index + 1;
+  //       if (
+  //         index > 0 &&
+  //         entry.count === arr[index - 1].count &&
+  //         entry.earliestSolve.getTime() === arr[index - 1].earliestSolve.getTime()
+  //       ) {
+  //         rank = arr[index - 1].rank;
+  //       }
+  //       return { ...entry, rank };
+  //     });
+
+  //     const top3Ids = ranked.slice(0, 3).map(u => u.userId);
+  //     const topUsers = await prisma.user.findMany({
+  //       where: { id: { in: top3Ids } },
+  //       select: { id: true, name: true, avatar: true },
+  //     });
+
+  //     const top3 = ranked.slice(0, 3).map(entry => ({
+  //       ...entry,
+  //       ...topUsers.find(u => u.id === entry.userId),
+  //     }));
+
+  //     const currentUserEntry = ranked.find(r => r.userId === userId);
+
+  //     return res.status(200).json({
+  //       success: true,
+  //       top3,
+  //       userRank: currentUserEntry ?? null,
+  //     });
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
 }

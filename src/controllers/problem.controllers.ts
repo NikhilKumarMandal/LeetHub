@@ -10,7 +10,10 @@ import { ProblemService } from "../services/Problem.service";
 import { Logger } from "winston";
 import { db } from "../libs/db";
 import { matchedData, validationResult } from "express-validator";
-import { extractFunctionCode } from "../utils/functionCode";
+import {
+  extractFunctionCode,
+  formatInputForJudge0,
+} from "../utils/functionCode";
 
 export class Problem {
   constructor(
@@ -63,13 +66,14 @@ export class Problem {
         }
 
         const isSQL = languageId === 82;
+        console.log(testcases);
 
         const submission = testcases.map(
           ({ input, output }: { input: string | null; output: string }) => {
             const sourceCode = isSQL
               ? `${input ? input + "\n" : ""}${solutionCode}`
               : solutionCode;
-
+            const formattedInput = input ? formatInputForJudge0(input) : null;
             return {
               source_code: sourceCode,
               language_id: languageId,
@@ -79,11 +83,14 @@ export class Problem {
           }
         );
 
+        console.log(submission);
+
         const submissionResult = await submitBatch(submission, isSQL);
         const tokens = submissionResult.map(
           (res: { token: string }) => res.token
         );
         const result = await pollBatchResult(tokens, isSQL);
+        console.log(result);
 
         for (const res of result) {
           if (res.status.id !== 3) {
@@ -124,7 +131,7 @@ export class Problem {
           output: string;
           isPublic?: boolean;
         }) => ({
-          input,
+          input: formatInputForJudge0(input),
           output,
           isPublic,
           problemId: newProblem.id,

@@ -33,7 +33,7 @@ export class DiscussionService {
         user: { select: { name: true } },
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
   }

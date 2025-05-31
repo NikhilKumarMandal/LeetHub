@@ -19,7 +19,7 @@ router.post(
 router.get("/:problemId", authenticate, discussion.getDiscussionsByProblem);
 
 router.delete(
-  "/discusssion/:id",
+  "/:id",
   authenticate,
   discussion.deleteDiscussion as RequestHandler
 );

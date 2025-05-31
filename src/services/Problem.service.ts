@@ -33,6 +33,14 @@ export class ProblemService {
     };
   }
 
+  async problemById(id: string) {
+    return await db.problem.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
   async deleteProblem(id: string) {
     return await db.problem.delete({
       where: {

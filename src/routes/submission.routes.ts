@@ -21,6 +21,12 @@ router.get(
 );
 
 router.get(
+  "/submission-data",
+  authenticate,
+  submissionController.getSubmissionData as RequestHandler
+);
+
+router.get(
   "/get-submission/:problemId",
   authenticate,
   submissionController.getSubmissionsForProblem as RequestHandler

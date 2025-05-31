@@ -9,7 +9,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { AuthRequest } from "../types/types";
 import { AuthService } from "../services/Auth.service";
-import { uploadOnCloudinary } from "../utils/cloudinary";
+import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
 
 import axios from "axios";
 
@@ -239,11 +239,6 @@ export class Auth {
     next: NextFunction
   ) => {
     try {
-      const { name } = req.body;
-      if (!name) {
-        throw new ApiError(200, "User");
-      }
-
       const user = await this.authService.findUnique({ id: req.auth.sub });
 
       if (!user) {
@@ -252,7 +247,7 @@ export class Auth {
 
       const avatarData = user.avatar as { public_id: string; url: string };
 
-      // await deleteFromCloudinary(avatarData.public_id, 'image');
+      //await deleteFromCloudinary(avatarData.public_id, 'image');
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
@@ -263,7 +258,6 @@ export class Auth {
       const updatedUser = await this.authService.update(
         { id: user?.id },
         {
-          name,
           avatar: {
             public_id: avatar?.public_id,
             url: avatar?.url,
@@ -271,9 +265,10 @@ export class Auth {
         }
       );
 
+      const avatarUrl = updatedUser?.avatar;
       res
         .status(200)
-        .json(new ApiResponse(200, updatedUser, "User updated succesfully"));
+        .json(new ApiResponse(200, avatarUrl, "User updated succesfully"));
     } catch (error) {
       next(error);
       return error;

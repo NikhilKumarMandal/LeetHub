@@ -116,22 +116,6 @@ export default checkSchema({
       errorMessage: "At least one testcase is required",
     },
   },
-  "testcases.*.input": {
-    in: ["body"],
-    optional: true,
-    isString: {
-      errorMessage: "Each testcase input must be a string or null",
-    },
-  },
-  "testcases.*.output": {
-    in: ["body"],
-    notEmpty: {
-      errorMessage: "Each testcase must have an output",
-    },
-    isString: {
-      errorMessage: "Each testcase output must be a string",
-    },
-  },
   "testcases.*.isPublic": {
     in: ["body"],
     optional: true,

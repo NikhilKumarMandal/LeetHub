@@ -11,11 +11,13 @@ const router = express.Router();
 const testCaseService = new TestCaseService();
 const submissionService = new SubmissionService();
 const playlistService = new PlaylistService();
+const problemService = new ProblemService();
 
 const executeCode = new ExecuteCode(
   testCaseService,
   submissionService,
-  playlistService
+  playlistService,
+  problemService
 );
 
 router.post(

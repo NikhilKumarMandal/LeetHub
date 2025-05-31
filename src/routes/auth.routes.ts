@@ -34,7 +34,7 @@ router.get("/self", authenticate, authController.self as RequestHandler);
 
 router.post("/refresh", authController.refresh as RequestHandler);
 
-router.post(
+router.patch(
   "/update-profile",
   authenticate,
   upload.fields([

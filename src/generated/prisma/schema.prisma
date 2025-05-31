@@ -74,6 +74,7 @@ model Problem {
   referenceSolutions Json
   isPremium          Boolean    @default(false)
   image              Json?
+  executionWrappers  Json?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -92,7 +93,7 @@ model Problem {
 
 model ProblemTestCase {
   id        String   @id @default(uuid())
-  input     String
+  input     Json?
   output    String
   isPublic  Boolean  @default(false)
   problemId String

@@ -4683,6 +4683,7 @@ export namespace Prisma {
     referenceSolutions: number;
     isPremium: number;
     image: number;
+    executionWrappers: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -4743,6 +4744,7 @@ export namespace Prisma {
     referenceSolutions?: true;
     isPremium?: true;
     image?: true;
+    executionWrappers?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -4858,6 +4860,7 @@ export namespace Prisma {
     referenceSolutions: JsonValue;
     isPremium: boolean;
     image: JsonValue | null;
+    executionWrappers: JsonValue | null;
     createdAt: Date;
     updatedAt: Date;
     _count: ProblemCountAggregateOutputType | null;
@@ -4902,6 +4905,7 @@ export namespace Prisma {
       referenceSolutions?: boolean;
       isPremium?: boolean;
       image?: boolean;
+      executionWrappers?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4941,6 +4945,7 @@ export namespace Prisma {
       referenceSolutions?: boolean;
       isPremium?: boolean;
       image?: boolean;
+      executionWrappers?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4970,6 +4975,7 @@ export namespace Prisma {
       referenceSolutions?: boolean;
       isPremium?: boolean;
       image?: boolean;
+      executionWrappers?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -4996,6 +5002,7 @@ export namespace Prisma {
     referenceSolutions?: boolean;
     isPremium?: boolean;
     image?: boolean;
+    executionWrappers?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   };
@@ -5021,6 +5028,7 @@ export namespace Prisma {
     | "referenceSolutions"
     | "isPremium"
     | "image"
+    | "executionWrappers"
     | "createdAt"
     | "updatedAt",
     ExtArgs["result"]["problem"]
@@ -5087,6 +5095,7 @@ export namespace Prisma {
         referenceSolutions: Prisma.JsonValue;
         isPremium: boolean;
         image: Prisma.JsonValue | null;
+        executionWrappers: Prisma.JsonValue | null;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -5806,6 +5815,7 @@ export namespace Prisma {
     readonly referenceSolutions: FieldRef<"Problem", "Json">;
     readonly isPremium: FieldRef<"Problem", "Boolean">;
     readonly image: FieldRef<"Problem", "Json">;
+    readonly executionWrappers: FieldRef<"Problem", "Json">;
     readonly createdAt: FieldRef<"Problem", "DateTime">;
     readonly updatedAt: FieldRef<"Problem", "DateTime">;
   }
@@ -6526,7 +6536,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinAggregateOutputType = {
     id: string | null;
-    input: string | null;
     output: string | null;
     isPublic: boolean | null;
     problemId: string | null;
@@ -6536,7 +6545,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxAggregateOutputType = {
     id: string | null;
-    input: string | null;
     output: string | null;
     isPublic: boolean | null;
     problemId: string | null;
@@ -6557,7 +6565,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinAggregateInputType = {
     id?: true;
-    input?: true;
     output?: true;
     isPublic?: true;
     problemId?: true;
@@ -6567,7 +6574,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxAggregateInputType = {
     id?: true;
-    input?: true;
     output?: true;
     isPublic?: true;
     problemId?: true;
@@ -6669,7 +6675,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseGroupByOutputType = {
     id: string;
-    input: string;
+    input: JsonValue | null;
     output: string;
     isPublic: boolean;
     problemId: string;
@@ -6790,7 +6796,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
-        input: string;
+        input: Prisma.JsonValue | null;
         output: string;
         isPublic: boolean;
         problemId: string;
@@ -7401,7 +7407,7 @@ export namespace Prisma {
    */
   interface ProblemTestCaseFieldRefs {
     readonly id: FieldRef<"ProblemTestCase", "String">;
-    readonly input: FieldRef<"ProblemTestCase", "String">;
+    readonly input: FieldRef<"ProblemTestCase", "Json">;
     readonly output: FieldRef<"ProblemTestCase", "String">;
     readonly isPublic: FieldRef<"ProblemTestCase", "Boolean">;
     readonly problemId: FieldRef<"ProblemTestCase", "String">;
@@ -25952,6 +25958,7 @@ export namespace Prisma {
     referenceSolutions: "referenceSolutions";
     isPremium: "isPremium";
     image: "image";
+    executionWrappers: "executionWrappers";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
   };
@@ -26469,6 +26476,7 @@ export namespace Prisma {
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
     image?: JsonNullableFilter<"Problem">;
+    executionWrappers?: JsonNullableFilter<"Problem">;
     createdAt?: DateTimeFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeFilter<"Problem"> | Date | string;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -26502,6 +26510,7 @@ export namespace Prisma {
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
     image?: SortOrderInput | SortOrder;
+    executionWrappers?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
@@ -26539,6 +26548,7 @@ export namespace Prisma {
       referenceSolutions?: JsonFilter<"Problem">;
       isPremium?: BoolFilter<"Problem"> | boolean;
       image?: JsonNullableFilter<"Problem">;
+      executionWrappers?: JsonNullableFilter<"Problem">;
       createdAt?: DateTimeFilter<"Problem"> | Date | string;
       updatedAt?: DateTimeFilter<"Problem"> | Date | string;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -26574,6 +26584,7 @@ export namespace Prisma {
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
     image?: SortOrderInput | SortOrder;
+    executionWrappers?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: ProblemCountOrderByAggregateInput;
@@ -26611,6 +26622,7 @@ export namespace Prisma {
     referenceSolutions?: JsonWithAggregatesFilter<"Problem">;
     isPremium?: BoolWithAggregatesFilter<"Problem"> | boolean;
     image?: JsonNullableWithAggregatesFilter<"Problem">;
+    executionWrappers?: JsonNullableWithAggregatesFilter<"Problem">;
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string;
   };
@@ -26620,7 +26632,7 @@ export namespace Prisma {
     OR?: ProblemTestCaseWhereInput[];
     NOT?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
     id?: StringFilter<"ProblemTestCase"> | string;
-    input?: StringFilter<"ProblemTestCase"> | string;
+    input?: JsonNullableFilter<"ProblemTestCase">;
     output?: StringFilter<"ProblemTestCase"> | string;
     isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
     problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -26631,7 +26643,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseOrderByWithRelationInput = {
     id?: SortOrder;
-    input?: SortOrder;
+    input?: SortOrderInput | SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -26646,7 +26658,7 @@ export namespace Prisma {
       AND?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
       OR?: ProblemTestCaseWhereInput[];
       NOT?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
-      input?: StringFilter<"ProblemTestCase"> | string;
+      input?: JsonNullableFilter<"ProblemTestCase">;
       output?: StringFilter<"ProblemTestCase"> | string;
       isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
       problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -26659,7 +26671,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseOrderByWithAggregationInput = {
     id?: SortOrder;
-    input?: SortOrder;
+    input?: SortOrderInput | SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -26679,7 +26691,7 @@ export namespace Prisma {
       | ProblemTestCaseScalarWhereWithAggregatesInput
       | ProblemTestCaseScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
-    input?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
+    input?: JsonNullableWithAggregatesFilter<"ProblemTestCase">;
     output?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
     isPublic?: BoolWithAggregatesFilter<"ProblemTestCase"> | boolean;
     problemId?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
@@ -27856,6 +27868,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -27889,6 +27902,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -27919,6 +27933,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -27952,6 +27967,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -27984,6 +28000,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -28005,6 +28022,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -28028,13 +28046,14 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type ProblemTestCaseCreateInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -28044,7 +28063,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedCreateInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     problemId: string;
@@ -28054,7 +28073,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -28064,7 +28083,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     problemId?: StringFieldUpdateOperationsInput | string;
@@ -28074,7 +28093,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateManyInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     problemId: string;
@@ -28084,7 +28103,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -28093,7 +28112,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     problemId?: StringFieldUpdateOperationsInput | string;
@@ -29457,6 +29476,7 @@ export namespace Prisma {
     referenceSolutions?: SortOrder;
     isPremium?: SortOrder;
     image?: SortOrder;
+    executionWrappers?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -29590,7 +29610,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxOrderByAggregateInput = {
     id?: SortOrder;
-    input?: SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -29600,7 +29619,6 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinOrderByAggregateInput = {
     id?: SortOrder;
-    input?: SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -33531,6 +33549,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionCreateNestedManyWithoutProblemInput;
@@ -33562,6 +33581,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -33857,6 +33877,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -33889,6 +33910,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -33992,6 +34014,7 @@ export namespace Prisma {
     referenceSolutions?: JsonFilter<"Problem">;
     isPremium?: BoolFilter<"Problem"> | boolean;
     image?: JsonNullableFilter<"Problem">;
+    executionWrappers?: JsonNullableFilter<"Problem">;
     createdAt?: DateTimeFilter<"Problem"> | Date | string;
     updatedAt?: DateTimeFilter<"Problem"> | Date | string;
   };
@@ -34522,7 +34545,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateWithoutProblemInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -34531,7 +34554,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedCreateWithoutProblemInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -34909,7 +34932,7 @@ export namespace Prisma {
     OR?: ProblemTestCaseScalarWhereInput[];
     NOT?: ProblemTestCaseScalarWhereInput | ProblemTestCaseScalarWhereInput[];
     id?: StringFilter<"ProblemTestCase"> | string;
-    input?: StringFilter<"ProblemTestCase"> | string;
+    input?: JsonNullableFilter<"ProblemTestCase">;
     output?: StringFilter<"ProblemTestCase"> | string;
     isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
     problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -35143,6 +35166,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -35175,6 +35199,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -35232,6 +35257,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -35264,6 +35290,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -35346,6 +35373,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -35378,6 +35406,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput;
@@ -35544,6 +35573,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -35576,6 +35606,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput;
@@ -35801,6 +35832,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -35833,6 +35865,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -35954,6 +35987,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -35986,6 +36020,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -36068,6 +36103,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -36100,6 +36136,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -36282,6 +36319,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -36314,6 +36352,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -36464,6 +36503,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -36496,6 +36536,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -36617,6 +36658,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -36649,6 +36691,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -36947,6 +36990,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -36979,6 +37023,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -37082,6 +37127,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -37114,6 +37160,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -37400,6 +37447,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -37432,6 +37480,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -37527,6 +37576,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -37559,6 +37609,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -37971,6 +38022,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutProblemInput;
@@ -38003,6 +38055,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput;
@@ -38170,6 +38223,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -38202,6 +38256,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -38232,6 +38287,7 @@ export namespace Prisma {
     referenceSolutions: JsonNullValueInput | InputJsonValue;
     isPremium?: boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -38327,6 +38383,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUpdateManyWithoutProblemNestedInput;
@@ -38358,6 +38415,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -38389,6 +38447,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -38613,6 +38672,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutProblemNestedInput;
@@ -38645,6 +38705,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput;
@@ -38676,6 +38737,7 @@ export namespace Prisma {
     referenceSolutions?: JsonNullValueInput | InputJsonValue;
     isPremium?: BoolFieldUpdateOperationsInput | boolean;
     image?: NullableJsonNullValueInput | InputJsonValue;
+    executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -38732,7 +38794,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateManyProblemInput = {
     id?: string;
-    input: string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -38850,7 +38912,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -38859,7 +38921,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -38868,7 +38930,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateManyWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: StringFieldUpdateOperationsInput | string;
+    input?: NullableJsonNullValueInput | InputJsonValue;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
