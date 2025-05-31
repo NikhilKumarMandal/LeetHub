@@ -10,6 +10,10 @@ import DiscussionRouter from "./routes/discussion.routes";
 import VoteRouter from "./routes/vote.routes";
 import PlaylistRouter from "./routes/playlist.routes";
 import ChallengeRouter from "./routes/challenge.routes";
+import arcjetMiddleware from "./middlewares/arcjet.middleware";
+import { asyncHandler } from "./utils/asyncHandler";
+import hpp from "hpp";
+import helmet from "helmet";
 
 dotenv.config();
 
@@ -17,6 +21,9 @@ const PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 
+app.use(asyncHandler(arcjetMiddleware));
+app.use(helmet());
+app.use(hpp());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: "116kb" }));
