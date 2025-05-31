@@ -1,4 +1,9 @@
-import arcjet, { detectBot, shield, tokenBucket } from "@arcjet/node";
+import arcjet, {
+  detectBot,
+  shield,
+  tokenBucket,
+  fixedWindow,
+} from "@arcjet/node";
 import { isSpoofedBot } from "@arcjet/inspect";
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
@@ -20,6 +25,11 @@ const aj = arcjet({
     shield({
       mode: "DRY_RUN",
     }),
+    fixedWindow({
+      mode: "DRY_RUN",
+      window: "1m",
+      max: 1,
+    }),
   ],
 });
 
@@ -34,8 +44,6 @@ const arcjetMiddleware = async (
   if (token) {
     try {
       const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
-      console.log(decoded.id);
-
       userId = decoded.id || decoded.userId;
     } catch (err) {
       console.warn("Invalid JWT, falling back to IP.");

@@ -14,6 +14,9 @@ import arcjetMiddleware from "./middlewares/arcjet.middleware";
 import { asyncHandler } from "./utils/asyncHandler";
 import hpp from "hpp";
 import helmet from "helmet";
+import { serve } from "inngest/express";
+import { inngest } from "./inngest/client";
+import { onUserSignup } from "./inngest/functions/on-singup";
 
 dotenv.config();
 
@@ -45,6 +48,14 @@ app.use("/api/v1/discussion", DiscussionRouter);
 app.use("/api/v1/vote", VoteRouter);
 app.use("/api/v1/playlist", PlaylistRouter);
 app.use("/api/v1/challenge", ChallengeRouter);
+
+app.use(
+  "/api/inngest",
+  serve({
+    client: inngest,
+    functions: [onUserSignup],
+  })
+);
 
 app.listen(PORT, () => {
   console.log(`App is listening on PORT: ${PORT}`);

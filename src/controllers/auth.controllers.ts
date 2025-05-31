@@ -12,6 +12,7 @@ import { AuthService } from "../services/Auth.service";
 import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
 
 import axios from "axios";
+import { inngest } from "../inngest/client";
 
 export class Auth {
   constructor(
@@ -297,6 +298,7 @@ export class Auth {
         "random_password",
         10
       );
+      const email = data.email;
       const userData = {
         name: data.name,
         email: data.email,
@@ -307,6 +309,13 @@ export class Auth {
 
       // TODO upload avatar in cloudinary
       user = await this.authService.create(userData);
+
+      await inngest.send({
+        name: "auth/oauth2",
+        data: {
+          email,
+        },
+      });
     }
 
     const payload: JwtPayload = {
