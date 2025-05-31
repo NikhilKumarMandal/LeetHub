@@ -8,19 +8,23 @@ import registerValidators from "../validators/register.validators";
 import loginValidators from "../validators/login.validators";
 import authenticate from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
+import { Review } from "../controllers/reviewCode.controllers";
+import { ProblemService } from "../services/Problem.service";
 
 const router = express.Router();
 
 const authService = new AuthService();
 const credentialService = new CredentialService();
 const tokenService = new TokenService();
-
+const problemService = new ProblemService();
 const authController = new Auth(
   authService,
   credentialService,
   tokenService,
   logger
 );
+
+const reviewController = new Review(problemService);
 
 router.post("/register", registerValidators, authController.register);
 
@@ -29,6 +33,12 @@ router.post("/login", loginValidators, authController.login);
 router.post("/oauth2", authController.googleLogin);
 
 router.post("/logout", authenticate, authController.logout as RequestHandler);
+
+router.post(
+  "/review",
+  authenticate,
+  reviewController.reviewUserCode as RequestHandler
+);
 
 router.get("/self", authenticate, authController.self as RequestHandler);
 
