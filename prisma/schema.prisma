@@ -52,6 +52,7 @@ model User {
   subscription     Subscription?
   userChallenges   UserChallenge[]
   badges           Badge[]
+   reviews  Review[]
   favoriteProblems Problem[]       @relation("UserFavorites")
   
   solvedPlaylistProblems PlaylistProblemSolved[]  @relation("UserSolvedProblems")
@@ -83,6 +84,7 @@ model Problem {
 
   user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   submission        Submission[]
+  reviews     Review[] 
   solvedBy          ProblemSolved[]
   testcases         ProblemTestCase[]
   discussions       Discussion[]
@@ -301,4 +303,19 @@ model PlaylistProblemSolved {
   problem      Problem  @relation("ProblemSolvedByUsers", fields: [problemId], references: [id])
 
   @@unique([userId, playlistId, problemId])
+}
+
+model Review {
+  id             String   @id @default(cuid())
+  userId         String
+  problemId      String
+  language       String
+  userCode       String
+  isCorrect      Boolean
+  improvements   String[]
+  optimizedCode  Json   
+  createdAt      DateTime @default(now())
+
+  user           User     @relation(fields: [userId], references: [id])
+  problem        Problem  @relation(fields: [problemId], references: [id])
 }
