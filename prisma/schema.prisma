@@ -40,6 +40,8 @@ model User {
   refreshToken String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  dailyQuestionCount Int      @default(1)
+  lastQuestionDate   DateTime?
 
   problem          Problem[]
   submission       Submission[]

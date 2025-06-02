@@ -104,3 +104,7 @@ export interface ChallengeData {
   description: string;
   totalDays: number;
 }
+
+export interface AuthRequestWithLimit extends AuthRequest {
+  questionsRemaining?: number;
+}

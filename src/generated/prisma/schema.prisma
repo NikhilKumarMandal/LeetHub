@@ -31,15 +31,17 @@ enum VoteType {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  name         String?
-  email        String   @unique
-  avatar       Json?
-  role         UserRole @default(USER)
-  password     String
-  refreshToken String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String    @id @default(uuid())
+  name               String?
+  email              String    @unique
+  avatar             Json?
+  role               UserRole  @default(USER)
+  password           String
+  refreshToken       String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  dailyQuestionCount Int       @default(1)
+  lastQuestionDate   DateTime?
 
   problem          Problem[]
   submission       Submission[]

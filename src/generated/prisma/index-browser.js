@@ -123,6 +123,8 @@ exports.Prisma.UserScalarFieldEnum = {
   refreshToken: "refreshToken",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
+  dailyQuestionCount: "dailyQuestionCount",
+  lastQuestionDate: "lastQuestionDate",
 };
 
 exports.Prisma.ProblemScalarFieldEnum = {

@@ -10,6 +10,7 @@ import authenticate from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
 import { Review } from "../controllers/reviewCode.controllers";
 import { ProblemService } from "../services/Problem.service";
+import { checkDailyQuestionLimit } from "../middlewares/checkdailyQuateLimit.middleware";
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ const authController = new Auth(
   logger
 );
 
-const reviewController = new Review(problemService);
+const reviewController = new Review(problemService, authService);
 
 router.post("/register", registerValidators, authController.register);
 
@@ -37,6 +38,7 @@ router.post("/logout", authenticate, authController.logout as RequestHandler);
 router.post(
   "/review",
   authenticate,
+  checkDailyQuestionLimit as RequestHandler,
   reviewController.reviewUserCode as RequestHandler
 );
 

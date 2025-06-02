@@ -2844,8 +2844,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null;
+    _avg: UserAvgAggregateOutputType | null;
+    _sum: UserSumAggregateOutputType | null;
     _min: UserMinAggregateOutputType | null;
     _max: UserMaxAggregateOutputType | null;
+  };
+
+  export type UserAvgAggregateOutputType = {
+    dailyQuestionCount: number | null;
+  };
+
+  export type UserSumAggregateOutputType = {
+    dailyQuestionCount: number | null;
   };
 
   export type UserMinAggregateOutputType = {
@@ -2857,6 +2867,8 @@ export namespace Prisma {
     refreshToken: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    dailyQuestionCount: number | null;
+    lastQuestionDate: Date | null;
   };
 
   export type UserMaxAggregateOutputType = {
@@ -2868,6 +2880,8 @@ export namespace Prisma {
     refreshToken: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    dailyQuestionCount: number | null;
+    lastQuestionDate: Date | null;
   };
 
   export type UserCountAggregateOutputType = {
@@ -2880,7 +2894,17 @@ export namespace Prisma {
     refreshToken: number;
     createdAt: number;
     updatedAt: number;
+    dailyQuestionCount: number;
+    lastQuestionDate: number;
     _all: number;
+  };
+
+  export type UserAvgAggregateInputType = {
+    dailyQuestionCount?: true;
+  };
+
+  export type UserSumAggregateInputType = {
+    dailyQuestionCount?: true;
   };
 
   export type UserMinAggregateInputType = {
@@ -2892,6 +2916,8 @@ export namespace Prisma {
     refreshToken?: true;
     createdAt?: true;
     updatedAt?: true;
+    dailyQuestionCount?: true;
+    lastQuestionDate?: true;
   };
 
   export type UserMaxAggregateInputType = {
@@ -2903,6 +2929,8 @@ export namespace Prisma {
     refreshToken?: true;
     createdAt?: true;
     updatedAt?: true;
+    dailyQuestionCount?: true;
+    lastQuestionDate?: true;
   };
 
   export type UserCountAggregateInputType = {
@@ -2915,6 +2943,8 @@ export namespace Prisma {
     refreshToken?: true;
     createdAt?: true;
     updatedAt?: true;
+    dailyQuestionCount?: true;
+    lastQuestionDate?: true;
     _all?: true;
   };
 
@@ -2958,6 +2988,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      *
+     * Select which fields to average
+     **/
+    _avg?: UserAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: UserSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
      * Select which fields to find the minimum value
      **/
     _min?: UserMinAggregateInputType;
@@ -2989,6 +3031,8 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     _count?: UserCountAggregateInputType | true;
+    _avg?: UserAvgAggregateInputType;
+    _sum?: UserSumAggregateInputType;
     _min?: UserMinAggregateInputType;
     _max?: UserMaxAggregateInputType;
   };
@@ -3003,7 +3047,11 @@ export namespace Prisma {
     refreshToken: string | null;
     createdAt: Date;
     updatedAt: Date;
+    dailyQuestionCount: number;
+    lastQuestionDate: Date | null;
     _count: UserCountAggregateOutputType | null;
+    _avg: UserAvgAggregateOutputType | null;
+    _sum: UserSumAggregateOutputType | null;
     _min: UserMinAggregateOutputType | null;
     _max: UserMaxAggregateOutputType | null;
   };
@@ -3033,6 +3081,8 @@ export namespace Prisma {
       refreshToken?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
+      dailyQuestionCount?: boolean;
+      lastQuestionDate?: boolean;
       problem?: boolean | User$problemArgs<ExtArgs>;
       submission?: boolean | User$submissionArgs<ExtArgs>;
       problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>;
@@ -3064,6 +3114,8 @@ export namespace Prisma {
       refreshToken?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
+      dailyQuestionCount?: boolean;
+      lastQuestionDate?: boolean;
     },
     ExtArgs["result"]["user"]
   >;
@@ -3081,6 +3133,8 @@ export namespace Prisma {
       refreshToken?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
+      dailyQuestionCount?: boolean;
+      lastQuestionDate?: boolean;
     },
     ExtArgs["result"]["user"]
   >;
@@ -3095,6 +3149,8 @@ export namespace Prisma {
     refreshToken?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    dailyQuestionCount?: boolean;
+    lastQuestionDate?: boolean;
   };
 
   export type UserOmit<
@@ -3108,7 +3164,9 @@ export namespace Prisma {
     | "password"
     | "refreshToken"
     | "createdAt"
-    | "updatedAt",
+    | "updatedAt"
+    | "dailyQuestionCount"
+    | "lastQuestionDate",
     ExtArgs["result"]["user"]
   >;
   export type UserInclude<
@@ -3162,6 +3220,8 @@ export namespace Prisma {
         refreshToken: string | null;
         createdAt: Date;
         updatedAt: Date;
+        dailyQuestionCount: number;
+        lastQuestionDate: Date | null;
       },
       ExtArgs["result"]["user"]
     >;
@@ -3881,6 +3941,8 @@ export namespace Prisma {
     readonly refreshToken: FieldRef<"User", "String">;
     readonly createdAt: FieldRef<"User", "DateTime">;
     readonly updatedAt: FieldRef<"User", "DateTime">;
+    readonly dailyQuestionCount: FieldRef<"User", "Int">;
+    readonly lastQuestionDate: FieldRef<"User", "DateTime">;
   }
 
   // Custom InputTypes
@@ -25934,6 +25996,8 @@ export namespace Prisma {
     refreshToken: "refreshToken";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
+    dailyQuestionCount: "dailyQuestionCount";
+    lastQuestionDate: "lastQuestionDate";
   };
 
   export type UserScalarFieldEnum =
@@ -26349,6 +26413,8 @@ export namespace Prisma {
     refreshToken?: StringNullableFilter<"User"> | string | null;
     createdAt?: DateTimeFilter<"User"> | Date | string;
     updatedAt?: DateTimeFilter<"User"> | Date | string;
+    dailyQuestionCount?: IntFilter<"User"> | number;
+    lastQuestionDate?: DateTimeNullableFilter<"User"> | Date | string | null;
     problem?: ProblemListRelationFilter;
     submission?: SubmissionListRelationFilter;
     problemSolved?: ProblemSolvedListRelationFilter;
@@ -26375,6 +26441,8 @@ export namespace Prisma {
     refreshToken?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    dailyQuestionCount?: SortOrder;
+    lastQuestionDate?: SortOrderInput | SortOrder;
     problem?: ProblemOrderByRelationAggregateInput;
     submission?: SubmissionOrderByRelationAggregateInput;
     problemSolved?: ProblemSolvedOrderByRelationAggregateInput;
@@ -26402,6 +26470,8 @@ export namespace Prisma {
       refreshToken?: StringNullableFilter<"User"> | string | null;
       createdAt?: DateTimeFilter<"User"> | Date | string;
       updatedAt?: DateTimeFilter<"User"> | Date | string;
+      dailyQuestionCount?: IntFilter<"User"> | number;
+      lastQuestionDate?: DateTimeNullableFilter<"User"> | Date | string | null;
       problem?: ProblemListRelationFilter;
       submission?: SubmissionListRelationFilter;
       problemSolved?: ProblemSolvedListRelationFilter;
@@ -26430,9 +26500,13 @@ export namespace Prisma {
     refreshToken?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    dailyQuestionCount?: SortOrder;
+    lastQuestionDate?: SortOrderInput | SortOrder;
     _count?: UserCountOrderByAggregateInput;
+    _avg?: UserAvgOrderByAggregateInput;
     _max?: UserMaxOrderByAggregateInput;
     _min?: UserMinOrderByAggregateInput;
+    _sum?: UserSumOrderByAggregateInput;
   };
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -26452,6 +26526,12 @@ export namespace Prisma {
     refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null;
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string;
+    dailyQuestionCount?: IntWithAggregatesFilter<"User"> | number;
+    lastQuestionDate?:
+      | DateTimeNullableWithAggregatesFilter<"User">
+      | Date
+      | string
+      | null;
   };
 
   export type ProblemWhereInput = {
@@ -27732,6 +27812,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -27755,6 +27837,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -27778,6 +27862,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -27801,6 +27891,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -27824,6 +27920,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
   };
 
   export type UserUpdateManyMutationInput = {
@@ -27836,6 +27934,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
   };
 
   export type UserUncheckedUpdateManyInput = {
@@ -27848,6 +27952,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
   };
 
   export type ProblemCreateInput = {
@@ -29107,6 +29217,28 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string;
   };
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null;
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null;
+  };
+
   export type ProblemListRelationFilter = {
     every?: ProblemWhereInput;
     some?: ProblemWhereInput;
@@ -29217,6 +29349,12 @@ export namespace Prisma {
     refreshToken?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    dailyQuestionCount?: SortOrder;
+    lastQuestionDate?: SortOrder;
+  };
+
+  export type UserAvgOrderByAggregateInput = {
+    dailyQuestionCount?: SortOrder;
   };
 
   export type UserMaxOrderByAggregateInput = {
@@ -29228,6 +29366,8 @@ export namespace Prisma {
     refreshToken?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    dailyQuestionCount?: SortOrder;
+    lastQuestionDate?: SortOrder;
   };
 
   export type UserMinOrderByAggregateInput = {
@@ -29239,6 +29379,12 @@ export namespace Prisma {
     refreshToken?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    dailyQuestionCount?: SortOrder;
+    lastQuestionDate?: SortOrder;
+  };
+
+  export type UserSumOrderByAggregateInput = {
+    dailyQuestionCount?: SortOrder;
   };
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -29349,7 +29495,7 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>;
   };
 
-  export type IntFilter<$PrismaModel = never> = {
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
     in?: number[] | ListIntFieldRefInput<$PrismaModel>;
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
@@ -29357,7 +29503,30 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>;
     gt?: number | IntFieldRefInput<$PrismaModel>;
     gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntFilter<$PrismaModel> | number;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null;
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedDateTimeNullableWithAggregatesFilter<$PrismaModel>
+      | Date
+      | string
+      | null;
+    _count?: NestedIntNullableFilter<$PrismaModel>;
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>;
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>;
   };
 
   export type EnumDifficultyFilter<$PrismaModel = never> = {
@@ -29515,22 +29684,6 @@ export namespace Prisma {
 
   export type ProblemSumOrderByAggregateInput = {
     problemNumber?: SortOrder;
-  };
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _avg?: NestedFloatFilter<$PrismaModel>;
-    _sum?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedIntFilter<$PrismaModel>;
-    _max?: NestedIntFilter<$PrismaModel>;
   };
 
   export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -30454,6 +30607,18 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
+  };
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+  };
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null;
   };
 
   export type ProblemUpdateManyWithoutUserNestedInput = {
@@ -31726,14 +31891,6 @@ export namespace Prisma {
     deleteMany?:
       | PlaylistProblemSolvedScalarWhereInput
       | PlaylistProblemSolvedScalarWhereInput[];
-  };
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
   };
 
   export type SubmissionUncheckedUpdateManyWithoutProblemNestedInput = {
@@ -33299,6 +33456,28 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string;
   };
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null;
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null;
+  };
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -33314,17 +33493,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedStringFilter<$PrismaModel>;
     _max?: NestedStringFilter<$PrismaModel>;
-  };
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntFilter<$PrismaModel> | number;
   };
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33421,18 +33589,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>;
   };
 
-  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
-  };
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
-  };
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
     in?: number[] | ListIntFieldRefInput<$PrismaModel>;
@@ -33458,6 +33614,41 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>;
     gte?: number | FloatFieldRefInput<$PrismaModel>;
     not?: NestedFloatFilter<$PrismaModel> | number;
+  };
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null;
+      in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null;
+      notIn?:
+        | Date[]
+        | string[]
+        | ListDateTimeFieldRefInput<$PrismaModel>
+        | null;
+      lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+      lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+      gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+      gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedDateTimeNullableWithAggregatesFilter<$PrismaModel>
+        | Date
+        | string
+        | null;
+      _count?: NestedIntNullableFilter<$PrismaModel>;
+      _min?: NestedDateTimeNullableFilter<$PrismaModel>;
+      _max?: NestedDateTimeNullableFilter<$PrismaModel>;
+    };
+
+  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
+  };
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
   export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -34425,6 +34616,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -34447,6 +34640,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -34704,6 +34899,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -34726,6 +34923,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -34809,6 +35008,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -34831,6 +35036,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -35118,6 +35329,8 @@ export namespace Prisma {
     refreshToken?: StringNullableFilter<"User"> | string | null;
     createdAt?: DateTimeFilter<"User"> | Date | string;
     updatedAt?: DateTimeFilter<"User"> | Date | string;
+    dailyQuestionCount?: IntFilter<"User"> | number;
+    lastQuestionDate?: DateTimeNullableFilter<"User"> | Date | string | null;
   };
 
   export type PlaylistProblemSolvedUpsertWithWhereUniqueWithoutProblemInput = {
@@ -35313,6 +35526,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -35335,6 +35550,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -35502,6 +35719,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -35524,6 +35747,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -35772,6 +36001,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -35794,6 +36025,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -35916,6 +36149,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -35938,6 +36177,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -36043,6 +36288,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -36065,6 +36312,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -36248,6 +36497,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -36270,6 +36525,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -36443,6 +36704,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -36465,6 +36728,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -36587,6 +36852,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -36609,6 +36880,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -36743,6 +37020,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -36765,6 +37044,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -36876,6 +37157,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -36898,6 +37185,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -37183,6 +37476,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -37205,6 +37500,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -37255,6 +37552,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -37277,6 +37580,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -37632,6 +37941,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -37654,6 +37965,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -37730,6 +38043,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -37752,6 +38071,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -37812,6 +38137,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -37834,6 +38161,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -37884,6 +38213,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -37906,6 +38241,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -37928,6 +38269,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
@@ -37950,6 +38293,8 @@ export namespace Prisma {
     refreshToken?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
@@ -38106,6 +38451,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -38128,6 +38479,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -39036,6 +39393,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
@@ -39058,6 +39421,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
@@ -39080,6 +39449,12 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
   };
 
   export type PlaylistProblemSolvedUpdateWithoutProblemInput = {

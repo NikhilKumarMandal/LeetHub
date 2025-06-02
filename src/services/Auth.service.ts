@@ -72,4 +72,15 @@ export class AuthService {
       include: { favoriteProblems: true },
     });
   }
+
+  async updateLimit(userId: string) {
+    return await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dailyQuestionCount: { increment: 1 },
+      },
+    });
+  }
 }
