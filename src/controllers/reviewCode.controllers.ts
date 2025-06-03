@@ -37,8 +37,8 @@ export class Review {
           userCode, // Ensures exact code match
         },
       });
-      console.log(existingReview,"existingReview");
-      
+      console.log(existingReview, "existingReview");
+
       if (existingReview) {
         return res.status(200).json(
           new ApiResponse(
@@ -102,11 +102,17 @@ export class Review {
 
       const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const result = await model.generateContent({
-        contents: [{ role: "user", parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }],
+          },
+        ],
       });
 
       const raw = await result.response.text();
-      const jsonString = raw.match(/```json\s*([\s\S]*?)\s*```/i)?.[1] || raw.trim();
+      const jsonString =
+        raw.match(/```json\s*([\s\S]*?)\s*```/i)?.[1] || raw.trim();
       const parsed = JSON.parse(jsonString);
 
       const isCorrect = parsed["✅ Is the code correct?"];

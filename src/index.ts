@@ -17,12 +17,22 @@ import helmet from "helmet";
 import { serve } from "inngest/express";
 import { inngest } from "./inngest/client";
 import { onUserSignup } from "./inngest/functions/on-singup";
+import http from "http";
+import { Server } from "socket.io";
+import axios from "axios";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
 const app: Application = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 app.use(asyncHandler(arcjetMiddleware));
 app.use(helmet());
@@ -38,6 +48,125 @@ app.use(
     credentials: true,
   })
 );
+
+const rooms = new Map();
+
+io.on("connection", (socket) => {
+  console.log(socket.id);
+
+  let currentRoom: any = null;
+  let currentUser: any = null;
+  socket.on("join", ({ roomId, userName }) => {
+    if (currentRoom) {
+      socket.leave(currentRoom);
+      if (rooms.has(currentRoom)) {
+        rooms.get(currentRoom).users.delete(currentUser);
+        io.to(currentRoom).emit(
+          "userJoined",
+          Array.from(rooms.get(currentRoom).users)
+        );
+      }
+    }
+
+    currentRoom = roomId;
+    currentUser = userName;
+
+    socket.join(roomId);
+
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, {
+        users: new Set(),
+        code: "//  start code here",
+        language: "javascript",
+      });
+    }
+
+    rooms.get(roomId).users.add(userName);
+
+    socket.emit("codeUpdate", rooms.get(roomId).code);
+
+    socket.emit("languageUpdate", rooms.get(roomId).language);
+
+    io.to(roomId).emit("userJoined", Array.from(rooms.get(currentRoom).users));
+  });
+
+  socket.on("codeChange", ({ roomId, code }) => {
+    if (rooms.has(roomId)) {
+      rooms.get(roomId).code = code;
+    }
+    socket.to(roomId).emit("codeUpdate", code);
+  });
+
+  socket.on("leaveRoom", () => {
+    if (currentRoom && currentUser && rooms.has(currentRoom)) {
+      rooms.get(currentRoom).users.delete(currentUser);
+      io.to(currentRoom).emit(
+        "userJoined",
+        Array.from(rooms.get(currentRoom).users)
+      );
+
+      socket.leave(currentRoom);
+
+      // Clean up empty room
+      if (rooms.get(currentRoom).size === 0) {
+        rooms.delete(currentRoom);
+      }
+
+      currentRoom = null;
+      currentUser = null;
+    }
+  });
+
+  socket.on("typing", ({ roomId, userName }) => {
+    socket.to(roomId).emit("userTyping", userName);
+  });
+
+  socket.on("compileCode", async ({ code, roomId, language, version }) => {
+    if (rooms.has(roomId)) {
+      try {
+        const response = await axios.post(
+          "https://emkc.org/api/v2/piston/execute",
+          {
+            language,
+            version,
+            files: [{ content: code }],
+          }
+        );
+
+        console.log(response, "response");
+
+        io.to(roomId).emit("codeResponse", response.data);
+      } catch (error) {
+        console.error("Compilation error:", error);
+        io.to(roomId).emit("codeResponse", {
+          run: { output: "Compilation error occurred." },
+        });
+      }
+    }
+  });
+
+  socket.on("languageChange", ({ roomId, language }) => {
+    if (rooms.has(roomId)) {
+      rooms.get(roomId).language = language;
+      io.to(roomId).emit("languageUpdate", language);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    if (currentRoom && currentUser && rooms.has(currentRoom)) {
+      rooms.get(currentRoom).users.delete(currentUser);
+      io.to(currentRoom).emit(
+        "userJoined",
+        Array.from(rooms.get(currentRoom).users)
+      );
+
+      // Clean up empty room
+      if (rooms.get(currentRoom).size === 0) {
+        rooms.delete(currentRoom);
+      }
+    }
+  });
+});
 
 // Routes
 app.use("/api/v1/auth", AuthRouter);
@@ -57,6 +186,6 @@ app.use(
   })
 );
 
-app.listen(PORT, () => {
-  console.log(`App is listening on PORT: ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
