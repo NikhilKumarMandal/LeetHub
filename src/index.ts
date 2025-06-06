@@ -52,8 +52,6 @@ app.use(
 const rooms = new Map();
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
-
   let currentRoom: any = null;
   let currentUser: any = null;
   socket.on("join", ({ roomId, userName }) => {

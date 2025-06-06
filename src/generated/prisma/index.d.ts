@@ -6792,6 +6792,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinAggregateOutputType = {
     id: string | null;
+    input: string | null;
     output: string | null;
     isPublic: boolean | null;
     problemId: string | null;
@@ -6801,6 +6802,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxAggregateOutputType = {
     id: string | null;
+    input: string | null;
     output: string | null;
     isPublic: boolean | null;
     problemId: string | null;
@@ -6821,6 +6823,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinAggregateInputType = {
     id?: true;
+    input?: true;
     output?: true;
     isPublic?: true;
     problemId?: true;
@@ -6830,6 +6833,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxAggregateInputType = {
     id?: true;
+    input?: true;
     output?: true;
     isPublic?: true;
     problemId?: true;
@@ -6931,7 +6935,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseGroupByOutputType = {
     id: string;
-    input: JsonValue | null;
+    input: string | null;
     output: string;
     isPublic: boolean;
     problemId: string;
@@ -7052,7 +7056,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
-        input: Prisma.JsonValue | null;
+        input: string | null;
         output: string;
         isPublic: boolean;
         problemId: string;
@@ -7663,7 +7667,7 @@ export namespace Prisma {
    */
   interface ProblemTestCaseFieldRefs {
     readonly id: FieldRef<"ProblemTestCase", "String">;
-    readonly input: FieldRef<"ProblemTestCase", "Json">;
+    readonly input: FieldRef<"ProblemTestCase", "String">;
     readonly output: FieldRef<"ProblemTestCase", "String">;
     readonly isPublic: FieldRef<"ProblemTestCase", "Boolean">;
     readonly problemId: FieldRef<"ProblemTestCase", "String">;
@@ -28292,7 +28296,7 @@ export namespace Prisma {
     OR?: ProblemTestCaseWhereInput[];
     NOT?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
     id?: StringFilter<"ProblemTestCase"> | string;
-    input?: JsonNullableFilter<"ProblemTestCase">;
+    input?: StringNullableFilter<"ProblemTestCase"> | string | null;
     output?: StringFilter<"ProblemTestCase"> | string;
     isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
     problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -28318,7 +28322,7 @@ export namespace Prisma {
       AND?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
       OR?: ProblemTestCaseWhereInput[];
       NOT?: ProblemTestCaseWhereInput | ProblemTestCaseWhereInput[];
-      input?: JsonNullableFilter<"ProblemTestCase">;
+      input?: StringNullableFilter<"ProblemTestCase"> | string | null;
       output?: StringFilter<"ProblemTestCase"> | string;
       isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
       problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -28351,7 +28355,10 @@ export namespace Prisma {
       | ProblemTestCaseScalarWhereWithAggregatesInput
       | ProblemTestCaseScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
-    input?: JsonNullableWithAggregatesFilter<"ProblemTestCase">;
+    input?:
+      | StringNullableWithAggregatesFilter<"ProblemTestCase">
+      | string
+      | null;
     output?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
     isPublic?: BoolWithAggregatesFilter<"ProblemTestCase"> | boolean;
     problemId?: StringWithAggregatesFilter<"ProblemTestCase"> | string;
@@ -29836,7 +29843,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -29846,7 +29853,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedCreateInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     problemId: string;
@@ -29856,7 +29863,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -29866,7 +29873,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     problemId?: StringFieldUpdateOperationsInput | string;
@@ -29876,7 +29883,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateManyInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     problemId: string;
@@ -29886,7 +29893,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -29895,7 +29902,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     problemId?: StringFieldUpdateOperationsInput | string;
@@ -31528,6 +31535,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMaxOrderByAggregateInput = {
     id?: SortOrder;
+    input?: SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -31537,6 +31545,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseMinOrderByAggregateInput = {
     id?: SortOrder;
+    input?: SortOrder;
     output?: SortOrder;
     isPublic?: SortOrder;
     problemId?: SortOrder;
@@ -36877,7 +36886,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateWithoutProblemInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -36886,7 +36895,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedCreateWithoutProblemInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -37312,7 +37321,7 @@ export namespace Prisma {
     OR?: ProblemTestCaseScalarWhereInput[];
     NOT?: ProblemTestCaseScalarWhereInput | ProblemTestCaseScalarWhereInput[];
     id?: StringFilter<"ProblemTestCase"> | string;
-    input?: JsonNullableFilter<"ProblemTestCase">;
+    input?: StringNullableFilter<"ProblemTestCase"> | string | null;
     output?: StringFilter<"ProblemTestCase"> | string;
     isPublic?: BoolFilter<"ProblemTestCase"> | boolean;
     problemId?: StringFilter<"ProblemTestCase"> | string;
@@ -41742,7 +41751,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseCreateManyProblemInput = {
     id?: string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: string | null;
     output: string;
     isPublic?: boolean;
     createdAt?: Date | string;
@@ -41893,7 +41902,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -41902,7 +41911,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -41911,7 +41920,7 @@ export namespace Prisma {
 
   export type ProblemTestCaseUncheckedUpdateManyWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    input?: NullableJsonNullValueInput | InputJsonValue;
+    input?: NullableStringFieldUpdateOperationsInput | string | null;
     output?: StringFieldUpdateOperationsInput | string;
     isPublic?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;

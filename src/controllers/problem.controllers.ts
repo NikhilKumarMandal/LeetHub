@@ -10,10 +10,6 @@ import { ProblemService } from "../services/Problem.service";
 import { Logger } from "winston";
 import { db } from "../libs/db";
 import { matchedData, validationResult } from "express-validator";
-import {
-  extractFunctionCode,
-  formatInputForJudge0,
-} from "../utils/functionCode";
 
 export class Problem {
   constructor(
@@ -40,20 +36,12 @@ export class Problem {
       referenceSolutions,
       companyName,
       ytLink,
+      starterFunction,
     } = req.body;
     if (req.auth.role !== "ADMIN") {
       throw new ApiError(403, "You are not allowed to create a problem!");
     }
 
-    const starterFunction: Record<string, string> = {};
-    if (codeSnippets && typeof codeSnippets === "object") {
-      for (const [lang, code] of Object.entries(codeSnippets)) {
-        const fn = extractFunctionCode(code as unknown as string, lang);
-        if (fn) {
-          starterFunction[lang] = fn;
-        }
-      }
-    }
     const refSolutions =
       referenceSolutions && typeof referenceSolutions === "object"
         ? referenceSolutions
@@ -70,10 +58,12 @@ export class Problem {
 
         const submission = testcases.map(
           ({ input, output }: { input: string | null; output: string }) => {
+            console.log("input", input);
+
             const sourceCode = isSQL
               ? `${input ? input + "\n" : ""}${solutionCode}`
               : solutionCode;
-            const formattedInput = input ? formatInputForJudge0(input) : null;
+            // const formattedInput = input ? formatInputForJudge0(input) : null;
             return {
               source_code: sourceCode,
               language_id: languageId,
@@ -83,14 +73,14 @@ export class Problem {
           }
         );
 
-        console.log(submission);
+        console.log(submission, "submission");
 
         const submissionResult = await submitBatch(submission, isSQL);
         const tokens = submissionResult.map(
           (res: { token: string }) => res.token
         );
         const result = await pollBatchResult(tokens, isSQL);
-        console.log(result);
+        console.log("result", result);
 
         for (const res of result) {
           if (res.status.id !== 3) {
@@ -131,12 +121,14 @@ export class Problem {
           output: string;
           isPublic?: boolean;
         }) => ({
-          input: formatInputForJudge0(input),
+          input,
           output,
           isPublic,
           problemId: newProblem.id,
         })
       );
+
+      console.log(formattedTestcases);
 
       await db.problemTestCase.createMany({
         data: formattedTestcases,

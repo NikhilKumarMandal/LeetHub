@@ -1,61 +1,3 @@
-export function extractFunctionCode(
-  code: string,
-  language: string
-): string | null {
-  language = language.toLowerCase();
-
-  switch (language) {
-    case "python": {
-      const match = code.match(/def\s+\w+\s*\(.*?\):([\s\S]*?)(?=\n\S|$)/);
-      return match ? match[0].trim() : null;
-    }
-
-    case "javascript":
-    case "typescript": {
-      const match = code.match(/function\s+\w+\s*\(.*?\)\s*\{[\s\S]*?\}/);
-      return match ? match[0].trim() : null;
-    }
-
-    case "c":
-    case "cpp":
-    case "c++": {
-      const match = code.match(/\w+\s+\**\w+\s*\(.*?\)\s*\{[\s\S]*?\}/);
-      return match ? match[0].trim() : null;
-    }
-
-    case "java": {
-      const match = code.match(
-        /(public\s+)?(static\s+)?\w+\s+\w+\s*\(.*?\)\s*\{[\s\S]*?\}/
-      );
-      return match ? match[0].trim() : null;
-    }
-
-    case "kotlin": {
-      const match = code.match(/fun\s+\w+\s*\(.*?\)\s*\{[\s\S]*?\}/);
-      return match ? match[0].trim() : null;
-    }
-
-    case "go": {
-      const match = code.match(/func\s+\w+\s*\(.*?\)\s*\{[\s\S]*?\}/);
-      return match ? match[0].trim() : null;
-    }
-
-    case "rust": {
-      const match = code.match(
-        /fn\s+\w+\s*\(.*?\)\s*(->\s*\w+)?\s*\{[\s\S]*?\}/
-      );
-      return match ? match[0].trim() : null;
-    }
-
-    case "sql": {
-      return code.trim();
-    }
-
-    default:
-      return code.trim();
-  }
-}
-
 export interface Comment {
   id: string;
   content: string;
@@ -94,86 +36,6 @@ export function buildDiscussionTree(comments: Comment[]): Comment[] {
   return roots;
 }
 
-function extractBracedFunction(userCode: string, functionName: string): string {
-  const lines = userCode.split("\n");
-  const output: string[] = [];
-
-  let insideFunction = false;
-  let braceCount = 0;
-
-  const functionPattern = new RegExp(`^\\s*function\\s+${functionName}\\s*\\(`);
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    if (!insideFunction) {
-      if (functionPattern.test(line)) {
-        insideFunction = true;
-        output.push(line);
-
-        const open = (line.match(/{/g) || []).length;
-        const close = (line.match(/}/g) || []).length;
-        braceCount = open - close;
-
-        // If function signature doesn't include opening brace, keep reading
-        while (braceCount === 0 && i + 1 < lines.length) {
-          i++;
-          const nextLine = lines[i];
-          output.push(nextLine);
-
-          const openInner = (nextLine.match(/{/g) || []).length;
-          const closeInner = (nextLine.match(/}/g) || []).length;
-          braceCount += openInner - closeInner;
-        }
-
-        continue;
-      }
-    } else {
-      output.push(line);
-      const open = (line.match(/{/g) || []).length;
-      const close = (line.match(/}/g) || []).length;
-      braceCount += open - close;
-
-      if (braceCount === 0) {
-        break; // Function fully extracted
-      }
-    }
-  }
-
-  return output.join("\n");
-}
-
-function extractPythonFunction(userCode: string, functionName: string): string {
-  const lines = userCode.split("\n");
-  const output: string[] = [];
-
-  let insideFunction = false;
-  let indent = "";
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (trimmed.startsWith(`def ${functionName}(`)) {
-      insideFunction = true;
-      indent = line.match(/^(\s*)/)?.[1] || "";
-      output.push(line);
-      continue;
-    }
-
-    if (insideFunction) {
-      const currentIndent = line.match(/^(\s*)/)?.[1] || "";
-
-      if (trimmed === "" || currentIndent.length > indent.length) {
-        output.push(line);
-      } else {
-        break; // exited function body
-      }
-    }
-  }
-
-  return output.join("\n");
-}
-
 export function extractFunctionBody(
   userCode: string,
   functionName: string,
@@ -184,7 +46,6 @@ export function extractFunctionBody(
       return extractPythonFunction(userCode, functionName);
     case "javascript":
     case "typescript":
-      return extractBracedFunction(userCode, functionName);
     case "java":
     case "c++":
     case "c":
@@ -192,6 +53,73 @@ export function extractFunctionBody(
     default:
       throw new Error(`Unsupported language: ${language}`);
   }
+}
+
+function extractPythonFunction(code: string, functionName: string): string {
+  const lines = code.split("\n");
+
+  let insideFunc = false;
+  let funcIndent = "";
+  let bodyIndent = "";
+  const body: string[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Match function definition
+    const match = line.match(
+      new RegExp(`^(\\s*)def\\s+${functionName}\\s*\\(`)
+    );
+    if (match) {
+      insideFunc = true;
+      funcIndent = match[1];
+      continue;
+    }
+
+    if (insideFunc) {
+      // Skip blank lines
+      if (line.trim() === "") {
+        body.push("");
+        continue;
+      }
+
+      const lineIndentMatch = line.match(/^(\s*)/);
+      const currentIndent = lineIndentMatch ? lineIndentMatch[1] : "";
+
+      if (!bodyIndent && currentIndent.length > funcIndent.length) {
+        bodyIndent = currentIndent;
+      }
+
+      // If this line is indented as body, include it
+      if (currentIndent.length >= (bodyIndent?.length || 4)) {
+        body.push(line.slice(bodyIndent.length));
+      } else {
+        break; // Function body ends
+      }
+    }
+  }
+
+  return body.join("\n");
+}
+
+function extractBracedFunction(code: string, functionName: string): string {
+  const regex = new RegExp(`${functionName}\\s*\\([^)]*\\)\\s*{`, "g");
+  const match = regex.exec(code);
+  if (!match) return "";
+
+  const startIndex = match.index + match[0].length;
+  let braceCount = 1;
+  let i = startIndex;
+  while (i < code.length) {
+    if (code[i] === "{") braceCount++;
+    else if (code[i] === "}") braceCount--;
+
+    i++;
+    if (braceCount === 0) break;
+  }
+
+  const body = code.slice(startIndex, i - 1);
+  return body.trim();
 }
 
 export function injectLogicHere(
@@ -204,10 +132,19 @@ export function injectLogicHere(
 
   if (["javascript", "typescript", "java", "c++", "c"].includes(language)) {
     const functionRegex = new RegExp(
-      `function\\s+${functionName}\\s*\\([^)]*\\)\\s*{[\\s\\S]*?}`,
-      "g"
+      `(public\\s+|private\\s+|protected\\s+)?(static\\s+)?[\\w<>\\[\\]]+\\s+${functionName}\\s*\\([^)]*\\)\\s*{[\\s\\S]*?}`,
+      "gm"
     );
-    return baseTemplate.replace(functionRegex, userLogic);
+
+    const match = baseTemplate.match(functionRegex);
+    if (!match) {
+      throw new Error("Function not found in base template for injection");
+    }
+
+    return baseTemplate.replace(functionRegex, (fnDecl) => {
+      const header = fnDecl.slice(0, fnDecl.indexOf("{") + 1);
+      return `${header}\n${userLogic}\n    }`;
+    });
   }
 
   if (language === "python") {
@@ -215,35 +152,47 @@ export function injectLogicHere(
     const userLines = userLogic.trim().split("\n");
 
     const output: string[] = [];
-    let insideFunction = false;
-    let indent = "";
+    let injected = false;
+
+    const funcRegex = new RegExp(`^(\\s*)def\\s+${functionName}\\s*\\(`);
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
+      const match = line.match(funcRegex);
 
-      if (!insideFunction && line.trim().startsWith(`def ${functionName}(`)) {
-        insideFunction = true;
+      if (match && !injected) {
+        const indent = match[1];
+        const bodyIndent = indent + "    ";
+
         output.push(line);
 
-        // Figure out the indentation of the next line
-        const nextLine = lines[i + 1] || "";
-        const match = nextLine.match(/^(\s+)/);
-        indent = match ? match[1] : "  ";
-
-        // Inject user logic with correct indentation
         for (const userLine of userLines) {
-          output.push(indent + userLine);
+          output.push(bodyIndent + userLine);
         }
 
-        // Skip original stub body
+        injected = true;
         while (i + 1 < lines.length) {
-          const next = lines[i + 1];
-          if (!next.startsWith(indent) && next.trim() !== "") break;
-          i++;
+          const nextLine = lines[i + 1];
+          if (nextLine.trim() === "") {
+            i++;
+            continue;
+          }
+          const nextIndent = nextLine.match(/^(\s*)/)?.[1] ?? "";
+          if (nextIndent.length > indent.length) {
+            i++;
+            continue;
+          }
+          break;
         }
-      } else {
-        output.push(line);
+
+        continue;
       }
+
+      output.push(line);
+    }
+
+    if (!injected) {
+      throw new Error("Function not found for injection");
     }
 
     return output.join("\n");
@@ -273,25 +222,4 @@ export function extractFunctionNamehello(
       return null;
   }
   return match ? match[1] : null;
-}
-
-export function formatInputForJudge0(rawInput: string): string {
-  try {
-    const parsed = JSON.parse(rawInput);
-
-    if (Array.isArray(parsed)) {
-      if (parsed.every((item) => Array.isArray(item))) {
-        return parsed.map((inner) => inner.join(" ")).join("\n");
-      }
-      return parsed.join(" ");
-    }
-
-    if (typeof parsed === "object") {
-      return Object.values(parsed).join("\n");
-    }
-
-    return String(parsed).trim();
-  } catch {
-    return rawInput.trim();
-  }
 }

@@ -60,26 +60,36 @@ export class ExecuteCode {
       const baseTemplate = problem?.codeSnippets[language];
       const functionName = extractFunctionNamehello(baseTemplate, language);
 
+      console.log("functionName", functionName);
+
       let userLogic = extractFunctionBody(
         source_code,
         functionName!,
         language.toLocaleLowerCase()
       );
+      console.log("-------------");
+
+      console.log(userLogic, "userLogic");
+      console.log("-------------");
       const fullSourceCode = injectLogicHere(
         baseTemplate,
         functionName!,
         userLogic,
         language.toLocaleLowerCase()
       );
+      console.log("fullSourceCode", fullSourceCode);
       const submissions = testInputs.map((input) => ({
         source_code: fullSourceCode,
         language_id,
         stdin: input,
       }));
+      //console.log("submission",submissions);
+
       const isSQL = language_id === 82;
       const submissionResponse = await submitBatch(submissions, isSQL);
       const tokens = submissionResponse.map((res: any) => res.token);
       const results = await pollBatchResult(tokens, isSQL);
+      //console.log(results,"result");
 
       const formattedResults = results.map((result: any, index: number) => ({
         testCase: testInputs[index],

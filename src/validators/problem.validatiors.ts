@@ -80,13 +80,6 @@ export default checkSchema({
       errorMessage: "Constraints are required!",
     },
   },
-  hints: {
-    in: ["body"],
-    optional: true,
-    isString: {
-      errorMessage: "Hints must be a string",
-    },
-  },
   editorial: {
     in: ["body"],
     optional: true,

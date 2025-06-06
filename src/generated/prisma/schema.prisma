@@ -97,7 +97,7 @@ model Problem {
 
 model ProblemTestCase {
   id        String   @id @default(uuid())
-  input     Json?
+  input     String?
   output    String
   isPublic  Boolean  @default(false)
   problemId String
