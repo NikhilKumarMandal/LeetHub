@@ -200,8 +200,6 @@ model Playlist {
   name        String
   description String?
   userId      String
-  topics      String[]
-  image       Json?
   summary     String[]
 
   createdAt DateTime @default(now())
@@ -211,7 +209,7 @@ model Playlist {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([name, userId])
+  @@unique([name])
   solvedProblems        PlaylistProblemSolved[]   @relation("PlaylistSolvedProblems")
 }
 

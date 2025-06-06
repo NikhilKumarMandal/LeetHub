@@ -1,13 +1,14 @@
 import { db } from "../libs/db";
 
-interface Data {
+export interface PlaylistData {
   name: string;
   description: string;
   userId: string;
+  summary: string[];
 }
 
 export class PlaylistService {
-  async create(data: Data) {
+  async create(data: PlaylistData) {
     return await db.playlist.create({
       data: {
         ...data,

@@ -15210,8 +15210,6 @@ export namespace Prisma {
     name: number;
     description: number;
     userId: number;
-    topics: number;
-    image: number;
     summary: number;
     createdAt: number;
     updatedAt: number;
@@ -15241,8 +15239,6 @@ export namespace Prisma {
     name?: true;
     description?: true;
     userId?: true;
-    topics?: true;
-    image?: true;
     summary?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -15331,8 +15327,6 @@ export namespace Prisma {
     name: string;
     description: string | null;
     userId: string;
-    topics: string[];
-    image: JsonValue | null;
     summary: string[];
     createdAt: Date;
     updatedAt: Date;
@@ -15362,8 +15356,6 @@ export namespace Prisma {
       name?: boolean;
       description?: boolean;
       userId?: boolean;
-      topics?: boolean;
-      image?: boolean;
       summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15383,8 +15375,6 @@ export namespace Prisma {
       name?: boolean;
       description?: boolean;
       userId?: boolean;
-      topics?: boolean;
-      image?: boolean;
       summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15401,8 +15391,6 @@ export namespace Prisma {
       name?: boolean;
       description?: boolean;
       userId?: boolean;
-      topics?: boolean;
-      image?: boolean;
       summary?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15416,8 +15404,6 @@ export namespace Prisma {
     name?: boolean;
     description?: boolean;
     userId?: boolean;
-    topics?: boolean;
-    image?: boolean;
     summary?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
@@ -15430,8 +15416,6 @@ export namespace Prisma {
     | "name"
     | "description"
     | "userId"
-    | "topics"
-    | "image"
     | "summary"
     | "createdAt"
     | "updatedAt",
@@ -15471,8 +15455,6 @@ export namespace Prisma {
         name: string;
         description: string | null;
         userId: string;
-        topics: string[];
-        image: Prisma.JsonValue | null;
         summary: string[];
         createdAt: Date;
         updatedAt: Date;
@@ -16102,8 +16084,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Playlist", "String">;
     readonly description: FieldRef<"Playlist", "String">;
     readonly userId: FieldRef<"Playlist", "String">;
-    readonly topics: FieldRef<"Playlist", "String[]">;
-    readonly image: FieldRef<"Playlist", "Json">;
     readonly summary: FieldRef<"Playlist", "String[]">;
     readonly createdAt: FieldRef<"Playlist", "DateTime">;
     readonly updatedAt: FieldRef<"Playlist", "DateTime">;
@@ -27685,8 +27665,6 @@ export namespace Prisma {
     name: "name";
     description: "description";
     userId: "userId";
-    topics: "topics";
-    image: "image";
     summary: "summary";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
@@ -28814,8 +28792,6 @@ export namespace Prisma {
     name?: StringFilter<"Playlist"> | string;
     description?: StringNullableFilter<"Playlist"> | string | null;
     userId?: StringFilter<"Playlist"> | string;
-    topics?: StringNullableListFilter<"Playlist">;
-    image?: JsonNullableFilter<"Playlist">;
     summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
@@ -28829,8 +28805,6 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrderInput | SortOrder;
     userId?: SortOrder;
-    topics?: SortOrder;
-    image?: SortOrderInput | SortOrder;
     summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -28842,15 +28816,12 @@ export namespace Prisma {
   export type PlaylistWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
-      name_userId?: PlaylistNameUserIdCompoundUniqueInput;
+      name?: string;
       AND?: PlaylistWhereInput | PlaylistWhereInput[];
       OR?: PlaylistWhereInput[];
       NOT?: PlaylistWhereInput | PlaylistWhereInput[];
-      name?: StringFilter<"Playlist"> | string;
       description?: StringNullableFilter<"Playlist"> | string | null;
       userId?: StringFilter<"Playlist"> | string;
-      topics?: StringNullableListFilter<"Playlist">;
-      image?: JsonNullableFilter<"Playlist">;
       summary?: StringNullableListFilter<"Playlist">;
       createdAt?: DateTimeFilter<"Playlist"> | Date | string;
       updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
@@ -28858,7 +28829,7 @@ export namespace Prisma {
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
       solvedProblems?: PlaylistProblemSolvedListRelationFilter;
     },
-    "id" | "name_userId"
+    "id" | "name"
   >;
 
   export type PlaylistOrderByWithAggregationInput = {
@@ -28866,8 +28837,6 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrderInput | SortOrder;
     userId?: SortOrder;
-    topics?: SortOrder;
-    image?: SortOrderInput | SortOrder;
     summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -28891,8 +28860,6 @@ export namespace Prisma {
       | string
       | null;
     userId?: StringWithAggregatesFilter<"Playlist"> | string;
-    topics?: StringNullableListFilter<"Playlist">;
-    image?: JsonNullableWithAggregatesFilter<"Playlist">;
     summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string;
@@ -30325,8 +30292,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -30340,8 +30305,6 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     userId: string;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -30353,8 +30316,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -30368,8 +30329,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -30382,8 +30341,6 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     userId: string;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -30393,8 +30350,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -30405,8 +30360,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -31777,18 +31730,11 @@ export namespace Prisma {
     _max?: NestedEnumVoteTypeFilter<$PrismaModel>;
   };
 
-  export type PlaylistNameUserIdCompoundUniqueInput = {
-    name: string;
-    userId: string;
-  };
-
   export type PlaylistCountOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
     description?: SortOrder;
     userId?: SortOrder;
-    topics?: SortOrder;
-    image?: SortOrder;
     summary?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -34615,10 +34561,6 @@ export namespace Prisma {
     >;
   };
 
-  export type PlaylistCreatetopicsInput = {
-    set: string[];
-  };
-
   export type PlaylistCreatesummaryInput = {
     set: string[];
   };
@@ -34700,11 +34642,6 @@ export namespace Prisma {
         | PlaylistProblemSolvedWhereUniqueInput
         | PlaylistProblemSolvedWhereUniqueInput[];
     };
-
-  export type PlaylistUpdatetopicsInput = {
-    set?: string[];
-    push?: string | string[];
-  };
 
   export type PlaylistUpdatesummaryInput = {
     set?: string[];
@@ -35966,8 +35903,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -35979,8 +35914,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -36479,8 +36412,6 @@ export namespace Prisma {
     name?: StringFilter<"Playlist"> | string;
     description?: StringNullableFilter<"Playlist"> | string | null;
     userId?: StringFilter<"Playlist"> | string;
-    topics?: StringNullableListFilter<"Playlist">;
-    image?: JsonNullableFilter<"Playlist">;
     summary?: StringNullableListFilter<"Playlist">;
     createdAt?: DateTimeFilter<"Playlist"> | Date | string;
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string;
@@ -39453,8 +39384,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -39467,8 +39396,6 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     userId: string;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -39581,8 +39508,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -39595,8 +39520,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -40559,8 +40482,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -40573,8 +40494,6 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     userId: string;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -40765,8 +40684,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -40779,8 +40696,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     userId?: StringFieldUpdateOperationsInput | string;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -41233,8 +41148,6 @@ export namespace Prisma {
     id?: string;
     name: string;
     description?: string | null;
-    topics?: PlaylistCreatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistCreatesummaryInput | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -41488,8 +41401,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -41501,8 +41412,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -41514,8 +41423,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
-    topics?: PlaylistUpdatetopicsInput | string[];
-    image?: NullableJsonNullValueInput | InputJsonValue;
     summary?: PlaylistUpdatesummaryInput | string[];
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;

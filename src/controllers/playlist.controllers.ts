@@ -1,7 +1,7 @@
 import { AuthRequest } from "./../types/types";
 import { NextFunction, Request, Response } from "express";
 
-import { PlaylistService } from "../services/Playlist.service";
+import { PlaylistData, PlaylistService } from "../services/Playlist.service";
 import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { validationResult } from "express-validator";
@@ -22,24 +22,15 @@ export class Playlist {
     const userId = req.auth.sub;
 
     try {
-      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-
-      const PlaylistImageLocalPath = files?.image?.[0]?.path;
-      const image = await uploadOnCloudinary(PlaylistImageLocalPath);
-
-      const data = {
+      const data: PlaylistData = {
         name,
         description,
         summary,
         userId,
-        image: {
-          public_id: image?.public_id,
-          url: image?.url,
-        },
       };
 
       const playlist = await this.playlistService.create(data);
-
+      console.log(playlist);
       res
         .status(200)
         .json(new ApiResponse(200, playlist, "Playlist created successfully"));
@@ -125,6 +116,7 @@ export class Playlist {
         createdAt: playlist.createdAt,
         updatedAt: playlist.updatedAt,
         categories,
+        summary: playlist.summary,
       };
 
       res

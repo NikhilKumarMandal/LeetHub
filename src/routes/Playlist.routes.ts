@@ -44,7 +44,7 @@ router.post(
 );
 
 router.delete(
-  "/:id",
+  "/:playlistId",
   authenticate,
   canAccess([Roles.ADMIN]),
   playlist.deletePlaylist

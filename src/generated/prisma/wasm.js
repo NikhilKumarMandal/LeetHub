@@ -225,8 +225,6 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   name: "name",
   description: "description",
   userId: "userId",
-  topics: "topics",
-  image: "image",
   summary: "summary",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
