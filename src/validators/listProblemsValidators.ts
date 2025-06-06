@@ -21,6 +21,10 @@ export default checkSchema(
       },
     },
     difficulty: {
+      optional: true,
+      customSanitizer: {
+        options: (value) => value.toUpperCase(),
+      },
       custom: {
         options: (value) => {
           const validDifficulties = ["EASY", "MEDIUM", "HARD"];
@@ -30,9 +34,12 @@ export default checkSchema(
     },
     status: {
       optional: true,
+      customSanitizer: {
+        options: (value) => value.toLowerCase(),
+      },
       custom: {
         options: (value) => {
-          const allowed = ["Solved", "Unsolved"];
+          const allowed = ["solved", "unsolved"];
           return allowed.includes(value);
         },
       },

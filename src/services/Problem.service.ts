@@ -195,7 +195,7 @@ export class ProblemService {
 
     const filteredProblems = validatedQuery.status
       ? problemsWithFlags.filter((problem) =>
-          validatedQuery.status === "Solved"
+          validatedQuery.status === "solved"
             ? problem.isSolved
             : !problem.isSolved
         )
