@@ -57,4 +57,10 @@ router.delete(
   playlist.removeProblemFromPlaylist
 );
 
+router.get(
+  "/get-rank/:playlistId",
+  authenticate,
+  playlist.getWeeklyPlaylistLeaderboard as RequestHandler
+);
+
 export default router;

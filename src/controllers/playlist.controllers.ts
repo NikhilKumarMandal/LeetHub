@@ -6,6 +6,7 @@ import { ApiError, ApiResponse, asyncHandler } from "express-strategy";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { validationResult } from "express-validator";
 import { startOfWeek } from "date-fns";
+import { db } from "../libs/db";
 export class Playlist {
   constructor(private playlistService: PlaylistService) {}
 
@@ -72,8 +73,6 @@ export class Playlist {
     next: NextFunction
   ) => {
     const { playlistId } = req.params;
-    const userId = req.auth.sub;
-
     if (!playlistId) {
       throw new ApiError(400, "Playlist ID is missing");
     }
@@ -86,20 +85,26 @@ export class Playlist {
       }
 
       const groupedProblems: Record<string, any[]> = {};
+      const addedProblemIds = new Set<string>();
 
       for (const problemEntry of playlist.problems) {
         const problem = problemEntry.problem;
+
+        if (addedProblemIds.has(problem.id)) continue;
+        addedProblemIds.add(problem.id);
+
         const topics =
           problem.topic && problem.topic.length > 0
             ? problem.topic
             : ["Uncategorized"];
 
-        for (const topic of topics) {
-          if (!groupedProblems[topic]) {
-            groupedProblems[topic] = [];
-          }
-          groupedProblems[topic].push(problem);
+        const topic = topics[0];
+
+        if (!groupedProblems[topic]) {
+          groupedProblems[topic] = [];
         }
+
+        groupedProblems[topic].push(problem);
       }
 
       const categories = Object.entries(groupedProblems).map(
@@ -125,7 +130,7 @@ export class Playlist {
           new ApiResponse(
             200,
             playlistResponse,
-            "Fected Playlist successfully!"
+            "Fetched Playlist successfully!"
           )
         );
     } catch (error) {
@@ -192,87 +197,92 @@ export class Playlist {
     }
   );
 
-  // getWeeklyPlaylistLeaderboard = async (
-  //   req: AuthRequest,
-  //   res: Response,
-  //   next: NextFunction
-  // ) => {
-  //   const { playlistId } = req.params;
-  //   const userId = req.auth.sub
+  getWeeklyPlaylistLeaderboard = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { playlistId } = req.params;
+    const userId = req.auth.sub;
 
-  //   const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 1 });
+    const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 1 });
 
-  //   try {
-  //     // Get all playlist problem solves this week
-  //     const solves = await prisma.playlistProblemSolved.findMany({
-  //       where: {
-  //         playlistId,
-  //         solvedAt: { gte: startOfThisWeek },
-  //       },
-  //       select: {
-  //         userId: true,
-  //         solvedAt: true,
-  //       },
-  //       orderBy: {
-  //         solvedAt: "asc",
-  //       },
-  //     });
+    try {
+      const solves = await db.playlistProblemSolved.findMany({
+        where: {
+          playlistId,
+          solvedAt: { gte: startOfThisWeek },
+        },
+        select: {
+          userId: true,
+          solvedAt: true,
+        },
+        orderBy: {
+          solvedAt: "asc",
+        },
+      });
 
-  //     const userMap: Record<
-  //       string,
-  //       { count: number; earliestSolve: Date }
-  //     > = {};
+      const userMap: Record<string, { count: number; earliestSolve: Date }> =
+        {};
 
-  //     for (const solve of solves) {
-  //       if (!userMap[solve.userId]) {
-  //         userMap[solve.userId] = { count: 0, earliestSolve: solve.solvedAt };
-  //       }
-  //       userMap[solve.userId].count++;
-  //     }
+      for (const solve of solves) {
+        if (!userMap[solve.userId]) {
+          userMap[solve.userId] = { count: 0, earliestSolve: solve.solvedAt };
+        }
+        userMap[solve.userId].count++;
+      }
 
-  //     const leaderboardList = Object.entries(userMap).map(([uid, data]) => ({
-  //       userId: uid,
-  //       count: data.count,
-  //       earliestSolve: data.earliestSolve,
-  //     }));
+      const leaderboardList = Object.entries(userMap).map(([uid, data]) => ({
+        userId: uid,
+        count: data.count,
+        earliestSolve: data.earliestSolve,
+      }));
 
-  //     leaderboardList.sort((a, b) => {
-  //       if (b.count !== a.count) return b.count - a.count;
-  //       return a.earliestSolve.getTime() - b.earliestSolve.getTime();
-  //     });
+      leaderboardList.sort((a, b) => {
+        if (b.count !== a.count) return b.count - a.count;
+        return a.earliestSolve.getTime() - b.earliestSolve.getTime();
+      });
 
-  //     const ranked = leaderboardList.map((entry, index, arr) => {
-  //       let rank = index + 1;
-  //       if (
-  //         index > 0 &&
-  //         entry.count === arr[index - 1].count &&
-  //         entry.earliestSolve.getTime() === arr[index - 1].earliestSolve.getTime()
-  //       ) {
-  //         rank = arr[index - 1].rank;
-  //       }
-  //       return { ...entry, rank };
-  //     });
+      type RankedEntry = {
+        userId: string;
+        count: number;
+        earliestSolve: Date;
+        rank: number;
+      };
 
-  //     const top3Ids = ranked.slice(0, 3).map(u => u.userId);
-  //     const topUsers = await prisma.user.findMany({
-  //       where: { id: { in: top3Ids } },
-  //       select: { id: true, name: true, avatar: true },
-  //     });
+      const ranked: RankedEntry[] = leaderboardList.map((entry, index, arr) => {
+        let rank = index + 1;
+        if (
+          index > 0 &&
+          entry.count === arr[index - 1].count &&
+          entry.earliestSolve.getTime() ===
+            arr[index - 1].earliestSolve.getTime()
+        ) {
+          rank = (arr[index - 1] as RankedEntry).rank;
+        }
+        return { ...entry, rank };
+      });
 
-  //     const top3 = ranked.slice(0, 3).map(entry => ({
-  //       ...entry,
-  //       ...topUsers.find(u => u.id === entry.userId),
-  //     }));
+      const top3Ids = ranked.slice(0, 3).map((u) => u.userId);
+      const topUsers = await db.user.findMany({
+        where: { id: { in: top3Ids } },
+        select: { id: true, name: true, avatar: true },
+      });
 
-  //     const currentUserEntry = ranked.find(r => r.userId === userId);
+      const top3 = ranked.slice(0, 3).map((entry) => ({
+        ...entry,
+        ...topUsers.find((u) => u.id === entry.userId),
+      }));
 
-  //     return res.status(200).json({
-  //       success: true,
-  //       top3,
-  //       userRank: currentUserEntry ?? null,
-  //     });
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // }
+      const currentUserEntry = ranked.find((r) => r.userId == userId);
+
+      return res.status(200).json({
+        success: true,
+        top3,
+        userRank: currentUserEntry ?? null,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
 }
