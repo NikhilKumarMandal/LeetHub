@@ -97,6 +97,7 @@ export interface ProblemQueryParams {
   difficulty?: Difficulty;
   q?: string;
   status?: "solved" | "unsolved";
+  companyName?: string[];
 }
 
 export interface ChallengeData {

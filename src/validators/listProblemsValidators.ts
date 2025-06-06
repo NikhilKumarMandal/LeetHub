@@ -20,6 +20,15 @@ export default checkSchema(
         },
       },
     },
+    companyName: {
+      customSanitizer: {
+        options: (value: unknown) => {
+          if (!value) return undefined;
+          if (Array.isArray(value)) return value;
+          return [value];
+        },
+      },
+    },
     difficulty: {
       optional: true,
       customSanitizer: {

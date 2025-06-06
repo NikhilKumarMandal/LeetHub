@@ -123,6 +123,18 @@ export class ProblemService {
                   has: validatedQuery.topic,
                 },
               })),
+        ...(validatedQuery.companyName &&
+          (Array.isArray(validatedQuery.companyName)
+            ? {
+                companyName: {
+                  hasSome: validatedQuery.companyName,
+                },
+              }
+            : {
+                companyName: {
+                  has: validatedQuery.companyName,
+                },
+              })),
       },
       skip,
       take: limit,
@@ -165,6 +177,18 @@ export class ProblemService {
                 : {
                     topic: {
                       has: validatedQuery.topic,
+                    },
+                  })),
+            ...(validatedQuery.companyName &&
+              (Array.isArray(validatedQuery.companyName)
+                ? {
+                    companyName: {
+                      hasSome: validatedQuery.companyName,
+                    },
+                  }
+                : {
+                    companyName: {
+                      has: validatedQuery.companyName,
                     },
                   })),
           },
@@ -236,6 +260,18 @@ export class ProblemService {
             : {
                 topic: {
                   has: validatedQuery.topic,
+                },
+              })),
+        ...(validatedQuery.companyName &&
+          (Array.isArray(validatedQuery.companyName)
+            ? {
+                companyName: {
+                  hasSome: validatedQuery.companyName,
+                },
+              }
+            : {
+                companyName: {
+                  has: validatedQuery.companyName,
                 },
               })),
       },
