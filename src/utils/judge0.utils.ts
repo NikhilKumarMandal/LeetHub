@@ -21,9 +21,9 @@ export const submitBatch = async (
 
   const headers = useRapidApi
     ? {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${process.env.SULU_API_KEY}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.SULU_API_KEY}`,
       }
     : { "Content-Type": "application/json" };
 
@@ -48,8 +48,8 @@ export const pollBatchResult = async (
 
   const headers = useRapidApi
     ? {
-      Accept: 'application/json',
-      Authorization: `Bearer ${process.env.SULU_API_KEY}`  
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.SULU_API_KEY}`,
       }
     : { "Content-Type": "application/json" };
 

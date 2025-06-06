@@ -13,6 +13,7 @@ import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
 
 import axios from "axios";
 import { inngest } from "../inngest/client";
+import { db } from "../libs/db";
 
 export class Auth {
   constructor(
@@ -441,15 +442,33 @@ export class Auth {
       const user = await this.authService.findUniqueProblem(userId);
       const favoriteProblems = user?.favoriteProblems ?? [];
 
-      const problemWithFlag = favoriteProblems.map((problem) => ({
+      const favoriteProblemIds = favoriteProblems.map((p) => p.id);
+
+      const solvedProblems = await db.problemSolved.findMany({
+        where: {
+          userId,
+          problemId: { in: favoriteProblemIds },
+        },
+        select: {
+          problemId: true,
+        },
+      });
+
+      const solvedProblemIdSet = new Set(
+        solvedProblems.map((p) => p.problemId)
+      );
+
+      const problemWithFlags = favoriteProblems.map((problem) => ({
         ...problem,
         isFavorite: true,
+        isSolved: solvedProblemIdSet.has(problem.id),
       }));
 
       const responseObj = {
-        totalProblems: problemWithFlag.length,
-        problem: problemWithFlag,
+        totalProblems: problemWithFlags.length,
+        problem: problemWithFlags,
       };
+
       res
         .status(200)
         .json(new ApiResponse(200, responseObj, "Fetched favorite problems."));
