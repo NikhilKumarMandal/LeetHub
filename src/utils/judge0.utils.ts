@@ -16,14 +16,14 @@ export const submitBatch = async (
   useRapidApi: boolean = false
 ) => {
   const apiUrl = useRapidApi
-    ? "https://judge0-ce.p.rapidapi.com/submissions/batch?base64_encoded=false"
+    ? "https://judge0-ce.p.sulu.sh/submissions/batch?base64_encoded=false"
     : `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`;
 
   const headers = useRapidApi
     ? {
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY!,
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "Content-Type": "application/json",
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${process.env.SULU_API_KEY}`,
       }
     : { "Content-Type": "application/json" };
 
@@ -43,14 +43,13 @@ export const pollBatchResult = async (
   useRapidApi: boolean = false
 ) => {
   const apiUrl = useRapidApi
-    ? "https://judge0-ce.p.rapidapi.com/submissions/batch"
+    ? "https://judge0-ce.p.sulu.sh/submissions/batch"
     : `${process.env.JUDGE0_API_URL}/submissions/batch`;
 
   const headers = useRapidApi
     ? {
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY!,
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "Content-Type": "application/json",
+      Accept: 'application/json',
+      Authorization: `Bearer ${process.env.SULU_API_KEY}`  
       }
     : { "Content-Type": "application/json" };
 
