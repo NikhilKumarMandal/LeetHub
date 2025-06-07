@@ -4,8 +4,6 @@ import { CredentialService } from "../services/Credential.service";
 import { AuthService } from "../services/Auth.service";
 import logger from "../utils/logger";
 import { TokenService } from "../services/Token.service";
-import registerValidators from "../validators/register.validators";
-import loginValidators from "../validators/login.validators";
 import authenticate from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
 import { Review } from "../controllers/reviewCode.controllers";
@@ -27,9 +25,9 @@ const authController = new Auth(
 
 const reviewController = new Review(problemService, authService);
 
-router.post("/register", registerValidators, authController.register);
+router.post("/register", authController.register);
 
-router.post("/login", loginValidators, authController.login);
+router.post("/login", authController.login);
 
 router.post("/oauth2", authController.googleLogin);
 

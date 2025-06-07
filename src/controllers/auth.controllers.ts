@@ -6,7 +6,6 @@ import { Logger } from "winston";
 import { CredentialService } from "../services/Credential.service";
 import { TokenService } from "../services/Token.service";
 import { JwtPayload, verify } from "jsonwebtoken";
-import { validationResult } from "express-validator";
 import { AuthRequest } from "../types/types";
 import { AuthService } from "../services/Auth.service";
 import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
@@ -25,10 +24,6 @@ export class Auth {
 
   register = asyncHandler(async (req: Request, res: Response) => {
     // Validate fields
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-      throw new ApiError(400, result.array()[0].msg as string);
-    }
 
     const { name, email, password } = req.body;
     // check exist or not
@@ -61,11 +56,6 @@ export class Auth {
   });
 
   login = asyncHandler(async (req: Request, res: Response) => {
-    // Validate fields
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-      throw new ApiError(400, result.array()[0].msg as string);
-    }
 
     const { email, password } = req.body;
     // check user already exist or not
