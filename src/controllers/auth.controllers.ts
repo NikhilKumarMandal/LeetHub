@@ -294,12 +294,6 @@ export class Auth {
       const avatarLocalPath = files?.avatar?.[0]?.path;
 
       const avatar = await uploadOnCloudinary(avatarLocalPath);
-      const ip =
-        req.headers["cf-connecting-ip"] ||
-        req.headers["x-real-ip"] ||
-        req.headers["x-forwarded-for"] ||
-        req.socket.remoteAddress ||
-        "";
 
       const email = data.email;
       const userData: UserData = {
@@ -339,13 +333,13 @@ export class Auth {
     );
 
     res.cookie("accessToken", accessToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
     });
