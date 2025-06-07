@@ -94,15 +94,17 @@ export class Auth {
 
     // set cookies
     res.cookie("accessToken", accessToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2, // 2 day
       httpOnly: true,
+      secure: true
     });
 
     res.cookie("refreshToken", refreshToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24, // 30 days
       httpOnly: true,
+      secure: true
     });
     // log
     this.logger.info("User login succfully", { user });
@@ -336,12 +338,14 @@ export class Auth {
       sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
+      secure: true
     });
 
     res.cookie("refreshToken", refreshToken, {
       sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
+      secure: true
     });
 
     res.status(200).json(
