@@ -1,6 +1,9 @@
 {
   "name": "leethub",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "description": "user can solve questions related to dsa ",
   "main": "dist/index.js",
   "scripts": {
