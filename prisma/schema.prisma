@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -42,7 +42,7 @@ model User {
   updatedAt    DateTime @updatedAt
   dailyQuestionCount Int      @default(1)
   lastQuestionDate   DateTime?
-  
+
 
   problem          Problem[]
   submission       Submission[]
