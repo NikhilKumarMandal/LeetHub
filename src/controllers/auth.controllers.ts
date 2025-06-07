@@ -249,7 +249,7 @@ export class Auth {
 
       const avatarData = user.avatar as { public_id: string; url: string };
 
-      //await deleteFromCloudinary(avatarData.public_id, 'image');
+      await deleteFromCloudinary(avatarData.public_id, "image");
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
@@ -299,16 +299,31 @@ export class Auth {
         "random_password",
         10
       );
+
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      const avatarLocalPath = files?.avatar?.[0]?.path;
+
+      const avatar = await uploadOnCloudinary(avatarLocalPath);
+      const ip =
+        req.headers["cf-connecting-ip"] ||
+        req.headers["x-real-ip"] ||
+        req.headers["x-forwarded-for"] ||
+        req.socket.remoteAddress ||
+        "";
+
       const email = data.email;
-      const userData = {
+      const userData: UserData = {
         name: data.name,
         email: data.email,
-        avatar: data.picture,
+        avatar: {
+          public_id: avatar?.public_id!,
+          url: avatar?.url!,
+        },
         password: hasedPassword,
         role: UserRole.USER,
       };
 
-      // TODO upload avatar in cloudinary
       user = await this.authService.create(userData);
 
       await inngest.send({
@@ -324,7 +339,6 @@ export class Auth {
       role: user.role,
     };
 
-    // genrate token
     const accessToken = this.tokenService.generateAccessToken(payload);
 
     const refreshToken = this.tokenService.generateRefreshToken(payload);
@@ -335,37 +349,6 @@ export class Auth {
       { refreshToken: refreshToken }
     );
 
-    // const oauth2Client = new OAuth2Client(
-    //   process.env.GOOGLE_CLIENT_ID,
-    //   process.env.GOOGLE_CLIENT_SECRET,
-    //   process.env.GOOGLE_REDIRECT_URI
-    // );
-
-    // oauth2Client.setCredentials({
-    //   access_token: accessToken,
-    //   refresh_token: refreshToken,
-    // });
-
-    // console.log(oauth2Client.credentials);
-    // console.log(accessToken,refreshToken);
-
-    // const calendar = google.calendar({ version: "v3", auth: oauth2Client });
-
-    //   const events = await calendar.events.list({
-    //     calendarId: "primary",
-    //     timeMin: new Date().toISOString(),
-    //     maxResults: 10,
-    //     singleEvents: true,
-    //     orderBy: "startTime",
-    //   });
-    //   console.log("Event",events);
-
-    //   const upcomingEvents = events.data.items;
-    // console.log("Upcoming events:", upcomingEvents);
-
-    // console.log(upcomingEvents);
-
-    // set cookies
     res.cookie("accessToken", accessToken, {
       sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 2,

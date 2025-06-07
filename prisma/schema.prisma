@@ -42,6 +42,7 @@ model User {
   updatedAt    DateTime @updatedAt
   dailyQuestionCount Int      @default(1)
   lastQuestionDate   DateTime?
+  
 
   problem          Problem[]
   submission       Submission[]

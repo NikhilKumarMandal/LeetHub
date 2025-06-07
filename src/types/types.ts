@@ -6,7 +6,10 @@ type Difficulty = "EASY" | "MEDIUM" | "HARD";
 export interface UserData {
   name: string;
   email: string;
-  avatar?: string;
+  avatar?: {
+    url: string;
+    public_id: string;
+  };
   password: string;
   role?: Role;
 }
