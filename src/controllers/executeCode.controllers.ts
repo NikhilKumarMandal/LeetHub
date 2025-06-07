@@ -29,7 +29,7 @@ export class ExecuteCode {
     const { source_code, language_id, problemId, mode = "run" } = req.body;
 
     const userId = (req as any).auth?.sub;
-
+    console.log("languageId", language_id);
     if (!source_code || !language_id || !problemId) {
       return next(
         new ApiError(
@@ -55,6 +55,122 @@ export class ExecuteCode {
       const testInputs = testCases.map((tc) => tc.input);
       const expectedOutputs = testCases.map((tc) => tc.output);
       const language = getLanguageName(language_id).toUpperCase(); // "JAVASCRIPT", etc.
+
+      const isSQL = language_id === 82;
+
+      if (isSQL) {
+        const testInputs = testCases.map((tc) => tc.input);
+        const expectedOutputs = testCases.map((tc) => tc.output);
+
+        const submissions = testInputs.map((input) => ({
+          source_code,
+          language_id,
+          stdin: input,
+        }));
+
+        const submissionResponse = await submitBatch(submissions, isSQL);
+        const tokens = submissionResponse.map((res: any) => res.token);
+        const results = await pollBatchResult(tokens, isSQL);
+        console.log(results);
+
+        const formattedResults = results.map((result: any, index: number) => ({
+          testCase: testInputs[index],
+          expected_output: expectedOutputs[index]?.trim(),
+          actual_output: result.stdout?.trim(),
+          passed: result.stdout?.trim() === expectedOutputs[index]?.trim(),
+          status: result.status?.description || "Unknown",
+          time: result.time,
+          memory: result.memory,
+          stderr: result.stderr,
+          compile_output: result.compile_output,
+        }));
+
+        // ⏬ For `submit`, save submission logic
+        if (mode === "submit") {
+          const allPassed = formattedResults.every((r: any) => r.passed);
+
+          const submissionData = {
+            userId,
+            problemId,
+            sourceCode: source_code,
+            language: getLanguageName(language_id),
+            stdin: testInputs.join("\n"),
+            stdout: JSON.stringify(
+              formattedResults.map((r: any) => r.actual_output)
+            ),
+            stderr: formattedResults.some((r: any) => r.stderr)
+              ? JSON.stringify(formattedResults.map((r: any) => r.stderr))
+              : null,
+            compileOutput: formattedResults.some((r: any) => r.compile_output)
+              ? JSON.stringify(
+                  formattedResults.map((r: any) => r.compile_output)
+                )
+              : null,
+            status: allPassed ? "Accepted" : "Wrong Answer",
+            memory: JSON.stringify(
+              formattedResults.map((r: any) => String(r.memory))
+            ),
+            time: JSON.stringify(
+              formattedResults.map((r: any) => String(r.time))
+            ),
+          };
+
+          const submission =
+            await this.testCaseSerive.createSubmission(submissionData);
+          if (allPassed) {
+            await this.testCaseSerive.upsert(userId, problemId);
+            const { playlistId } = req.body;
+            if (playlistId) {
+              await this.playlistService.markProblemAsSolvedInPlaylist({
+                playlistId,
+                userId,
+                problemId,
+              });
+            }
+          }
+
+          const testCaseResults = formattedResults.map((result: any) => ({
+            submissionId: submission.id,
+            testCase: result.testCase,
+            passed: result.passed,
+            stdout: result.actual_output,
+            expected: result.expected_output,
+            stderr: result.stderr ?? undefined,
+            compileOutput: result.compile_output ?? undefined,
+            status: result.status,
+            memory: String(result.memory) ?? undefined,
+            time: String(result.time) ?? undefined,
+          }));
+
+          await this.testCaseSerive.createMany(testCaseResults);
+
+          const submissionDetail = await this.submissionService.findUnique(
+            submission.id
+          );
+
+          return res
+            .status(200)
+            .json(
+              new ApiResponse(
+                200,
+                submissionDetail,
+                "SQL code submitted successfully"
+              )
+            );
+        }
+
+        // ⏬ For `run`, just return results
+        return res
+          .status(200)
+          .json(
+            new ApiResponse(
+              200,
+              formattedResults,
+              "SQL code executed successfully"
+            )
+          );
+      }
+
       const problem = (await this.problemService.problemById(problemId)) as any;
 
       const baseTemplate = problem?.codeSnippets[language];
@@ -85,7 +201,6 @@ export class ExecuteCode {
       }));
       //console.log("submission",submissions);
 
-      const isSQL = language_id === 82;
       const submissionResponse = await submitBatch(submissions, isSQL);
       const tokens = submissionResponse.map((res: any) => res.token);
       const results = await pollBatchResult(tokens, isSQL);
