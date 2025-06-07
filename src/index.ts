@@ -8,7 +8,7 @@ import ExecuteRouter from "./routes/executeCode.routes";
 import SubmissionRouter from "./routes/submission.routes";
 import DiscussionRouter from "./routes/discussion.routes";
 import VoteRouter from "./routes/vote.routes";
-import PlaylistRouter from "./routes/playlist.routes";
+import PlaylistRouter from "./routes/playlists.routes";
 import HealthRouter from "./routes/healthcheck.routes";
 import ChallengeRouter from "./routes/challenge.routes";
 import arcjetMiddleware from "./middlewares/arcjet.middleware";
