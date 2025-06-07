@@ -12,7 +12,7 @@
     "format:check": "prettier . --check",
     "format:fix": "prettier . --write",
     "inngest-dev": "npx inngest-cli@latest dev",
-    "start": "node dist/index.js"
+    "start": "node src/index.js"
   },
   "keywords": [
     "backend",
