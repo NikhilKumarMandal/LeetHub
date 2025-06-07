@@ -6,7 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../dist/generated/prisma"
+  // output   = "../src/generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -31,18 +32,17 @@ enum VoteType {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  name         String?
-  email        String   @unique
-  avatar       Json?
-  role         UserRole @default(USER)
-  password     String
-  refreshToken String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  dailyQuestionCount Int      @default(1)
+  id                 String    @id @default(uuid())
+  name               String?
+  email              String    @unique
+  avatar             Json?
+  role               UserRole  @default(USER)
+  password           String
+  refreshToken       String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  dailyQuestionCount Int       @default(1)
   lastQuestionDate   DateTime?
-
 
   problem          Problem[]
   submission       Submission[]
@@ -53,10 +53,10 @@ model User {
   subscription     Subscription?
   userChallenges   UserChallenge[]
   badges           Badge[]
-   reviews  Review[]
+  reviews          Review[]
   favoriteProblems Problem[]       @relation("UserFavorites")
-  
-  solvedPlaylistProblems PlaylistProblemSolved[]  @relation("UserSolvedProblems")
+
+  solvedPlaylistProblems PlaylistProblemSolved[] @relation("UserSolvedProblems")
 }
 
 model Problem {
@@ -73,27 +73,27 @@ model Problem {
   constraints        String[]
   hints              String[]
   editorial          String?
-  starterFunction  Json?
+  starterFunction    Json?
   codeSnippets       Json
   referenceSolutions Json
   isPremium          Boolean    @default(false)
-  image               Json?
+  image              Json?
   executionWrappers  Json?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   submission        Submission[]
-  reviews     Review[] 
+  reviews           Review[]
   solvedBy          ProblemSolved[]
   testcases         ProblemTestCase[]
   discussions       Discussion[]
   votes             ProblemVote[]
   problemsPlatlists ProblemInPlaylist[]
   challengeProblems ChallengeProblem[]
-  favoredByUsers    User[]              @relation("UserFavorites")
-  solvedByUsers         PlaylistProblemSolved[]   @relation("ProblemSolvedByUsers")
+  favoredByUsers    User[]                  @relation("UserFavorites")
+  solvedByUsers     PlaylistProblemSolved[] @relation("ProblemSolvedByUsers")
 }
 
 model ProblemTestCase {
@@ -208,10 +208,10 @@ model Playlist {
 
   problems ProblemInPlaylist[]
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  solvedProblems PlaylistProblemSolved[] @relation("PlaylistSolvedProblems")
 
   @@unique([name])
-  solvedProblems        PlaylistProblemSolved[]   @relation("PlaylistSolvedProblems")
 }
 
 model ProblemInPlaylist {
@@ -286,35 +286,34 @@ model Badge {
   @@unique([userId, name])
 }
 
-
 model PlaylistProblemSolved {
-  id           String   @id @default(uuid())
-  userId       String
-  playlistId   String
-  problemId    String
-  solvedAt     DateTime @default(now())
+  id         String   @id @default(uuid())
+  userId     String
+  playlistId String
+  problemId  String
+  solvedAt   DateTime @default(now())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user         User     @relation("UserSolvedProblems", fields: [userId], references: [id])
-  playlist     Playlist @relation("PlaylistSolvedProblems", fields: [playlistId], references: [id])
-  problem      Problem  @relation("ProblemSolvedByUsers", fields: [problemId], references: [id])
+  user     User     @relation("UserSolvedProblems", fields: [userId], references: [id])
+  playlist Playlist @relation("PlaylistSolvedProblems", fields: [playlistId], references: [id])
+  problem  Problem  @relation("ProblemSolvedByUsers", fields: [problemId], references: [id])
 
   @@unique([userId, playlistId, problemId])
 }
 
 model Review {
-  id             String   @id @default(cuid())
-  userId         String
-  problemId      String
-  language       String
-  userCode       String
-  isCorrect      Boolean
-  improvements   String[]
-  optimizedCode  Json   
-  createdAt      DateTime @default(now())
+  id            String   @id @default(cuid())
+  userId        String
+  problemId     String
+  language      String
+  userCode      String
+  isCorrect     Boolean
+  improvements  String[]
+  optimizedCode Json
+  createdAt     DateTime @default(now())
 
-  user           User     @relation(fields: [userId], references: [id])
-  problem        Problem  @relation(fields: [problemId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+  problem Problem @relation(fields: [problemId], references: [id])
 }

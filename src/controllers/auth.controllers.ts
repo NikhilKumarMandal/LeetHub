@@ -56,7 +56,6 @@ export class Auth {
   });
 
   login = asyncHandler(async (req: Request, res: Response) => {
-
     const { email, password } = req.body;
     // check user already exist or not
     const user = await this.authService.findUnique({ email });
@@ -380,7 +379,7 @@ export class Auth {
       }
 
       const isAlreadyFavorited = user.favoriteProblems.some(
-        (p:any) => p.id === problemId
+        (p: any) => p.id === problemId
       );
 
       const updatedUser = await this.authService.updateFavorite(
@@ -415,7 +414,7 @@ export class Auth {
       const user = await this.authService.findUniqueProblem(userId);
       const favoriteProblems = user?.favoriteProblems ?? [];
 
-      const favoriteProblemIds = favoriteProblems.map((p:any) => p.id);
+      const favoriteProblemIds = favoriteProblems.map((p: any) => p.id);
 
       const solvedProblems = await db.problemSolved.findMany({
         where: {
@@ -428,10 +427,10 @@ export class Auth {
       });
 
       const solvedProblemIdSet = new Set(
-        solvedProblems.map((p:any) => p.problemId)
+        solvedProblems.map((p: any) => p.problemId)
       );
 
-      const problemWithFlags = favoriteProblems.map((problem:any) => ({
+      const problemWithFlags = favoriteProblems.map((problem: any) => ({
         ...problem,
         isFavorite: true,
         isSolved: solvedProblemIdSet.has(problem.id),
