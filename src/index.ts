@@ -9,6 +9,7 @@ import SubmissionRouter from "./routes/submission.routes";
 import DiscussionRouter from "./routes/discussion.routes";
 import VoteRouter from "./routes/vote.routes";
 import PlaylistRouter from "./routes/playlist.routes";
+import HealthRouter from "./routes/healthcheck.routes";
 import ChallengeRouter from "./routes/challenge.routes";
 import arcjetMiddleware from "./middlewares/arcjet.middleware";
 import { asyncHandler } from "./utils/asyncHandler";
@@ -175,6 +176,7 @@ app.use("/api/v1/discussion", DiscussionRouter);
 app.use("/api/v1/vote", VoteRouter);
 app.use("/api/v1/playlist", PlaylistRouter);
 app.use("/api/v1/challenge", ChallengeRouter);
+app.use("/api/v1/health", HealthRouter);
 
 app.use(
   "/api/inngest",
