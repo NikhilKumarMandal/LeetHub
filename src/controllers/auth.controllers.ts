@@ -294,8 +294,9 @@ export class Auth {
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
       const avatarLocalPath = files?.avatar?.[0]?.path;
-
+      console.log(avatarLocalPath)
       const avatar = await uploadOnCloudinary(avatarLocalPath);
+      console.log(avatar);
 
       const email = data.email;
       const userData: UserData = {
