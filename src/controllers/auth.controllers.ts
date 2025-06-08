@@ -292,11 +292,22 @@ export class Auth {
       );
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  const avatarLocalPath = files?.avatar?.[0]?.path;
+  console.log("avatarLocalPath", avatarLocalPath);
 
-      const avatarLocalPath = files?.avatar?.[0]?.path;
-      console.log("avatarLocalPath",avatarLocalPath)
-      const avatar = await uploadOnCloudinary(avatarLocalPath);
-      console.log("avatr",avatar);
+  let avatar = null;
+
+  if (avatarLocalPath) {
+    avatar = await uploadOnCloudinary(avatarLocalPath);
+    console.log("Uploaded to Cloudinary", avatar);
+  } else if (data.picture) {
+    avatar = {
+      public_id: "oauth-picture",
+      url: data.picture, 
+    };
+    console.log("Using OAuth picture", avatar);
+  }
+
 
       const email = data.email;
       const userData: UserData = {
