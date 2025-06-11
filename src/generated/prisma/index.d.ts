@@ -17,6 +17,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>;
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 /**
+ * Model Interview
+ *
+ */
+export type Interview = $Result.DefaultSelection<Prisma.$InterviewPayload>;
+/**
  * Model Problem
  *
  */
@@ -318,6 +323,16 @@ export class PrismaClient<
    * ```
    */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.interview`: Exposes CRUD operations for the **Interview** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Interviews
+   * const interviews = await prisma.interview.findMany()
+   * ```
+   */
+  get interview(): Prisma.InterviewDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.problem`: Exposes CRUD operations for the **Problem** model.
@@ -946,6 +961,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: "User";
+    Interview: "Interview";
     Problem: "Problem";
     ProblemTestCase: "ProblemTestCase";
     Submission: "Submission";
@@ -991,6 +1007,7 @@ export namespace Prisma {
     meta: {
       modelProps:
         | "user"
+        | "interview"
         | "problem"
         | "problemTestCase"
         | "submission"
@@ -1081,6 +1098,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>;
             result: $Utils.Optional<UserCountAggregateOutputType> | number;
+          };
+        };
+      };
+      Interview: {
+        payload: Prisma.$InterviewPayload<ExtArgs>;
+        fields: Prisma.InterviewFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.InterviewFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.InterviewFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          findFirst: {
+            args: Prisma.InterviewFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.InterviewFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          findMany: {
+            args: Prisma.InterviewFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>[];
+          };
+          create: {
+            args: Prisma.InterviewCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          createMany: {
+            args: Prisma.InterviewCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.InterviewCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>[];
+          };
+          delete: {
+            args: Prisma.InterviewDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          update: {
+            args: Prisma.InterviewUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          deleteMany: {
+            args: Prisma.InterviewDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.InterviewUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.InterviewUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>[];
+          };
+          upsert: {
+            args: Prisma.InterviewUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InterviewPayload>;
+          };
+          aggregate: {
+            args: Prisma.InterviewAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateInterview>;
+          };
+          groupBy: {
+            args: Prisma.InterviewGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<InterviewGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.InterviewCountArgs<ExtArgs>;
+            result: $Utils.Optional<InterviewCountAggregateOutputType> | number;
           };
         };
       };
@@ -2377,6 +2468,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit;
+    interview?: InterviewOmit;
     problem?: ProblemOmit;
     problemTestCase?: ProblemTestCaseOmit;
     submission?: SubmissionOmit;
@@ -2501,6 +2593,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     problem: number;
+    interviews: number;
     submission: number;
     problemSolved: number;
     discussions: number;
@@ -2517,6 +2610,7 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     problem?: boolean | UserCountOutputTypeCountProblemArgs;
+    interviews?: boolean | UserCountOutputTypeCountInterviewsArgs;
     submission?: boolean | UserCountOutputTypeCountSubmissionArgs;
     problemSolved?: boolean | UserCountOutputTypeCountProblemSolvedArgs;
     discussions?: boolean | UserCountOutputTypeCountDiscussionsArgs;
@@ -2551,6 +2645,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: ProblemWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountInterviewsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: InterviewWhereInput;
   };
 
   /**
@@ -3198,6 +3301,7 @@ export namespace Prisma {
       dailyQuestionCount?: boolean;
       lastQuestionDate?: boolean;
       problem?: boolean | User$problemArgs<ExtArgs>;
+      interviews?: boolean | User$interviewsArgs<ExtArgs>;
       submission?: boolean | User$submissionArgs<ExtArgs>;
       problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>;
       discussions?: boolean | User$discussionsArgs<ExtArgs>;
@@ -3288,6 +3392,7 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     problem?: boolean | User$problemArgs<ExtArgs>;
+    interviews?: boolean | User$interviewsArgs<ExtArgs>;
     submission?: boolean | User$submissionArgs<ExtArgs>;
     problemSolved?: boolean | User$problemSolvedArgs<ExtArgs>;
     discussions?: boolean | User$discussionsArgs<ExtArgs>;
@@ -3314,6 +3419,7 @@ export namespace Prisma {
     name: "User";
     objects: {
       problem: Prisma.$ProblemPayload<ExtArgs>[];
+      interviews: Prisma.$InterviewPayload<ExtArgs>[];
       submission: Prisma.$SubmissionPayload<ExtArgs>[];
       problemSolved: Prisma.$ProblemSolvedPayload<ExtArgs>[];
       discussions: Prisma.$DiscussionPayload<ExtArgs>[];
@@ -3889,6 +3995,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$ProblemPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    interviews<T extends User$interviewsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$interviewsArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$InterviewPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -4514,6 +4631,34 @@ export namespace Prisma {
   };
 
   /**
+   * User.interviews
+   */
+  export type User$interviewsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    where?: InterviewWhereInput;
+    orderBy?:
+      | InterviewOrderByWithRelationInput
+      | InterviewOrderByWithRelationInput[];
+    cursor?: InterviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: InterviewScalarFieldEnum | InterviewScalarFieldEnum[];
+  };
+
+  /**
    * User.submission
    */
   export type User$submissionArgs<
@@ -4830,6 +4975,1354 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Interview
+   */
+
+  export type AggregateInterview = {
+    _count: InterviewCountAggregateOutputType | null;
+    _min: InterviewMinAggregateOutputType | null;
+    _max: InterviewMaxAggregateOutputType | null;
+  };
+
+  export type InterviewMinAggregateOutputType = {
+    id: string | null;
+    jobPosition: string | null;
+    jobDescription: string | null;
+    duration: string | null;
+    createdAt: Date | null;
+    userId: string | null;
+  };
+
+  export type InterviewMaxAggregateOutputType = {
+    id: string | null;
+    jobPosition: string | null;
+    jobDescription: string | null;
+    duration: string | null;
+    createdAt: Date | null;
+    userId: string | null;
+  };
+
+  export type InterviewCountAggregateOutputType = {
+    id: number;
+    jobPosition: number;
+    jobDescription: number;
+    duration: number;
+    type: number;
+    questionList: number;
+    createdAt: number;
+    userId: number;
+    _all: number;
+  };
+
+  export type InterviewMinAggregateInputType = {
+    id?: true;
+    jobPosition?: true;
+    jobDescription?: true;
+    duration?: true;
+    createdAt?: true;
+    userId?: true;
+  };
+
+  export type InterviewMaxAggregateInputType = {
+    id?: true;
+    jobPosition?: true;
+    jobDescription?: true;
+    duration?: true;
+    createdAt?: true;
+    userId?: true;
+  };
+
+  export type InterviewCountAggregateInputType = {
+    id?: true;
+    jobPosition?: true;
+    jobDescription?: true;
+    duration?: true;
+    type?: true;
+    questionList?: true;
+    createdAt?: true;
+    userId?: true;
+    _all?: true;
+  };
+
+  export type InterviewAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Interview to aggregate.
+     */
+    where?: InterviewWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Interviews to fetch.
+     */
+    orderBy?:
+      | InterviewOrderByWithRelationInput
+      | InterviewOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: InterviewWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Interviews from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Interviews.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Interviews
+     **/
+    _count?: true | InterviewCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: InterviewMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: InterviewMaxAggregateInputType;
+  };
+
+  export type GetInterviewAggregateType<T extends InterviewAggregateArgs> = {
+    [P in keyof T & keyof AggregateInterview]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInterview[P]>
+      : GetScalarType<T[P], AggregateInterview[P]>;
+  };
+
+  export type InterviewGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: InterviewWhereInput;
+    orderBy?:
+      | InterviewOrderByWithAggregationInput
+      | InterviewOrderByWithAggregationInput[];
+    by: InterviewScalarFieldEnum[] | InterviewScalarFieldEnum;
+    having?: InterviewScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: InterviewCountAggregateInputType | true;
+    _min?: InterviewMinAggregateInputType;
+    _max?: InterviewMaxAggregateInputType;
+  };
+
+  export type InterviewGroupByOutputType = {
+    id: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type: string[];
+    questionList: JsonValue;
+    createdAt: Date;
+    userId: string;
+    _count: InterviewCountAggregateOutputType | null;
+    _min: InterviewMinAggregateOutputType | null;
+    _max: InterviewMaxAggregateOutputType | null;
+  };
+
+  type GetInterviewGroupByPayload<T extends InterviewGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<InterviewGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof InterviewGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InterviewGroupByOutputType[P]>
+            : GetScalarType<T[P], InterviewGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type InterviewSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      jobPosition?: boolean;
+      jobDescription?: boolean;
+      duration?: boolean;
+      type?: boolean;
+      questionList?: boolean;
+      createdAt?: boolean;
+      userId?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["interview"]
+  >;
+
+  export type InterviewSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      jobPosition?: boolean;
+      jobDescription?: boolean;
+      duration?: boolean;
+      type?: boolean;
+      questionList?: boolean;
+      createdAt?: boolean;
+      userId?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["interview"]
+  >;
+
+  export type InterviewSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      jobPosition?: boolean;
+      jobDescription?: boolean;
+      duration?: boolean;
+      type?: boolean;
+      questionList?: boolean;
+      createdAt?: boolean;
+      userId?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["interview"]
+  >;
+
+  export type InterviewSelectScalar = {
+    id?: boolean;
+    jobPosition?: boolean;
+    jobDescription?: boolean;
+    duration?: boolean;
+    type?: boolean;
+    questionList?: boolean;
+    createdAt?: boolean;
+    userId?: boolean;
+  };
+
+  export type InterviewOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    | "id"
+    | "jobPosition"
+    | "jobDescription"
+    | "duration"
+    | "type"
+    | "questionList"
+    | "createdAt"
+    | "userId",
+    ExtArgs["result"]["interview"]
+  >;
+  export type InterviewInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type InterviewIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type InterviewIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $InterviewPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Interview";
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        jobPosition: string;
+        jobDescription: string;
+        duration: string;
+        type: string[];
+        questionList: Prisma.JsonValue;
+        createdAt: Date;
+        userId: string;
+      },
+      ExtArgs["result"]["interview"]
+    >;
+    composites: {};
+  };
+
+  type InterviewGetPayload<
+    S extends boolean | null | undefined | InterviewDefaultArgs,
+  > = $Result.GetResult<Prisma.$InterviewPayload, S>;
+
+  type InterviewCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    InterviewFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: InterviewCountAggregateInputType | true;
+  };
+
+  export interface InterviewDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Interview"];
+      meta: { name: "Interview" };
+    };
+    /**
+     * Find zero or one Interview that matches the filter.
+     * @param {InterviewFindUniqueArgs} args - Arguments to find a Interview
+     * @example
+     * // Get one Interview
+     * const interview = await prisma.interview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InterviewFindUniqueArgs>(
+      args: SelectSubset<T, InterviewFindUniqueArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one Interview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InterviewFindUniqueOrThrowArgs} args - Arguments to find a Interview
+     * @example
+     * // Get one Interview
+     * const interview = await prisma.interview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InterviewFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, InterviewFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Interview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewFindFirstArgs} args - Arguments to find a Interview
+     * @example
+     * // Get one Interview
+     * const interview = await prisma.interview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InterviewFindFirstArgs>(
+      args?: SelectSubset<T, InterviewFindFirstArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Interview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewFindFirstOrThrowArgs} args - Arguments to find a Interview
+     * @example
+     * // Get one Interview
+     * const interview = await prisma.interview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InterviewFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, InterviewFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more Interviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Interviews
+     * const interviews = await prisma.interview.findMany()
+     *
+     * // Get first 10 Interviews
+     * const interviews = await prisma.interview.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const interviewWithIdOnly = await prisma.interview.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends InterviewFindManyArgs>(
+      args?: SelectSubset<T, InterviewFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a Interview.
+     * @param {InterviewCreateArgs} args - Arguments to create a Interview.
+     * @example
+     * // Create one Interview
+     * const Interview = await prisma.interview.create({
+     *   data: {
+     *     // ... data to create a Interview
+     *   }
+     * })
+     *
+     */
+    create<T extends InterviewCreateArgs>(
+      args: SelectSubset<T, InterviewCreateArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many Interviews.
+     * @param {InterviewCreateManyArgs} args - Arguments to create many Interviews.
+     * @example
+     * // Create many Interviews
+     * const interview = await prisma.interview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends InterviewCreateManyArgs>(
+      args?: SelectSubset<T, InterviewCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Interviews and returns the data saved in the database.
+     * @param {InterviewCreateManyAndReturnArgs} args - Arguments to create many Interviews.
+     * @example
+     * // Create many Interviews
+     * const interview = await prisma.interview.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Interviews and only return the `id`
+     * const interviewWithIdOnly = await prisma.interview.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends InterviewCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, InterviewCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a Interview.
+     * @param {InterviewDeleteArgs} args - Arguments to delete one Interview.
+     * @example
+     * // Delete one Interview
+     * const Interview = await prisma.interview.delete({
+     *   where: {
+     *     // ... filter to delete one Interview
+     *   }
+     * })
+     *
+     */
+    delete<T extends InterviewDeleteArgs>(
+      args: SelectSubset<T, InterviewDeleteArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one Interview.
+     * @param {InterviewUpdateArgs} args - Arguments to update one Interview.
+     * @example
+     * // Update one Interview
+     * const interview = await prisma.interview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends InterviewUpdateArgs>(
+      args: SelectSubset<T, InterviewUpdateArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more Interviews.
+     * @param {InterviewDeleteManyArgs} args - Arguments to filter Interviews to delete.
+     * @example
+     * // Delete a few Interviews
+     * const { count } = await prisma.interview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends InterviewDeleteManyArgs>(
+      args?: SelectSubset<T, InterviewDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Interviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Interviews
+     * const interview = await prisma.interview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends InterviewUpdateManyArgs>(
+      args: SelectSubset<T, InterviewUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Interviews and returns the data updated in the database.
+     * @param {InterviewUpdateManyAndReturnArgs} args - Arguments to update many Interviews.
+     * @example
+     * // Update many Interviews
+     * const interview = await prisma.interview.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Interviews and only return the `id`
+     * const interviewWithIdOnly = await prisma.interview.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends InterviewUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, InterviewUpdateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one Interview.
+     * @param {InterviewUpsertArgs} args - Arguments to update or create a Interview.
+     * @example
+     * // Update or create a Interview
+     * const interview = await prisma.interview.upsert({
+     *   create: {
+     *     // ... data to create a Interview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Interview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InterviewUpsertArgs>(
+      args: SelectSubset<T, InterviewUpsertArgs<ExtArgs>>
+    ): Prisma__InterviewClient<
+      $Result.GetResult<
+        Prisma.$InterviewPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of Interviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewCountArgs} args - Arguments to filter Interviews to count.
+     * @example
+     * // Count the number of Interviews
+     * const count = await prisma.interview.count({
+     *   where: {
+     *     // ... the filter for the Interviews we want to count
+     *   }
+     * })
+     **/
+    count<T extends InterviewCountArgs>(
+      args?: Subset<T, InterviewCountArgs>
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], InterviewCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Interview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends InterviewAggregateArgs>(
+      args: Subset<T, InterviewAggregateArgs>
+    ): Prisma.PrismaPromise<GetInterviewAggregateType<T>>;
+
+    /**
+     * Group by Interview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InterviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends InterviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InterviewGroupByArgs["orderBy"] }
+        : { orderBy?: InterviewGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, InterviewGroupByArgs, OrderByArg> &
+        InputErrors
+    ): {} extends InputErrors
+      ? GetInterviewGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Interview model
+     */
+    readonly fields: InterviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Interview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InterviewClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Interview model
+   */
+  interface InterviewFieldRefs {
+    readonly id: FieldRef<"Interview", "String">;
+    readonly jobPosition: FieldRef<"Interview", "String">;
+    readonly jobDescription: FieldRef<"Interview", "String">;
+    readonly duration: FieldRef<"Interview", "String">;
+    readonly type: FieldRef<"Interview", "String[]">;
+    readonly questionList: FieldRef<"Interview", "Json">;
+    readonly createdAt: FieldRef<"Interview", "DateTime">;
+    readonly userId: FieldRef<"Interview", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * Interview findUnique
+   */
+  export type InterviewFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter, which Interview to fetch.
+     */
+    where: InterviewWhereUniqueInput;
+  };
+
+  /**
+   * Interview findUniqueOrThrow
+   */
+  export type InterviewFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter, which Interview to fetch.
+     */
+    where: InterviewWhereUniqueInput;
+  };
+
+  /**
+   * Interview findFirst
+   */
+  export type InterviewFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter, which Interview to fetch.
+     */
+    where?: InterviewWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Interviews to fetch.
+     */
+    orderBy?:
+      | InterviewOrderByWithRelationInput
+      | InterviewOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Interviews.
+     */
+    cursor?: InterviewWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Interviews from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Interviews.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Interviews.
+     */
+    distinct?: InterviewScalarFieldEnum | InterviewScalarFieldEnum[];
+  };
+
+  /**
+   * Interview findFirstOrThrow
+   */
+  export type InterviewFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter, which Interview to fetch.
+     */
+    where?: InterviewWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Interviews to fetch.
+     */
+    orderBy?:
+      | InterviewOrderByWithRelationInput
+      | InterviewOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Interviews.
+     */
+    cursor?: InterviewWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Interviews from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Interviews.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Interviews.
+     */
+    distinct?: InterviewScalarFieldEnum | InterviewScalarFieldEnum[];
+  };
+
+  /**
+   * Interview findMany
+   */
+  export type InterviewFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter, which Interviews to fetch.
+     */
+    where?: InterviewWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Interviews to fetch.
+     */
+    orderBy?:
+      | InterviewOrderByWithRelationInput
+      | InterviewOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Interviews.
+     */
+    cursor?: InterviewWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Interviews from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Interviews.
+     */
+    skip?: number;
+    distinct?: InterviewScalarFieldEnum | InterviewScalarFieldEnum[];
+  };
+
+  /**
+   * Interview create
+   */
+  export type InterviewCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Interview.
+     */
+    data: XOR<InterviewCreateInput, InterviewUncheckedCreateInput>;
+  };
+
+  /**
+   * Interview createMany
+   */
+  export type InterviewCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Interviews.
+     */
+    data: InterviewCreateManyInput | InterviewCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Interview createManyAndReturn
+   */
+  export type InterviewCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Interviews.
+     */
+    data: InterviewCreateManyInput | InterviewCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Interview update
+   */
+  export type InterviewUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Interview.
+     */
+    data: XOR<InterviewUpdateInput, InterviewUncheckedUpdateInput>;
+    /**
+     * Choose, which Interview to update.
+     */
+    where: InterviewWhereUniqueInput;
+  };
+
+  /**
+   * Interview updateMany
+   */
+  export type InterviewUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Interviews.
+     */
+    data: XOR<
+      InterviewUpdateManyMutationInput,
+      InterviewUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Interviews to update
+     */
+    where?: InterviewWhereInput;
+    /**
+     * Limit how many Interviews to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Interview updateManyAndReturn
+   */
+  export type InterviewUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * The data used to update Interviews.
+     */
+    data: XOR<
+      InterviewUpdateManyMutationInput,
+      InterviewUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Interviews to update
+     */
+    where?: InterviewWhereInput;
+    /**
+     * Limit how many Interviews to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Interview upsert
+   */
+  export type InterviewUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Interview to update in case it exists.
+     */
+    where: InterviewWhereUniqueInput;
+    /**
+     * In case the Interview found by the `where` argument doesn't exist, create a new Interview with this data.
+     */
+    create: XOR<InterviewCreateInput, InterviewUncheckedCreateInput>;
+    /**
+     * In case the Interview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InterviewUpdateInput, InterviewUncheckedUpdateInput>;
+  };
+
+  /**
+   * Interview delete
+   */
+  export type InterviewDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
+    /**
+     * Filter which Interview to delete.
+     */
+    where: InterviewWhereUniqueInput;
+  };
+
+  /**
+   * Interview deleteMany
+   */
+  export type InterviewDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Interviews to delete
+     */
+    where?: InterviewWhereInput;
+    /**
+     * Limit how many Interviews to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Interview without action
+   */
+  export type InterviewDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null;
   };
 
   /**
@@ -27546,6 +29039,20 @@ export namespace Prisma {
   export type UserScalarFieldEnum =
     (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 
+  export const InterviewScalarFieldEnum: {
+    id: "id";
+    jobPosition: "jobPosition";
+    jobDescription: "jobDescription";
+    duration: "duration";
+    type: "type";
+    questionList: "questionList";
+    createdAt: "createdAt";
+    userId: "userId";
+  };
+
+  export type InterviewScalarFieldEnum =
+    (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum];
+
   export const ProblemScalarFieldEnum: {
     id: "id";
     title: "title";
@@ -27972,6 +29479,7 @@ export namespace Prisma {
     dailyQuestionCount?: IntFilter<"User"> | number;
     lastQuestionDate?: DateTimeNullableFilter<"User"> | Date | string | null;
     problem?: ProblemListRelationFilter;
+    interviews?: InterviewListRelationFilter;
     submission?: SubmissionListRelationFilter;
     problemSolved?: ProblemSolvedListRelationFilter;
     discussions?: DiscussionListRelationFilter;
@@ -28001,6 +29509,7 @@ export namespace Prisma {
     dailyQuestionCount?: SortOrder;
     lastQuestionDate?: SortOrderInput | SortOrder;
     problem?: ProblemOrderByRelationAggregateInput;
+    interviews?: InterviewOrderByRelationAggregateInput;
     submission?: SubmissionOrderByRelationAggregateInput;
     problemSolved?: ProblemSolvedOrderByRelationAggregateInput;
     discussions?: DiscussionOrderByRelationAggregateInput;
@@ -28031,6 +29540,7 @@ export namespace Prisma {
       dailyQuestionCount?: IntFilter<"User"> | number;
       lastQuestionDate?: DateTimeNullableFilter<"User"> | Date | string | null;
       problem?: ProblemListRelationFilter;
+      interviews?: InterviewListRelationFilter;
       submission?: SubmissionListRelationFilter;
       problemSolved?: ProblemSolvedListRelationFilter;
       discussions?: DiscussionListRelationFilter;
@@ -28091,6 +29601,83 @@ export namespace Prisma {
       | Date
       | string
       | null;
+  };
+
+  export type InterviewWhereInput = {
+    AND?: InterviewWhereInput | InterviewWhereInput[];
+    OR?: InterviewWhereInput[];
+    NOT?: InterviewWhereInput | InterviewWhereInput[];
+    id?: StringFilter<"Interview"> | string;
+    jobPosition?: StringFilter<"Interview"> | string;
+    jobDescription?: StringFilter<"Interview"> | string;
+    duration?: StringFilter<"Interview"> | string;
+    type?: StringNullableListFilter<"Interview">;
+    questionList?: JsonFilter<"Interview">;
+    createdAt?: DateTimeFilter<"Interview"> | Date | string;
+    userId?: StringFilter<"Interview"> | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type InterviewOrderByWithRelationInput = {
+    id?: SortOrder;
+    jobPosition?: SortOrder;
+    jobDescription?: SortOrder;
+    duration?: SortOrder;
+    type?: SortOrder;
+    questionList?: SortOrder;
+    createdAt?: SortOrder;
+    userId?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type InterviewWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: InterviewWhereInput | InterviewWhereInput[];
+      OR?: InterviewWhereInput[];
+      NOT?: InterviewWhereInput | InterviewWhereInput[];
+      jobPosition?: StringFilter<"Interview"> | string;
+      jobDescription?: StringFilter<"Interview"> | string;
+      duration?: StringFilter<"Interview"> | string;
+      type?: StringNullableListFilter<"Interview">;
+      questionList?: JsonFilter<"Interview">;
+      createdAt?: DateTimeFilter<"Interview"> | Date | string;
+      userId?: StringFilter<"Interview"> | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    "id"
+  >;
+
+  export type InterviewOrderByWithAggregationInput = {
+    id?: SortOrder;
+    jobPosition?: SortOrder;
+    jobDescription?: SortOrder;
+    duration?: SortOrder;
+    type?: SortOrder;
+    questionList?: SortOrder;
+    createdAt?: SortOrder;
+    userId?: SortOrder;
+    _count?: InterviewCountOrderByAggregateInput;
+    _max?: InterviewMaxOrderByAggregateInput;
+    _min?: InterviewMinOrderByAggregateInput;
+  };
+
+  export type InterviewScalarWhereWithAggregatesInput = {
+    AND?:
+      | InterviewScalarWhereWithAggregatesInput
+      | InterviewScalarWhereWithAggregatesInput[];
+    OR?: InterviewScalarWhereWithAggregatesInput[];
+    NOT?:
+      | InterviewScalarWhereWithAggregatesInput
+      | InterviewScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"Interview"> | string;
+    jobPosition?: StringWithAggregatesFilter<"Interview"> | string;
+    jobDescription?: StringWithAggregatesFilter<"Interview"> | string;
+    duration?: StringWithAggregatesFilter<"Interview"> | string;
+    type?: StringNullableListFilter<"Interview">;
+    questionList?: JsonWithAggregatesFilter<"Interview">;
+    createdAt?: DateTimeWithAggregatesFilter<"Interview"> | Date | string;
+    userId?: StringWithAggregatesFilter<"Interview"> | string;
   };
 
   export type ProblemWhereInput = {
@@ -29454,6 +31041,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -29480,6 +31068,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -29510,6 +31099,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -29540,6 +31130,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -29601,6 +31192,82 @@ export namespace Prisma {
       | Date
       | string
       | null;
+  };
+
+  export type InterviewCreateInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    user: UserCreateNestedOneWithoutInterviewsInput;
+  };
+
+  export type InterviewUncheckedCreateInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    userId: string;
+  };
+
+  export type InterviewUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutInterviewsNestedInput;
+  };
+
+  export type InterviewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type InterviewCreateManyInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    userId: string;
+  };
+
+  export type InterviewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InterviewUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type ProblemCreateInput = {
@@ -30960,6 +32627,12 @@ export namespace Prisma {
     none?: ProblemWhereInput;
   };
 
+  export type InterviewListRelationFilter = {
+    every?: InterviewWhereInput;
+    some?: InterviewWhereInput;
+    none?: InterviewWhereInput;
+  };
+
   export type SubmissionListRelationFilter = {
     every?: SubmissionWhereInput;
     some?: SubmissionWhereInput;
@@ -31025,6 +32698,10 @@ export namespace Prisma {
   };
 
   export type ProblemOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type InterviewOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -31254,13 +32931,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>;
   };
 
-  export type EnumDifficultyFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
-  };
-
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null;
     has?: string | StringFieldRefInput<$PrismaModel> | null;
@@ -31301,14 +32971,90 @@ export namespace Prisma {
       | JsonNullValueFilter;
   };
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
-  };
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput;
     isNot?: UserWhereInput;
+  };
+
+  export type InterviewCountOrderByAggregateInput = {
+    id?: SortOrder;
+    jobPosition?: SortOrder;
+    jobDescription?: SortOrder;
+    duration?: SortOrder;
+    type?: SortOrder;
+    questionList?: SortOrder;
+    createdAt?: SortOrder;
+    userId?: SortOrder;
+  };
+
+  export type InterviewMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    jobPosition?: SortOrder;
+    jobDescription?: SortOrder;
+    duration?: SortOrder;
+    createdAt?: SortOrder;
+    userId?: SortOrder;
+  };
+
+  export type InterviewMinOrderByAggregateInput = {
+    id?: SortOrder;
+    jobPosition?: SortOrder;
+    jobDescription?: SortOrder;
+    duration?: SortOrder;
+    createdAt?: SortOrder;
+    userId?: SortOrder;
+  };
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+            "path"
+          >
+        >,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
+      >;
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>;
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedJsonFilter<$PrismaModel>;
+    _max?: NestedJsonFilter<$PrismaModel>;
+  };
+
+  export type EnumDifficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
+  };
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
   export type ProblemTestCaseListRelationFilter = {
@@ -31421,46 +33167,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumDifficultyFilter<$PrismaModel>;
     _max?: NestedEnumDifficultyFilter<$PrismaModel>;
-  };
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-          Exclude<
-            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-            "path"
-          >
-        >,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<
-        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
-      >;
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>;
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedJsonFilter<$PrismaModel>;
-    _max?: NestedJsonFilter<$PrismaModel>;
   };
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -32046,6 +33752,21 @@ export namespace Prisma {
     connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
   };
 
+  export type InterviewCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          InterviewCreateWithoutUserInput,
+          InterviewUncheckedCreateWithoutUserInput
+        >
+      | InterviewCreateWithoutUserInput[]
+      | InterviewUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | InterviewCreateOrConnectWithoutUserInput
+      | InterviewCreateOrConnectWithoutUserInput[];
+    createMany?: InterviewCreateManyUserInputEnvelope;
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+  };
+
   export type SubmissionCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
@@ -32213,6 +33934,21 @@ export namespace Prisma {
       | ProblemCreateOrConnectWithoutUserInput[];
     createMany?: ProblemCreateManyUserInputEnvelope;
     connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[];
+  };
+
+  export type InterviewUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          InterviewCreateWithoutUserInput,
+          InterviewUncheckedCreateWithoutUserInput
+        >
+      | InterviewCreateWithoutUserInput[]
+      | InterviewUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | InterviewCreateOrConnectWithoutUserInput
+      | InterviewCreateOrConnectWithoutUserInput[];
+    createMany?: InterviewCreateManyUserInputEnvelope;
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
   };
 
   export type SubmissionUncheckedCreateNestedManyWithoutUserInput = {
@@ -32423,6 +34159,34 @@ export namespace Prisma {
       | ProblemUpdateManyWithWhereWithoutUserInput
       | ProblemUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
+  };
+
+  export type InterviewUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          InterviewCreateWithoutUserInput,
+          InterviewUncheckedCreateWithoutUserInput
+        >
+      | InterviewCreateWithoutUserInput[]
+      | InterviewUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | InterviewCreateOrConnectWithoutUserInput
+      | InterviewCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | InterviewUpsertWithWhereUniqueWithoutUserInput
+      | InterviewUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: InterviewCreateManyUserInputEnvelope;
+    set?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    disconnect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    delete?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    update?:
+      | InterviewUpdateWithWhereUniqueWithoutUserInput
+      | InterviewUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | InterviewUpdateManyWithWhereWithoutUserInput
+      | InterviewUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: InterviewScalarWhereInput | InterviewScalarWhereInput[];
   };
 
   export type SubmissionUpdateManyWithoutUserNestedInput = {
@@ -32763,6 +34527,34 @@ export namespace Prisma {
     deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[];
   };
 
+  export type InterviewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          InterviewCreateWithoutUserInput,
+          InterviewUncheckedCreateWithoutUserInput
+        >
+      | InterviewCreateWithoutUserInput[]
+      | InterviewUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | InterviewCreateOrConnectWithoutUserInput
+      | InterviewCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | InterviewUpsertWithWhereUniqueWithoutUserInput
+      | InterviewUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: InterviewCreateManyUserInputEnvelope;
+    set?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    disconnect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    delete?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[];
+    update?:
+      | InterviewUpdateWithWhereUniqueWithoutUserInput
+      | InterviewUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | InterviewUpdateManyWithWhereWithoutUserInput
+      | InterviewUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: InterviewScalarWhereInput | InterviewScalarWhereInput[];
+  };
+
   export type SubmissionUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<
@@ -33071,6 +34863,41 @@ export namespace Prisma {
     deleteMany?:
       | PlaylistProblemSolvedScalarWhereInput
       | PlaylistProblemSolvedScalarWhereInput[];
+  };
+
+  export type InterviewCreatetypeInput = {
+    set: string[];
+  };
+
+  export type UserCreateNestedOneWithoutInterviewsInput = {
+    create?: XOR<
+      UserCreateWithoutInterviewsInput,
+      UserUncheckedCreateWithoutInterviewsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutInterviewsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type InterviewUpdatetypeInput = {
+    set?: string[];
+    push?: string | string[];
+  };
+
+  export type UserUpdateOneRequiredWithoutInterviewsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutInterviewsInput,
+      UserUncheckedCreateWithoutInterviewsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutInterviewsInput;
+    upsert?: UserUpsertWithoutInterviewsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutInterviewsInput,
+        UserUpdateWithoutInterviewsInput
+      >,
+      UserUncheckedUpdateWithoutInterviewsInput
+    >;
   };
 
   export type ProblemCreatetopicInput = {
@@ -35602,30 +37429,6 @@ export namespace Prisma {
       _min?: NestedDateTimeNullableFilter<$PrismaModel>;
       _max?: NestedDateTimeNullableFilter<$PrismaModel>;
     };
-
-  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
-  };
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
-  };
-
-  export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumDifficultyWithAggregatesFilter<$PrismaModel>
-      | $Enums.Difficulty;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedEnumDifficultyFilter<$PrismaModel>;
-    _max?: NestedEnumDifficultyFilter<$PrismaModel>;
-  };
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<
@@ -35657,6 +37460,30 @@ export namespace Prisma {
       | InputJsonValue
       | JsonFieldRefInput<$PrismaModel>
       | JsonNullValueFilter;
+  };
+
+  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty;
+  };
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
+
+  export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumDifficultyWithAggregatesFilter<$PrismaModel>
+      | $Enums.Difficulty;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumDifficultyFilter<$PrismaModel>;
+    _max?: NestedEnumDifficultyFilter<$PrismaModel>;
   };
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -35762,6 +37589,39 @@ export namespace Prisma {
 
   export type ProblemCreateManyUserInputEnvelope = {
     data: ProblemCreateManyUserInput | ProblemCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type InterviewCreateWithoutUserInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+  };
+
+  export type InterviewUncheckedCreateWithoutUserInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+  };
+
+  export type InterviewCreateOrConnectWithoutUserInput = {
+    where: InterviewWhereUniqueInput;
+    create: XOR<
+      InterviewCreateWithoutUserInput,
+      InterviewUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type InterviewCreateManyUserInputEnvelope = {
+    data: InterviewCreateManyUserInput | InterviewCreateManyUserInput[];
     skipDuplicates?: boolean;
   };
 
@@ -36209,6 +38069,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Problem"> | Date | string;
   };
 
+  export type InterviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: InterviewWhereUniqueInput;
+    update: XOR<
+      InterviewUpdateWithoutUserInput,
+      InterviewUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      InterviewCreateWithoutUserInput,
+      InterviewUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type InterviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: InterviewWhereUniqueInput;
+    data: XOR<
+      InterviewUpdateWithoutUserInput,
+      InterviewUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type InterviewUpdateManyWithWhereWithoutUserInput = {
+    where: InterviewScalarWhereInput;
+    data: XOR<
+      InterviewUpdateManyMutationInput,
+      InterviewUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type InterviewScalarWhereInput = {
+    AND?: InterviewScalarWhereInput | InterviewScalarWhereInput[];
+    OR?: InterviewScalarWhereInput[];
+    NOT?: InterviewScalarWhereInput | InterviewScalarWhereInput[];
+    id?: StringFilter<"Interview"> | string;
+    jobPosition?: StringFilter<"Interview"> | string;
+    jobDescription?: StringFilter<"Interview"> | string;
+    duration?: StringFilter<"Interview"> | string;
+    type?: StringNullableListFilter<"Interview">;
+    questionList?: JsonFilter<"Interview">;
+    createdAt?: DateTimeFilter<"Interview"> | Date | string;
+    userId?: StringFilter<"Interview"> | string;
+  };
+
   export type SubmissionUpsertWithWhereUniqueWithoutUserInput = {
     where: SubmissionWhereUniqueInput;
     update: XOR<
@@ -36646,6 +38548,146 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"PlaylistProblemSolved"> | Date | string;
   };
 
+  export type UserCreateWithoutInterviewsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
+    problem?: ProblemCreateNestedManyWithoutUserInput;
+    submission?: SubmissionCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeCreateNestedManyWithoutUserInput;
+    badges?: BadgeCreateNestedManyWithoutUserInput;
+    reviews?: ReviewCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutInterviewsInput = {
+    id?: string;
+    name?: string | null;
+    email: string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: $Enums.UserRole;
+    password: string;
+    refreshToken?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    dailyQuestionCount?: number;
+    lastQuestionDate?: Date | string | null;
+    problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
+    problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
+    votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput;
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutUserInput;
+    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput;
+    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput;
+    favoriteProblems?: ProblemUncheckedCreateNestedManyWithoutFavoredByUsersInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutInterviewsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutInterviewsInput,
+      UserUncheckedCreateWithoutInterviewsInput
+    >;
+  };
+
+  export type UserUpsertWithoutInterviewsInput = {
+    update: XOR<
+      UserUpdateWithoutInterviewsInput,
+      UserUncheckedUpdateWithoutInterviewsInput
+    >;
+    create: XOR<
+      UserCreateWithoutInterviewsInput,
+      UserUncheckedCreateWithoutInterviewsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutInterviewsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutInterviewsInput,
+      UserUncheckedUpdateWithoutInterviewsInput
+    >;
+  };
+
+  export type UserUpdateWithoutInterviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    problem?: ProblemUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUpdateManyWithoutUserNestedInput;
+    reviews?: ReviewUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutInterviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    avatar?: NullableJsonNullValueInput | InputJsonValue;
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
+    password?: StringFieldUpdateOperationsInput | string;
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    dailyQuestionCount?: IntFieldUpdateOperationsInput | number;
+    lastQuestionDate?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
+    problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+    discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
+    votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput;
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    userChallenges?: UserChallengeUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput;
+    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput;
+    favoriteProblems?: ProblemUncheckedUpdateManyWithoutFavoredByUsersNestedInput;
+    solvedPlaylistProblems?: PlaylistProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
   export type UserCreateWithoutProblemInput = {
     id?: string;
     name?: string | null;
@@ -36658,6 +38700,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -36683,6 +38726,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -36979,6 +39023,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -37004,6 +39049,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -37093,6 +39139,7 @@ export namespace Prisma {
       | Date
       | string
       | null;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -37122,6 +39169,7 @@ export namespace Prisma {
       | Date
       | string
       | null;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -37642,6 +39690,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
@@ -37667,6 +39716,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
@@ -37843,6 +39893,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
@@ -37872,6 +39923,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
@@ -38125,6 +40177,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
@@ -38150,6 +40203,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
@@ -38281,6 +40335,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
@@ -38310,6 +40365,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
@@ -38420,6 +40476,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteCreateNestedManyWithoutUserInput;
@@ -38445,6 +40502,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     votesOnProblems?: ProblemVoteUncheckedCreateNestedManyWithoutUserInput;
@@ -38637,6 +40695,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUpdateManyWithoutUserNestedInput;
@@ -38666,6 +40725,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     votesOnProblems?: ProblemVoteUncheckedUpdateManyWithoutUserNestedInput;
@@ -38844,6 +40904,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -38869,6 +40930,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -39000,6 +41062,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -39029,6 +41092,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -39168,6 +41232,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -39193,6 +41258,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -39311,6 +41377,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -39340,6 +41407,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -39624,6 +41692,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -39649,6 +41718,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -39706,6 +41776,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -39735,6 +41806,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -40097,6 +42169,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -40122,6 +42195,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -40205,6 +42279,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -40234,6 +42309,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -40297,6 +42373,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -40322,6 +42399,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -40379,6 +42457,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -40408,6 +42487,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -40433,6 +42513,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -40458,6 +42539,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -40619,6 +42701,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -40648,6 +42731,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -40800,6 +42884,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemCreateNestedManyWithoutUserInput;
+    interviews?: InterviewCreateNestedManyWithoutUserInput;
     submission?: SubmissionCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionCreateNestedManyWithoutUserInput;
@@ -40825,6 +42910,7 @@ export namespace Prisma {
     dailyQuestionCount?: number;
     lastQuestionDate?: Date | string | null;
     problem?: ProblemUncheckedCreateNestedManyWithoutUserInput;
+    interviews?: InterviewUncheckedCreateNestedManyWithoutUserInput;
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput;
     problemSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput;
     discussions?: DiscussionUncheckedCreateNestedManyWithoutUserInput;
@@ -40956,6 +43042,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -40985,6 +43072,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;
@@ -41103,6 +43191,16 @@ export namespace Prisma {
     executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+  };
+
+  export type InterviewCreateManyUserInput = {
+    id?: string;
+    jobPosition: string;
+    jobDescription: string;
+    duration: string;
+    type?: InterviewCreatetypeInput | string[];
+    questionList: JsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
   };
 
   export type SubmissionCreateManyUserInput = {
@@ -41274,6 +43372,36 @@ export namespace Prisma {
     executionWrappers?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InterviewUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InterviewUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InterviewUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    jobPosition?: StringFieldUpdateOperationsInput | string;
+    jobDescription?: StringFieldUpdateOperationsInput | string;
+    duration?: StringFieldUpdateOperationsInput | string;
+    type?: InterviewUpdatetypeInput | string[];
+    questionList?: JsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type SubmissionUpdateWithoutUserInput = {
@@ -41940,6 +44068,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUpdateManyWithoutUserNestedInput;
@@ -41969,6 +44098,7 @@ export namespace Prisma {
       | string
       | null;
     problem?: ProblemUncheckedUpdateManyWithoutUserNestedInput;
+    interviews?: InterviewUncheckedUpdateManyWithoutUserNestedInput;
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput;
     problemSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput;
     discussions?: DiscussionUncheckedUpdateManyWithoutUserNestedInput;

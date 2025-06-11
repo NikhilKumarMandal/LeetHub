@@ -180,11 +180,7 @@ export class Playlist {
       const { playlistId } = req.params;
       const { problemIds } = req.body;
 
-      if (!Array.isArray(problemIds) || problemIds.length === 0) {
-        throw new ApiError(400, "Invalid or missing problemsId");
-      }
-
-      const deletedProblems = await this.playlistService.deleteMany(
+      const deletedProblems = await this.playlistService.deleteOne(
         playlistId,
         problemIds
       );

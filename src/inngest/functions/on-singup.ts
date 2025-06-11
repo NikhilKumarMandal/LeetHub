@@ -25,7 +25,7 @@ export const onUserSignup = inngest.createFunction(
         const subject = `Welcome to the app`;
         const mailgenContent = {
           body: {
-            name: user?.name ?? "User",
+            name: `${user?.name ?? "User"} 💖`,
             intro: "Thanks for signing up. We're glad to have you onboard!",
             outro:
               "If you have any questions, just reply to this email. We're here to help!",

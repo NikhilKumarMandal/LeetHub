@@ -44,6 +44,7 @@ model User {
   lastQuestionDate   DateTime?
 
   problem          Problem[]
+  interviews       Interview[]
   submission       Submission[]
   problemSolved    ProblemSolved[]
   discussions      Discussion[]
@@ -56,6 +57,18 @@ model User {
   favoriteProblems Problem[]       @relation("UserFavorites")
 
   solvedPlaylistProblems PlaylistProblemSolved[] @relation("UserSolvedProblems")
+}
+
+model Interview {
+  id             String   @id @default(uuid())
+  jobPosition    String
+  jobDescription String
+  duration       String
+  type           String[]
+  questionList   Json
+  createdAt      DateTime @default(now())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
 }
 
 model Problem {

@@ -29,13 +29,16 @@ router.post("/register", authController.register);
 
 router.post("/login", authController.login);
 
-router.post("/oauth2",
+router.post(
+  "/oauth2",
   upload.fields([
-  {
-    name: "avatar",
-    maxCount: 1,
-  },
-]), authController.googleLogin);
+    {
+      name: "avatar",
+      maxCount: 1,
+    },
+  ]),
+  authController.googleLogin
+);
 
 router.post("/logout", authenticate, authController.logout as RequestHandler);
 
@@ -45,6 +48,14 @@ router.post(
   checkDailyQuestionLimit as RequestHandler,
   reviewController.reviewUserCode as RequestHandler
 );
+
+router.post(
+  "/generateProblem",
+  authenticate,
+  reviewController.generateProblem as RequestHandler
+);
+
+router.get("/interview/:id", authenticate, reviewController.getInterviewById);
 
 router.get("/self", authenticate, authController.self as RequestHandler);
 

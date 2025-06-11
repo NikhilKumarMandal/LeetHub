@@ -127,6 +127,17 @@ exports.Prisma.UserScalarFieldEnum = {
   lastQuestionDate: "lastQuestionDate",
 };
 
+exports.Prisma.InterviewScalarFieldEnum = {
+  id: "id",
+  jobPosition: "jobPosition",
+  jobDescription: "jobDescription",
+  duration: "duration",
+  type: "type",
+  questionList: "questionList",
+  createdAt: "createdAt",
+  userId: "userId",
+};
+
 exports.Prisma.ProblemScalarFieldEnum = {
   id: "id",
   title: "title",
@@ -347,6 +358,7 @@ exports.VoteType = exports.$Enums.VoteType = {
 
 exports.Prisma.ModelName = {
   User: "User",
+  Interview: "Interview",
   Problem: "Problem",
   ProblemTestCase: "ProblemTestCase",
   Submission: "Submission",

@@ -77,13 +77,11 @@ export class PlaylistService {
     });
   }
 
-  async deleteMany(playlistId: string, problemIds: string[]) {
+  async deleteOne(playlistId: string, problemId: string) {
     return await db.problemInPlaylist.deleteMany({
       where: {
         playlistId,
-        problemId: {
-          in: problemIds,
-        },
+        problemId,
       },
     });
   }

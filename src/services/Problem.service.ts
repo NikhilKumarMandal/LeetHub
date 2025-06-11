@@ -42,6 +42,16 @@ export class ProblemService {
   }
 
   async deleteProblem(id: string) {
+    await db.playlistProblemSolved.deleteMany({
+      where: {
+        problemId: id,
+      },
+    });
+    await db.review.deleteMany({
+      where: {
+        problemId: id,
+      },
+    });
     return await db.problem.delete({
       where: {
         id,

@@ -97,14 +97,14 @@ export class Auth {
       sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2, // 2 day
       httpOnly: true,
-      secure: true
+      secure: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
       sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24, // 30 days
       httpOnly: true,
-      secure: true
+      secure: true,
     });
     // log
     this.logger.info("User login succfully", { user });
@@ -292,22 +292,21 @@ export class Auth {
       );
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  const avatarLocalPath = files?.avatar?.[0]?.path;
-  console.log("avatarLocalPath", avatarLocalPath);
+      const avatarLocalPath = files?.avatar?.[0]?.path;
+      console.log("avatarLocalPath", avatarLocalPath);
 
-  let avatar = null;
+      let avatar = null;
 
-  if (avatarLocalPath) {
-    avatar = await uploadOnCloudinary(avatarLocalPath);
-    console.log("Uploaded to Cloudinary", avatar);
-  } else if (data.picture) {
-    avatar = {
-      public_id: "oauth-picture",
-      url: data.picture, 
-    };
-    console.log("Using OAuth picture", avatar);
-  }
-
+      if (avatarLocalPath) {
+        avatar = await uploadOnCloudinary(avatarLocalPath);
+        console.log("Uploaded to Cloudinary", avatar);
+      } else if (data.picture) {
+        avatar = {
+          public_id: "oauth-picture",
+          url: data.picture,
+        };
+        console.log("Using OAuth picture", avatar);
+      }
 
       const email = data.email;
       const userData: UserData = {
@@ -350,14 +349,14 @@ export class Auth {
       sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
-      secure: true
+      secure: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
       sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: true
+      secure: true,
     });
 
     res.status(200).json(

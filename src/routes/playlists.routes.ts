@@ -51,7 +51,7 @@ router.delete(
 );
 
 router.delete(
-  "/remove-problem/:id",
+  "/remove-problem/:playlistId",
   authenticate,
   canAccess([Roles.ADMIN]),
   playlist.removeProblemFromPlaylist
