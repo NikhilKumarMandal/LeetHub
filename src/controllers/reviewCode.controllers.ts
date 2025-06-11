@@ -5,13 +5,9 @@ import { ApiError, ApiResponse } from "express-strategy";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { AuthService } from "../services/Auth.service";
 import { db } from "../libs/db";
-import OpenAI from "openai";
 import { PROMPT } from "../utils/prompt";
 
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPEN_ROUTER_API_KEY,
-});
+
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
