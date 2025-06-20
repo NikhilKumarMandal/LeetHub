@@ -361,7 +361,7 @@ export class Auth {
 
     
     res.cookie("accessToken", accessToken, {
-      domain: "www.leethub.tech",
+      domain: "leethub.tech",
       sameSite: "none",             
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 2,
@@ -369,7 +369,7 @@ export class Auth {
     });
 
     res.cookie("refreshToken", refreshToken, {
-      domain: "www.leethub.tech",
+      domain: "leethub.tech",
       sameSite: "none",             
       secure: true,
       maxAge:  30 * 1000 * 60 * 60 * 24,
