@@ -345,34 +345,34 @@ export class Auth {
       { refreshToken: refreshToken }
     );
 
-    // res.cookie("accessToken", accessToken, {
-    //   sameSite: "none",
-    //   maxAge: 1000 * 60 * 60 * 24 * 2,
-    //   httpOnly: true,
-    //   secure: true,
-    // });
-
-    // res.cookie("refreshToken", refreshToken, {
-    //   sameSite: "none",
-    //   maxAge: 30 * 1000 * 60 * 60 * 24,
-    //   httpOnly: true,
-    //   secure: true
-    // });
-
-    
     res.cookie("accessToken", accessToken, {
-      sameSite: "none",             
-      secure: true,
+      sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
+      secure: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
-      sameSite: "none",             
-      secure: true,
-      maxAge:  30 * 1000 * 60 * 60 * 24,
+      sameSite: "none",
+      maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
+      secure: true
     });
+
+    
+    // res.cookie("accessToken", accessToken, {
+    //   sameSite: "none",             
+    //   secure: true,
+    //   maxAge: 1000 * 60 * 60 * 24 * 2,
+    //   httpOnly: true,
+    // });
+
+    // res.cookie("refreshToken", refreshToken, {
+    //   sameSite: "none",             
+    //   secure: true,
+    //   maxAge:  30 * 1000 * 60 * 60 * 24,
+    //   httpOnly: true,
+    // });
 
     res.status(200).json(
       new ApiResponse(
