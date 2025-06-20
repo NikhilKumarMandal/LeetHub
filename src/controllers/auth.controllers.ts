@@ -349,16 +349,14 @@ export class Auth {
       sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
-      secure: true,
-      domain: "www.leethub.tech",
+      secure: true
     });
 
     res.cookie("refreshToken", refreshToken, {
       sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: true,
-      domain: "www.leethub.tech",
+      secure: true
     });
 
     res.status(200).json(
