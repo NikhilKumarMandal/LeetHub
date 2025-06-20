@@ -9,6 +9,7 @@ import { upload } from "../middlewares/multer.middleware";
 import { Review } from "../controllers/reviewCode.controllers";
 import { ProblemService } from "../services/Problem.service";
 import { checkDailyQuestionLimit } from "../middlewares/checkdailyQuateLimit.middleware";
+import { verifyJWT } from "../middlewares/canAccess.midddleware";
 
 const router = express.Router();
 
@@ -57,7 +58,7 @@ router.post(
 
 router.get("/interview/:id", authenticate, reviewController.getInterviewById);
 
-router.get("/self", authenticate, authController.self as RequestHandler);
+router.get("/self", verifyJWT as RequestHandler, authController.self as RequestHandler);
 
 router.post("/refresh", authController.refresh as RequestHandler);
 
