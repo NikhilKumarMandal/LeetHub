@@ -362,14 +362,14 @@ export class Auth {
     
     res.cookie("accessToken", accessToken, {
       domain: "www.leethub.tech",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
     });
 
     res.cookie("refreshToken", refreshToken, {
       domain: "www.leethub.tech",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge:  30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
     });
