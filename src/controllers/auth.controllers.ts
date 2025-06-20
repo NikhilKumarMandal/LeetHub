@@ -345,18 +345,33 @@ export class Auth {
       { refreshToken: refreshToken }
     );
 
+    // res.cookie("accessToken", accessToken, {
+    //   sameSite: "none",
+    //   maxAge: 1000 * 60 * 60 * 24 * 2,
+    //   httpOnly: true,
+    //   secure: true,
+    // });
+
+    // res.cookie("refreshToken", refreshToken, {
+    //   sameSite: "none",
+    //   maxAge: 30 * 1000 * 60 * 60 * 24,
+    //   httpOnly: true,
+    //   secure: true
+    // });
+
+    
     res.cookie("accessToken", accessToken, {
-      sameSite: "none",
+      domain: "www.leethub.tech",
+      sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
-      secure: true
     });
 
     res.cookie("refreshToken", refreshToken, {
-      sameSite: "none",
-      maxAge: 30 * 1000 * 60 * 60 * 24,
+      domain: "www.leethub.tech",
+      sameSite: "strict",
+      maxAge:  30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: true
     });
 
     res.status(200).json(
