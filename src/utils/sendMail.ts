@@ -16,7 +16,7 @@ const sendMail = async ({
     theme: "default",
     product: {
       name: "LeetHub",
-      link: "http://localhost:3000/",
+      link: "https://www.leethub.tech",
     },
   });
 
