@@ -35,7 +35,7 @@ const io = new Server(server, {
   },
 });
 
-app.use(asyncHandler(arcjetMiddleware));
+// app.use(asyncHandler(arcjetMiddleware));
 app.use(helmet());
 app.use(hpp());
 app.use(express.json());
