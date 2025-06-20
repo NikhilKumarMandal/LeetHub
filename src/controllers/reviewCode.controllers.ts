@@ -7,8 +7,6 @@ import { AuthService } from "../services/Auth.service";
 import { db } from "../libs/db";
 import { PROMPT } from "../utils/prompt";
 
-
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export class Review {

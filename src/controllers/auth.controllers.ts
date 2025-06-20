@@ -356,19 +356,18 @@ export class Auth {
       sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: true
+      secure: true,
     });
 
-    
     // res.cookie("accessToken", accessToken, {
-    //   sameSite: "none",             
+    //   sameSite: "none",
     //   secure: true,
     //   maxAge: 1000 * 60 * 60 * 24 * 2,
     //   httpOnly: true,
     // });
 
     // res.cookie("refreshToken", refreshToken, {
-    //   sameSite: "none",             
+    //   sameSite: "none",
     //   secure: true,
     //   maxAge:  30 * 1000 * 60 * 60 * 24,
     //   httpOnly: true,

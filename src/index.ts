@@ -21,6 +21,7 @@ import { onUserSignup } from "./inngest/functions/on-singup";
 import http from "http";
 import { Server } from "socket.io";
 import axios from "axios";
+import { sendBulkFeedbackMail } from "./inngest/functions/bulk-mail";
 
 dotenv.config();
 
@@ -182,7 +183,7 @@ app.use(
   "/api/inngest",
   serve({
     client: inngest,
-    functions: [onUserSignup],
+    functions: [onUserSignup, sendBulkFeedbackMail],
   })
 );
 

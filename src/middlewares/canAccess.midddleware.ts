@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AuthRequest } from "../types/types";
 import { ApiError, asyncHandler } from "express-strategy";
 import { db } from "../libs/db";
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const canAccess = (roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -16,9 +16,11 @@ export const canAccess = (roles: string[]) => {
   };
 };
 
-
-
-export const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyJWT = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     // 1. Extract token from cookie or Authorization header
     const token =
@@ -30,7 +32,10 @@ export const verifyJWT = async (req: Request, res: Response, next: NextFunction)
     }
 
     // 2. Verify token
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECERT!) as JwtPayload;
+    const decodedToken = jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECERT!
+    ) as JwtPayload;
 
     if (!decodedToken?.id) {
       return res.status(401).json({ message: "Invalid token payload!" });
@@ -51,6 +56,8 @@ export const verifyJWT = async (req: Request, res: Response, next: NextFunction)
     next();
   } catch (error) {
     console.error("JWT Verification Error:", error);
-    return res.status(401).json({ message: "Invalid or expired access token!" });
+    return res
+      .status(401)
+      .json({ message: "Invalid or expired access token!" });
   }
-}
+};

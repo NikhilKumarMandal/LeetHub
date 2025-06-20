@@ -1,10 +1,10 @@
 import transporter from "./emailConfig";
-import Mailgen from "mailgen";
+import Mailgen, { Content } from "mailgen";
 
 interface EmailVerificationProps {
   email: string;
   subject: string;
-  mailgenContent: Mailgen.Content;
+  mailgenContent: Content;
 }
 
 const sendMail = async ({
