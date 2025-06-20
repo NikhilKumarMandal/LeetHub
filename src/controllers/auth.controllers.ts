@@ -346,7 +346,7 @@ export class Auth {
     );
 
     res.cookie("accessToken", accessToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 2,
       httpOnly: true,
       secure: true,
@@ -354,7 +354,7 @@ export class Auth {
     });
 
     res.cookie("refreshToken", refreshToken, {
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 30 * 1000 * 60 * 60 * 24,
       httpOnly: true,
       secure: true,
