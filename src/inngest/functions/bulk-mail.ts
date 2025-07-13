@@ -37,23 +37,18 @@ export const sendBulkFeedbackMail = inngest.createFunction(
 
       for (const user of users) {
         await step.run("send-bulk-mail", async () => {
-          const subject = "We’d love your feedback 💬";
+          const subject = "Celebrating Our First 100 Users 🎉";
 
           const mailgenContent = {
             body: {
               name: `${user.name ?? "User"} 💖`,
-              intro:
-                "We’ve heard from several users that they are facing issues while logging in. For this reason, we are collecting feedback.",
-              action: {
-                instructions: "Click below to let us know:",
-                button: [
-                  {
-                    text: "Share your Feedback",
-                    link: `https://docs.google.com/forms/d/e/1FAIpQLSeCkKvlT5zEwiN5ofwuO_NnFKtQBTyVK1_BmWKzzpOGuseGmA/viewform`,
-                  },
-                ],
-              },
-              outro: "Thanks for helping us improve!",
+              intro: `Just wanted to take a moment to say a big thank you we recently hit 100 users on LeetHub, 
+  and you’re one of them! We're so grateful to have you with us on this journey.
+
+  If you’ve been enjoying LeetHub, it would mean a lot if you shared it with a friend who might find it helpful too. 
+  Every little bit helps as we grow this together`,
+              outro:
+                "Thanks again for being part of this early journey. Your support means more than you know.",
             },
           } as unknown as Content;
 
