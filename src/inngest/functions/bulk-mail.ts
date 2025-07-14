@@ -9,9 +9,9 @@ export const sendBulkFeedbackMail = inngest.createFunction(
     id: "send-feedback-emails",
     retries: 2,
   },
-  {
-    cron: "30 7 * * *"
-  },
+{
+  cron: "15 9 * * *",
+},
 
   async ({ step }) => {
     try {
