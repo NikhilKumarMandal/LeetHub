@@ -10,7 +10,7 @@ export const sendBulkFeedbackMail = inngest.createFunction(
     retries: 2,
   },
   {
-    cron: "30 3 * * *",
+    cron: "30 7 * * *"
   },
 
   async ({ step }) => {

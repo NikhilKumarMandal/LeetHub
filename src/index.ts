@@ -183,7 +183,7 @@ app.use(
   "/api/inngest",
   serve({
     client: inngest,
-    functions: [onUserSignup],
+    functions: [onUserSignup,sendBulkFeedbackMail],
   })
 );
 
