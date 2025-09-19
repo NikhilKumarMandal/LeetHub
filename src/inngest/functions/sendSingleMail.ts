@@ -9,7 +9,7 @@ export const sendSingleMail = inngest.createFunction(
     id: "send-single-feedback-email",
     retries: 2,
   },
-  { cron: "0 16 * * *" },// remove cron if you want manual trigger
+  { cron: "8 16 * * *" },// remove cron if you want manual trigger
   async ({ step }) => {
     try {
       // Instead of all users, fetch one

@@ -24,7 +24,7 @@ const sendMail = async ({
   const emailText = mailGenerator.generatePlaintext(mailgenContent);
 
   await transporter.sendMail({
-    from: `"LeetHub" <onboarding@resend.dev>`,
+    from: `"LeetHub" <admin@pixxelai.live>`,
     to: email,
     subject,
     text: emailText,
