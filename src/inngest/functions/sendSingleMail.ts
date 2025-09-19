@@ -9,13 +9,13 @@ export const sendSingleMail = inngest.createFunction(
     id: "send-single-feedback-email",
     retries: 2,
   },
-  { cron: "55 15 * * *" },// remove cron if you want manual trigger
+  { cron: "0 16 * * *" },// remove cron if you want manual trigger
   async ({ step }) => {
     try {
       // Instead of all users, fetch one
       const user = await step.run("get-single-user", async () => {
         return await db.user.findUnique({
-          where: { email: "nikhilkumarmandal946@gmail.com" },
+          where: { email: "muskansaw2004@gmail.com" },
           select: { id: true, name: true, email: true },
         });
       });
