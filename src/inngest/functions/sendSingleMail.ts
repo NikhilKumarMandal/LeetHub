@@ -9,7 +9,7 @@ export const sendSingleMail = inngest.createFunction(
     id: "send-single-feedback-email",
     retries: 2,
   },
-  { cron: "45 15 * * *" },// remove cron if you want manual trigger
+  { cron: "55 15 * * *" },// remove cron if you want manual trigger
   async ({ step }) => {
     try {
       // Instead of all users, fetch one
@@ -31,7 +31,7 @@ export const sendSingleMail = inngest.createFunction(
             intro: `We want to let you know that LeetHub will be shutting down at the **end of this month**.  
 From that point forward, our services will no longer be available.`,
               outro: `We truly appreciate your support and for being part of our journey.  
-If we start something new in the future, we’d love to share it with you! 💖`,
+If we start something new in the future, we’d love to share it with you! 💚`,
           },
         };
 
