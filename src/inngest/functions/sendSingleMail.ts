@@ -15,7 +15,7 @@ export const sendSingleMail = inngest.createFunction(
       // Instead of all users, fetch one
       const user = await step.run("get-single-user", async () => {
         return await db.user.findUnique({
-          where: { email: "muskansaw2004@gmail.com" },
+          where: { email: "nikhilkumar@gmail.com" },
           select: { id: true, name: true, email: true },
         });
       });
