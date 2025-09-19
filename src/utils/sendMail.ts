@@ -24,7 +24,7 @@ const sendMail = async ({
   const emailText = mailGenerator.generatePlaintext(mailgenContent);
 
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+    from: `"LeetHub" <onboarding@resend.dev>`,
     to: email,
     subject,
     text: emailText,
