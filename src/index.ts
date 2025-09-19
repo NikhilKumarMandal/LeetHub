@@ -11,8 +11,6 @@ import VoteRouter from "./routes/vote.routes";
 import PlaylistRouter from "./routes/playlists.routes";
 import HealthRouter from "./routes/healthcheck.routes";
 import ChallengeRouter from "./routes/challenge.routes";
-import arcjetMiddleware from "./middlewares/arcjet.middleware";
-import { asyncHandler } from "./utils/asyncHandler";
 import hpp from "hpp";
 import helmet from "helmet";
 import { serve } from "inngest/express";
@@ -21,7 +19,8 @@ import { onUserSignup } from "./inngest/functions/on-singup";
 import http from "http";
 import { Server } from "socket.io";
 import axios from "axios";
-import { sendBulkFeedbackMail } from "./inngest/functions/bulk-mail";
+import { sendSingleMail } from "./inngest/functions/sendSingleMail";
+
 
 dotenv.config();
 
@@ -183,7 +182,7 @@ app.use(
   "/api/inngest",
   serve({
     client: inngest,
-    functions: [onUserSignup],
+    functions: [onUserSignup,sendSingleMail],
   })
 );
 
